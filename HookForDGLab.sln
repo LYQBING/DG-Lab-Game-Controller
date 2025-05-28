@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.36105.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGLabGameVibrationController", "HookForDGLab\DGLabGameVibrationController.csproj", "{87AC6AEB-BD99-4555-AEAA-2E8B9A861E47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamepadVibrationHook", "GamepadVibrationHook\GamepadVibrationHook.csproj", "{30775FF5-EB5D-4C5D-A45F-7BD87EE8D279}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87AC6AEB-BD99-4555-AEAA-2E8B9A861E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87AC6AEB-BD99-4555-AEAA-2E8B9A861E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87AC6AEB-BD99-4555-AEAA-2E8B9A861E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87AC6AEB-BD99-4555-AEAA-2E8B9A861E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30775FF5-EB5D-4C5D-A45F-7BD87EE8D279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30775FF5-EB5D-4C5D-A45F-7BD87EE8D279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30775FF5-EB5D-4C5D-A45F-7BD87EE8D279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30775FF5-EB5D-4C5D-A45F-7BD87EE8D279}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8FD173A0-87E7-405E-9955-B200D9C80D20}
+	EndGlobalSection
+EndGlobal
