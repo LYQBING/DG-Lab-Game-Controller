@@ -1,0 +1,15 @@
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyHook32.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyHook32Svc.exe
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyHook64.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyHook64Svc.exe
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyLoad32.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyLoad64.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\GamepadVibrationHook.Specific.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\GamepadVibrationHook.Specific.pdb
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyHook.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\bin\Debug\EasyHook.xml
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\obj\Debug\GamepadVibrationHook.Specific.csproj.AssemblyReference.cache
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\obj\Debug\GamepadVibrationHook.Specific.csproj.CoreCompileInputs.cache
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\obj\Debug\GamepadV.0A79FD5F.Up2Date
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\obj\Debug\GamepadVibrationHook.Specific.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook.Specific\obj\Debug\GamepadVibrationHook.Specific.pdb

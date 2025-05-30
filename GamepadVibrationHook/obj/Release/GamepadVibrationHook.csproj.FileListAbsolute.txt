@@ -1,0 +1,15 @@
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyHook32.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyHook32Svc.exe
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyHook64.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyHook64Svc.exe
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyLoad32.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyLoad64.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\GamepadVibrationHook.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\GamepadVibrationHook.pdb
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyHook.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\bin\Release\EasyHook.xml
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\obj\Release\GamepadVibrationHook.csproj.AssemblyReference.cache
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\obj\Release\GamepadVibrationHook.csproj.CoreCompileInputs.cache
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\obj\Release\GamepadV.54F6D21A.Up2Date
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\obj\Release\GamepadVibrationHook.dll
+E:\VisualStudio Home\DGLabGameVibrationController\GamepadVibrationHook\obj\Release\GamepadVibrationHook.pdb
