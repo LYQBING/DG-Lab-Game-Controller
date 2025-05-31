@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using lyqbing.DGLAB;
 using GamepadVibrationHook;
 using System.Drawing;
+using EasyHook;
 
 namespace DGLabGameVibrationController
 {
@@ -20,11 +21,11 @@ namespace DGLabGameVibrationController
 			// 初始化设置组件
 			InitializeSetting();
 
-			// 注入按钮事件绑定
-			btnRefresh.Click += RefreshProcess;
-			btnInject.Click += ParseProcess;
-			lstProcesses.DoubleClick += ParseProcess;
-			btnClearLog.Click += ClearLog;
+			// 初始化界面组件
+			InitializeDock();
+
+			// 各类事件的绑定
+			InitializeEvent();
 
 			// 初始化日志输出
 			ClearLog();
@@ -32,10 +33,28 @@ namespace DGLabGameVibrationController
 
 		#region 功能相关
 
+		/// <summary>
+		/// 初始化事件绑定
+		/// </summary>
+		private void InitializeEvent()
+		{
+			VibrationInterface.LogEvent += AppendLog;
+			VibrationInterface.VibrationChanged += VibrationChanged;
+			btnRefresh.Click += RefreshProcess;
+			btnInject.Click += ParseProcess;
+			lstProcesses.DoubleClick += ParseProcess;
+			btnClearLog.Click += ClearLog;
+		}
+
+		/// <summary>
+		/// 初始化设置组件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ClearLog(object sender = null, EventArgs e = null)
 		{
 			txtLog.Clear();
-			AppendLog("初始化完成", "本程序将一直保持免费且开源，关注作者项目以表示支持！\r\n欢迎加入官方QQ群聊：928175340");
+			VibrationInterface.Invoke("初始化完成", "本程序将一直保持免费且开源，关注作者项目以表示支持！\r\n欢迎加入官方QQ群聊：928175340");
 		}
 
 		/// <summary>
@@ -81,8 +100,6 @@ namespace DGLabGameVibrationController
 		private void InjectToProcess(int targetPID)
 		{
 			VibrationInterface _vibrationInterface = new VibrationInterface();
-			_vibrationInterface.LogEvent += (code, error,level) => AppendLog(code,error,level);
-			_vibrationInterface.VibrationChanged += VibrationChanged;
 
 			string channelName = null;
 			try
@@ -91,12 +108,12 @@ namespace DGLabGameVibrationController
 			}
 			catch (Exception ex)
 			{
-				AppendLog("IPC 通道创建失败", ex.Message, 3);
+				VibrationInterface.Invoke("IPC 通道创建失败", ex.Message, 3);
 				MessageBox.Show("IPC 通道创建失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
+			string GamepadVibrationHook = config.DynamicHook ? @"DLL/GamepadVibrationHook.dll" : @"DLL/GamepadVibrationHook.Specific.dll";
 
-			string GamepadVibrationHook= @"DLL/GamepadVibrationHook.dll";
 			try
 			{
 				EasyHook.RemoteHooking.Inject(targetPID, GamepadVibrationHook, GamepadVibrationHook, channelName);
@@ -104,10 +121,14 @@ namespace DGLabGameVibrationController
 			}
 			catch (Exception ex)
 			{
-				AppendLog("注入失败", ex.Message, 3);
+				VibrationInterface.Invoke("注入失败", ex.Message, 3);
 				MessageBox.Show("注入失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+		#endregion
+
+		#region 委托事件相关
 
 		/// <summary>
 		/// 震动数据变化事件处理
@@ -130,14 +151,10 @@ namespace DGLabGameVibrationController
 
 			if (config.VerboseLogs)
 			{
-				AppendLog("DG-LAB 输出",$" L: {left} R: {right} DGLab：{percent}");
+				VibrationInterface.Invoke("DG-LAB 输出",$" L: {left} R: {right} DGLab：{(int)percent}");
 			}
 			DGLab.SetStrength.Set((int)percent);
 		}
-
-		#endregion
-
-		#region 其他功能相关
 
 		/// <summary>
 		/// 追加日志到日志文本框
@@ -145,12 +162,11 @@ namespace DGLabGameVibrationController
 		/// <param name="title">标题</param>
 		/// <param name="txt">内容</param>
 		/// <param name="level">级别：最高 3 级</param>
-		public void AppendLog(string title,string txt, int level = 0)
+		private void AppendLog(string title,string txt, int level = 0)
 		{
-			if (txtLog.InvokeRequired)
+			if (InvokeRequired)
 			{
-				txtLog.Invoke(new Action(() => AppendLog(title, txt, level)));
-				return;
+				Invoke(new Action(() => AppendLog($"{title}", txt, level))); return;
 			}
 
 			Color color;
@@ -173,15 +189,16 @@ namespace DGLabGameVibrationController
 				break;
 			}
 
-			txtLog.SelectionStart = txtLog.TextLength;
+			txtLog.SelectionColor = AppColor.HighlightColor;
+			txtLog.AppendText($"[{DateTime.Now:HH:mm:ss}] ");
+
 			txtLog.SelectionLength = 0;
 			txtLog.SelectionColor = color;
-			txtLog.AppendText($"[{DateTime.Now:HH:mm:ss}] [{title}] {txt} \r\n\r\n");
-			txtLog.SelectionColor = txtLog.ForeColor;
+			txtLog.AppendText($"[{title}] {txt} \r\n\r\n");
 			txtLog.SelectionStart = txtLog.Text.Length;
+
 			txtLog.ScrollToCaret();
 		}
-
 
 		#endregion
 	}

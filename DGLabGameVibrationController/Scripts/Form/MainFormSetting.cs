@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using GamepadVibrationHook;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DGLabGameVibrationController
@@ -18,7 +19,7 @@ namespace DGLabGameVibrationController
 
 		// 程序设置小组件
 		private GroupBox grpProgram;
-		private CheckBox chkVerboseLog, chkLegacyLabel, chkDockTips;
+		private CheckBox chkVerboseLog, chkExitMenu, chkDockTips, chkSpecificHook;
 
 		private bool isLoadingConfig = false;
 		private AppConfig config;
@@ -52,11 +53,12 @@ namespace DGLabGameVibrationController
 			txtControllerLimit.Text = config.ControllerLimit.ToString();
 			
 			chkVerboseLog.Checked = config.VerboseLogs;
-			chkLegacyLabel.Checked = config.LegacyLabels;
+			chkSpecificHook.Checked = config.DynamicHook;
+			chkExitMenu.Checked = config.ExitMenu;
 			chkDockTips.Checked = config.DockTips;
-
+			
 			isLoadingConfig = false;
-			InitializeDock();
+			InitializeExitMenu(config.ExitMenu);
 		}
 
 		#region 设置页面的小组件
@@ -141,7 +143,8 @@ namespace DGLabGameVibrationController
 		public GroupBox GrpProgram()
 		{
 			chkVerboseLog = CreateBaseCheckBox("详细日志内容");
-			chkLegacyLabel = CreateBaseCheckBox("恢复旧版标签");
+			chkSpecificHook = CreateBaseCheckBox("动态模块注入");
+			chkExitMenu = CreateBaseCheckBox("退出时最小化");
 			chkDockTips = CreateBaseCheckBox("启用底部标签");
 
 			var tblProgram = new TableLayoutPanel
@@ -155,8 +158,9 @@ namespace DGLabGameVibrationController
 			tblProgram.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 			tblProgram.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 			tblProgram.Controls.Add(chkVerboseLog, 0, 0);
-			tblProgram.Controls.Add(chkLegacyLabel, 1, 0);
-			tblProgram.Controls.Add(chkDockTips, 0, 1);
+			tblProgram.Controls.Add(chkSpecificHook, 1, 0);
+			tblProgram.Controls.Add(chkExitMenu, 0, 1);
+			tblProgram.Controls.Add(chkDockTips, 1, 1);
 
 			grpProgram = CreateBaseGroupBox("程序设置");
 			grpProgram.Controls.Add(tblProgram);
@@ -240,7 +244,7 @@ namespace DGLabGameVibrationController
 		private void Save()
 		{
 			if (isLoadingConfig) return;
-			AppendLog("数据保存成功","部分功能将在下一次启动时生效。");
+			VibrationInterface.Invoke("数据保存成功","部分功能将在下一次启动时生效。",0);
 
 			config.ServerUrl = txtServerUrl.Text.Trim();
 			config.ServerPort = int.TryParse(txtServerPort.Text, out int port) ? port : 8920;
@@ -254,8 +258,9 @@ namespace DGLabGameVibrationController
 			config.ControllerLimit = int.TryParse(txtControllerLimit.Text, out int ctrlLimit) ? ctrlLimit : 65535;
 
 			config.VerboseLogs = chkVerboseLog.Checked;
-			config.LegacyLabels = chkLegacyLabel.Checked;
+			config.ExitMenu = chkExitMenu.Checked;
 			config.DockTips = chkDockTips.Checked;
+			config.DynamicHook = chkSpecificHook.Checked;
 
 			ConfigManager.Save();
 		}

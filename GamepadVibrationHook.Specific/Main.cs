@@ -10,7 +10,7 @@ namespace GamepadVibrationHook
 	/// </summary>
 	public class VibrationInterface : MarshalByRefObject
 	{
-		public void ErrorEvent(string code, string error, int level) { }
+		public void DLLCallbackEvent(string code, string error, int level) { }
 		public void OnVibrationChanged(int leftMotor, int rightMotor) { }
 	}
 
@@ -75,11 +75,11 @@ namespace GamepadVibrationHook
 			// 输出注入结果
 			if (SuccesHook > 0)
 			{
-				_interface?.ErrorEvent($"哇！成功注入 {SuccesHook} 项", "游戏世界通讯成功！现在就拿起你的手柄，开始游戏吧！", 1);
+				_interface?.DLLCallbackEvent($"哇！成功注入 {SuccesHook} 项", "游戏世界通讯成功！现在就拿起你的手柄，开始游戏吧！", 1);
 			}
 			else
 			{
-				_interface?.ErrorEvent("哦不！注入失败了", "居然没有合适的 DLL 模块项，或许是我太杂鱼了...", 3);
+				_interface?.DLLCallbackEvent("哦不！注入失败了", "居然没有合适的 DLL 模块项，或许是我太杂鱼了...", 3);
 			}
 
 			// 保持注入进程存活，防止被卸载
@@ -112,18 +112,18 @@ namespace GamepadVibrationHook
 					hook.ThreadACL.SetExclusiveACL(new int[] { 0 });
 
 					_hooks.Add(hook);
-					_interface?.ErrorEvent($"注入 {dll} 成功", "已成功将 DLL 模块注入至目标主线程内", 1);
+					_interface?.DLLCallbackEvent($"注入 {dll} 成功", "已成功将 DLL 模块注入至目标主线程内", 1);
 					return true;
 				}
 				else
 				{
-					_interface?.ErrorEvent($"注入 {dll} 失败", "被注入的 DLL 模块加载失败 或 注入目标的函数地址无效", 3);
+					_interface?.DLLCallbackEvent($"注入 {dll} 失败", "被注入的 DLL 模块加载失败 或 注入目标的函数地址无效", 3);
 					return false;
 				}
 			}
 			catch (Exception overr)
 			{
-				_interface?.ErrorEvent($"注入 {dll} 错误", overr.ToString(), 2);
+				_interface?.DLLCallbackEvent($"注入 {dll} 错误", overr.ToString(), 2);
 				return false;
 			}
 		}
@@ -155,7 +155,7 @@ namespace GamepadVibrationHook
 			}
 			catch (Exception overr)
 			{
-				_interface.ErrorEvent($"链接 IPC 错误", overr.ToString(), 3);
+				_interface.DLLCallbackEvent($"链接 IPC 错误", overr.ToString(), 3);
 			}
 
 			// 调用原始 API，保持原有功能不变

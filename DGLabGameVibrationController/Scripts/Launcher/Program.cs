@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 using DGLabGameVibrationController;
 
@@ -27,15 +28,15 @@ namespace GamepadVibrationHook
 		/// <summary>
 		/// 震动数据变化事件
 		/// </summary>
-		public event Action<int, int> VibrationChanged;
-		public event Action<string, string, int> LogEvent;
+		public static event Action<int, int> VibrationChanged;
+		public static event Action<string, string, int> LogEvent;
 
 		/// <summary>
-		/// 通知错误事件
+		/// DLL 的回调事件
 		/// </summary>
 		/// <param name="code">错误代码</param>
 		/// <param name="error">错误内容</param>
-		public void ErrorEvent(string code, string error, int level)
+		public void DLLCallbackEvent(string code, string error, int level)
 		{
 			LogEvent?.Invoke(code, error, level);
 		}
@@ -47,5 +48,10 @@ namespace GamepadVibrationHook
 		{
 			VibrationChanged?.Invoke(leftMotor, rightMotor);
 		}
+
+		/// <summary>
+		/// 调用日志事件
+		/// </summary>
+		public static void Invoke(string code, string error, int level = 0) => LogEvent?.Invoke(code, error, level);
 	}
 }

@@ -73,6 +73,9 @@
     <Compile Include="Scripts\Form\MainFormDock.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Scripts\Form\MainFormExitMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Scripts\Form\MainFormSetting.cs">
       <SubType>Form</SubType>
     </Compile>

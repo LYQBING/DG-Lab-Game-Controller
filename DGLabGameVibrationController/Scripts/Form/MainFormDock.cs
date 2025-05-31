@@ -22,8 +22,6 @@ namespace DGLabGameVibrationController
 
 		private void InitializeDock()
 		{
-			if (config.LegacyLabels) return;
-
 			// 隐藏 TabControl 边框
 			tabMain.Appearance = TabAppearance.FlatButtons;
 			tabMain.ItemSize = new Size(0, 1);

@@ -108,12 +108,17 @@ namespace DGLabGameVibrationController
 		/// <summary>
 		/// 是否启用详细日志
 		/// </summary>
-		public bool VerboseLogs { get; set; } = true;
+		public bool VerboseLogs { get; set; } = false;
 
 		/// <summary>
-		/// 是否恢复旧版标签
+		/// 是否启用动态注入
 		/// </summary>
-		public bool LegacyLabels { get; set; } = false;
+		public bool DynamicHook { get; set; } = false;
+
+		/// <summary>
+		/// 是否启用最小化窗口
+		/// </summary>
+		public bool ExitMenu { get; set; } = true;
 
 		/// <summary>
 		/// 是否启用底部 Dock 提示
@@ -146,7 +151,7 @@ namespace DGLabGameVibrationController
 				}
 			}
 
-			CoyoteApi.CoyotreUrl = Current.ServerUrl + ":" + Current.ServerPort;
+			CoyoteApi.CoyotreUrl = Current.ServerUrl + ":" + Current.ServerPort + "/";
 			CoyoteApi.ClientID = Current.ClientId;
 			return Current;
 		}
@@ -154,7 +159,7 @@ namespace DGLabGameVibrationController
 		public static void Save()
 		{
 			File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(Current, Formatting.Indented));
-			CoyoteApi.CoyotreUrl = Current.ServerUrl + ":" + Current.ServerPort;
+			CoyoteApi.CoyotreUrl = Current.ServerUrl + ":" + Current.ServerPort + "/";
 			CoyoteApi.ClientID = Current.ClientId;
 		}
 	}

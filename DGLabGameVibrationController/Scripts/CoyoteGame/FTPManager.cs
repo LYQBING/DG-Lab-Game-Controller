@@ -1,5 +1,6 @@
 ﻿namespace lyqbing.DGLAB
 {
+	using GamepadVibrationHook;
 	using System;
 	using System.Net.Http;
 	using System.Text;
@@ -31,6 +32,7 @@
 			}
 			catch
 			{
+				VibrationInterface.Invoke("灾难性故障", $"服务器配置错误或不存在：{Url} 请求：{jsonParas}", 3);
 				return null;
 			}
 		}
@@ -50,7 +52,7 @@
 			}
 			else
 			{
-				Console.WriteLine("【FTPManager】请求失败，状态码: " + response.StatusCode);
+				VibrationInterface.Invoke("服务器请求失败",$"哦不！通讯失败了，错误码: {response.StatusCode}",2);
 				return null;
 			}
 		}
