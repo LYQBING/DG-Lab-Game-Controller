@@ -1,6 +1,6 @@
 ![image](repository-open-graph.png)
 
-# DG-Lab 游戏震动控制器
+# DG-Lab 游戏控制器
 允许郊狼 DG-Lab 通过游戏中手柄的震动数据进行输出：让你的游戏手柄和郊狼 DG-Lab 一起发电吧！
 本项目由 [DG-Lab-Coyote-Game-Hub](https://github.com/hyperzlib/DG-Lab-Coyote-Game-Hub) 的 API 实现，因此你必须使用此控制台
 
@@ -10,6 +10,8 @@
 
 
 ## 说在前面
+此项目原名为“DG-Lab-Game-Vibration-Controller”，现更名“DG-Lab-Game-Controller”，日后将会再次重构，将不仅包含手柄功能！
+
 对于 部分设备及游戏 无法在理想状态下进行工作，当前项目支持：
 - 使用 Windows XInput 的游戏（Xbox 控制器）
 
