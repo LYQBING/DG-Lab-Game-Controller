@@ -3,7 +3,7 @@
 # DG-Lab 游戏控制器
 一个希望将全部游戏郊狼化的控制器：让所有游戏都和郊狼 DG-Lab 一起发电吧！
 
-**[下载 DG-Lab 游戏震动控制器](https://github.com/LYQBING/DG-Lab-Game-Controller/releases)**
+**[下载 DG-Lab 游戏控制器](https://github.com/LYQBING/DG-Lab-Game-Controller/releases)**
 
 ## 使用教程
 **1.安装所需的程序：** 首先你需要安装【郊狼游戏控制器】并启动它。
