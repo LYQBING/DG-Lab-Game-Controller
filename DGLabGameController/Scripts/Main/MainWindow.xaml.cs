@@ -28,7 +28,7 @@ namespace DGLabGameController
 			{
 				eventArgs.Cancel = true;
 				this.Hide();
-				var notifyIcon = Application.Current.Resources["MyNotifyIcon"];
+				_ = Application.Current.Resources["MyNotifyIcon"];
 				return;
 			}
 
@@ -44,21 +44,17 @@ namespace DGLabGameController
 		{
 			SetNavImages("Func");
 
-			// 如果当前页面是模块页面，移除模块页面
-			if (MainContent.Content == _activeModule?.GetPage() && _activeModule != null)
-			{
-				_activeModule.OnModulePageClosed();
-				_activeModule = null;
-			}
-			// 否则如果模块已启动，显示模块页面
-			else if (_activeModule != null)
+			// 如果模块已启动，显示模块页面
+			if (_activeModule != null)
 			{
 				MainContent.Content = _activeModule.GetPage();
 				return;
 			}
-
-			_funcPage ??= new FuncSelectPage();
-			MainContent.Content = _funcPage;
+			else
+			{
+				_funcPage ??= new FuncSelectPage();
+				MainContent.Content = _funcPage;
+			}
 		}
 
 		public void NavLog_Click(object? sender = null, RoutedEventArgs? e = null)
@@ -95,7 +91,7 @@ namespace DGLabGameController
 		public void ShowModulePage(IModule module)
 		{
 			_activeModule = module;
-			MainContent.Content = module.GetPage();
+			NavFunc_Click();
 		}
 
 		public void CloseActiveModule()
