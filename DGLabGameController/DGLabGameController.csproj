@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DLL\**" />
+    <Compile Remove="Scripts\HandleInjection\**" />
+    <EmbeddedResource Remove="DLL\**" />
+    <EmbeddedResource Remove="Scripts\HandleInjection\**" />
+    <None Remove="DLL\**" />
+    <None Remove="Scripts\HandleInjection\**" />
+    <Page Remove="DLL\**" />
+    <Page Remove="Scripts\HandleInjection\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Add.png" />
+    <None Remove="Assets\Back.png" />
+    <None Remove="Assets\Code.png" />
+    <None Remove="Assets\Delete.png" />
+    <None Remove="Assets\Edit.png" />
+    <None Remove="Assets\func.png" />
+    <None Remove="Assets\Log.png" />
+    <None Remove="Assets\Next.png" />
+    <None Remove="Assets\Play.png" />
+    <None Remove="Assets\Refresh.png" />
+    <None Remove="Assets\Save.png" />
+    <None Remove="Assets\setting.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Add.png" />
+    <Resource Include="Assets\Code.png" />
+    <Resource Include="Assets\Play.png" />
+    <Resource Include="Assets\Refresh.png" />
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Scripts\Main\FuncSelectPage\FuncSelectPage.xaml.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Back.png" />
+    <Resource Include="Assets\Delete.png" />
+    <Resource Include="Assets\Edit.png" />
+    <Resource Include="Assets\icon\func.png" />
+    <Resource Include="Assets\icon\Log.png" />
+    <Resource Include="Assets\icon\log_selected.png" />
+    <Resource Include="Assets\icon\func_selected.png" />
+    <Resource Include="Assets\icon\setting_selected.png" />
+    <Resource Include="Assets\icon\setting.png" />
+    <Resource Include="Assets\Next.png" />
+    <Resource Include="Assets\Save.png" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,204 @@
+﻿<UserControl 
+	x:Class="HealthBarDetector.HealthBarDetectorPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+
+	<UserControl.Resources>
+		<Style x:Key="SettingRowGridStyle" TargetType="Grid">
+			<Setter Property="Height" Value="36" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style x:Key="SettingRowTextStyle" TargetType="TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="FontSize" Value="14" />
+			<Setter Property="Foreground" Value="{DynamicResource FontColor }" />
+		</Style>
+
+		<!-- 若你想要将其样式与主程序同步：请在保存前移除下面代码 -->
+		<!-- 移除后将会报错，但不必担心，因为主程序中包含的样式这里读取不到 -->
+		<!-- 当程序运行时就能正常读取了，这是 Xaml 的自身问题 -->
+		<SolidColorBrush x:Key="StandardColor_HighLight" Color="#FFE99D" />
+		<SolidColorBrush x:Key="StandardColor_Light" Color="#b8a870" />
+		<SolidColorBrush x:Key="StandardColor_Dark" Color="#807652" />
+		<SolidColorBrush x:Key="BackgroundColor_HighLight" Color="#272727" />
+		<SolidColorBrush x:Key="BackgroundColor_Light" Color="#1c1c1c" />
+		<SolidColorBrush x:Key="BackgroundColor_Dark" Color="#121212" />
+		<SolidColorBrush x:Key="FontColor" Color="#FFFFFF" />
+		<Style x:Key="RoundButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+			<Setter Property="Background" Value="{StaticResource StandardColor_HighLight}" />
+			<Setter Property="Foreground" Value="{StaticResource FontColor}" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border x:Name="border"
+							Background="{TemplateBinding Background}"
+							CornerRadius="8"
+							BorderThickness="0"
+							BorderBrush="{TemplateBinding BorderBrush}">
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="border" Property="Background" Value="{StaticResource StandardColor_Dark}" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundColor_Dark}" />
+								<Setter Property="Foreground" Value="{StaticResource StandardColor_Dark}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style x:Key="FlatButtonStyle" TargetType="Button">
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="BorderBrush" Value="Transparent" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<!-- 若你想要将其样式与主程序同步，请在保存前移除上面代码 -->
+	</UserControl.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<!-- 标题 -->
+		<Grid Grid.Column="0" Margin="20,20,20,20">
+			<TextBlock Text="羽翼的色彩"
+			Foreground="{StaticResource StandardColor_HighLight}"
+			FontSize="20"
+			FontWeight="Bold"
+			VerticalAlignment="Center"/>
+
+			<StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+				<Button Click="Back_Click" Width="32" Height="32" Style="{StaticResource FlatButtonStyle}">
+					<Image Source="/DGLabGameController;component/Assets/Back.png" Width="24" Height="24" />
+				</Button>
+			</StackPanel>
+		</Grid>
+
+		<!-- 主要操作区域 -->
+		<Grid Grid.Row="1" Margin="20,0,20,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" MinWidth="100" />
+				<ColumnDefinition Width="100" />
+			</Grid.ColumnDefinitions>
+
+			<Button Click="btnSelectArea_Click" Grid.Column="0" Height="36" Margin="0,0,5,0"
+			Background="{StaticResource StandardColor_HighLight}" Foreground="{StaticResource BackgroundColor_Light}" FontWeight="Bold"
+			Style="{StaticResource RoundButtonStyle}">框选检测区域</Button>
+
+			<Button x:Name="btnStart" Click="btnStart_Click" Grid.Column="1" Height="36" Margin="5,0,0,0"
+			Background="{StaticResource StandardColor_Light}" Foreground="{StaticResource BackgroundColor_Light}" FontWeight="Bold"
+			Style="{StaticResource RoundButtonStyle}">开始检测</Button>
+		</Grid>
+
+		<!-- 检测参数设置 -->
+		<Border Grid.Row="2" Background="{StaticResource BackgroundColor_Light}" CornerRadius="15" Margin="20,20,20,10" Padding="20,10,20,10">
+			<StackPanel>
+				<!-- 检测的颜色 -->
+				<Grid Style="{StaticResource SettingRowGridStyle}">
+					<TextBlock Text="检测的颜色" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
+					<Button Grid.Column="1" Click="btnPickColor_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<Rectangle Name="rectColor" Width="28" Height="14" Stroke="{StaticResource FontColor}" Margin="5,0"/>
+							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button>
+				</Grid>
+
+				<!-- 色彩容差值 -->
+				<Grid Style="{StaticResource SettingRowGridStyle}">
+					<TextBlock Text="色彩容差值" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
+					<Button Grid.Column="1" Click="ToleranceValue_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<TextBlock x:Name="txtTolerance" Text="20" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button>
+				</Grid>
+
+				<!-- 最佳百分比 -->
+				<Grid Style="{StaticResource SettingRowGridStyle}">
+					<TextBlock Text="最佳百分比" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
+					<Button Grid.Column="1" Click="BestPercentage_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<TextBlock x:Name="txtBestPercentage" Text="100%" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button>
+				</Grid>
+
+				<!-- 刷新时间间隔 -->
+				<Grid Style="{StaticResource SettingRowGridStyle}">
+					<TextBlock Text="检测的间隔" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
+					<Button Grid.Column="1" Click="SleepTime_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<TextBlock x:Name="txtSleepTime" Text="200" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button>
+				</Grid>
+				
+			</StackPanel>
+		</Border>
+
+		<!-- 惩罚参数设置 -->
+		<Border Grid.Row="3" Background="{StaticResource BackgroundColor_Light}" CornerRadius="15" Margin="20,10,20,10" Padding="20,10,20,10">
+			<StackPanel>
+
+				<!-- 基础输出 -->
+				<Grid Style="{StaticResource SettingRowGridStyle}">
+					<TextBlock Text="基础输出值" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
+					<Button Grid.Column="1" Click="BaseValue_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<TextBlock x:Name="BaseValue" Text="5" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button>
+				</Grid>
+
+				<!-- 惩罚输出 -->
+				<Grid Style="{StaticResource SettingRowGridStyle}">
+					<TextBlock Text="惩罚输出值" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
+					<Button Grid.Column="1" Click="PenaltyValue_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<TextBlock x:Name="PenaltyValue" Text="20" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button>
+				</Grid>
+
+			</StackPanel>
+		</Border>
+		
+		<TextBlock x:Name="txtCurrentPercent"
+           Grid.Row="4"
+           Text="看起来还没有输出呢"
+           HorizontalAlignment="Center"
+           Margin="0,10,0,20"
+           FontSize="14"
+           Foreground="{StaticResource StandardColor_HighLight}" />
+		
+	</Grid>
+</UserControl>
