@@ -1,5 +1,0 @@
-E:\VisualStudio Home\DGLabGameVibrationController\DGLabGameVibrationController\obj\Debug\DGLabGameVibrationController.csproj.AssemblyReference.cache
-E:\VisualStudio Home\DGLabGameVibrationController\DGLabGameVibrationController\obj\Debug\DGLabGameVibrationController.Properties.Resources.resources
-E:\VisualStudio Home\DGLabGameVibrationController\DGLabGameVibrationController\obj\Debug\DGLabGameVibrationController.MainForm.resources
-E:\VisualStudio Home\DGLabGameVibrationController\DGLabGameVibrationController\obj\Debug\DGLabGameVibrationController.csproj.GenerateResource.cache
-E:\VisualStudio Home\DGLabGameVibrationController\DGLabGameVibrationController\obj\Debug\DGLabGameVibrationController.csproj.CoreCompileInputs.cache
