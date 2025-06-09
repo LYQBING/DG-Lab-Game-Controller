@@ -24,7 +24,6 @@ namespace DGLabGameController
 			// 初始化程序
 			base.OnStartup(e);
 			ConfigManager.Load();
-			InternalServerManager.StartServer();
 			DebugHub.Log("一切准备就绪", "欢迎回来！我们将一直保持免费且开源：关注开发者项目以表支持\r欢迎加入官方项目群聊：928175340");
 
 			// 创建程序托盘

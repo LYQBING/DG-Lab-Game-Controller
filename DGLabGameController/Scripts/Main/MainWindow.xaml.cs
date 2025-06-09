@@ -20,6 +20,7 @@ namespace DGLabGameController
 		{
 			InitializeComponent();
 			NavFunc_Click();
+			InternalServerManager.StartServer();
 		}
 
 		protected override void OnClosing(System.ComponentModel.CancelEventArgs eventArgs)
