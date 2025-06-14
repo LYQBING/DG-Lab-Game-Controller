@@ -1,60 +1,61 @@
 ﻿namespace lyqbing.DGLAB
 {
-	using DGLabGameController;
-	using System;
-	using System.Net.Http;
-	using System.Text;
-	using System.Threading.Tasks;
+    using DGLabGameController;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
-	public static class FTPManager
-	{
-		/// <summary>
-		/// Get请求
-		/// </summary>
-		public static async Task<string?> Get(string Url)
-		{
-			HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url);
-			return await IsSuccessStatusCode(request);
-		}
+    public static class FTPManager
+    {
+        private static readonly HttpClient Client = new();
 
-		/// <summary>
-		/// POST请求
-		/// </summary>
-		public static async Task<string?> Post(string Url, string jsonParas)
-		{
-			try
-			{
-				HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url)
-				{
-					Content = new StringContent(jsonParas, Encoding.UTF8, "application/x-www-form-urlencoded")
-				};
-				return await IsSuccessStatusCode(request);
-			}
-			catch
-			{
-				DebugHub.Error("灾难性故障", $"主人...服务器配置信息错误，或不存在指定服务器哦！URL：{Url} JSON：{jsonParas}");
-				return null;
-			}
-		}
+        /// <summary>
+        /// GET请求
+        /// </summary>
+        public static Task<string?> GetAsync(string url)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+            return SendAsync(request);
+        }
 
-		/// <summary>
-		/// 服务器请求回执
-		/// </summary>
-		public static async Task<string?> IsSuccessStatusCode(HttpRequestMessage request)
-		{
-			HttpClient httpClient = new HttpClient();
-			HttpResponseMessage response = await httpClient.SendAsync(request);
+        /// <summary>
+        /// POST请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="formData">表单数据</param>
+        /// <returns></returns>
+        public static Task<string?> PostAsync(string url, IEnumerable<KeyValuePair<string, string>> formData)
+        {
+            var content = new FormUrlEncodedContent(formData);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = content
+            };
+            return SendAsync(request);
+        }
 
-			if (response.IsSuccessStatusCode)
-			{
-				string responseBody = await response.Content.ReadAsStringAsync();
-				return responseBody;
-			}
-			else
-			{
-				DebugHub.Error("通讯失败", $"哦不！主人...与服务器通讯失败了，错误: {response.StatusCode}");
-				return null;
-			}
-		}
-	}
+        /// <summary>
+        /// 服务器请求回执
+        /// </summary>
+        public static async Task<string?> SendAsync(HttpRequestMessage request)
+        {
+            string? responseBody = null;
+            try
+            {
+                using HttpResponseMessage response = await Client.SendAsync(request);
+                if (!response.IsSuccessStatusCode)
+                {
+                    DebugHub.Error("通讯失败", $"哦不！主人...与服务器通讯失败了，错误: {response.StatusCode}");
+                    return null;
+                }
+
+                responseBody = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            return responseBody;
+        }
+    }
 }
