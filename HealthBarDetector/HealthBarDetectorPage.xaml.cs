@@ -21,7 +21,7 @@ namespace HealthBarDetector
 		/// <summary>
 		/// 色彩容差值，默认为20
 		/// </summary>
-		private int tolerance = 20;
+		private int tolerance = 25;
 		/// <summary>
 		/// 基础输出值
 		/// </summary>
@@ -88,9 +88,9 @@ namespace HealthBarDetector
 		/// <summary>
 		///	框选区域按钮点击事件
 		/// </summary>
-		private void btnSelectArea_Click(object sender, RoutedEventArgs e)
+		private void BtnSelectArea_Click(object sender, RoutedEventArgs e)
 		{
-			AreaSelectorWindow selector = new ();
+			AreaSelectorWindow selector = new();
 			if (selector.ShowDialog() == true)
 			{
 				Rect rect = selector.SelectedRect;
@@ -98,25 +98,37 @@ namespace HealthBarDetector
 
 				// 获取最多的颜色
 				var mostColor = GetMostFrequentColor(selectedArea);
-				new MessageDialog("推荐的观测色", $"该区域内出现最多的颜色为：R={mostColor.R}, G={mostColor.G}, B={mostColor.B}\n主人，是否将它设为观测颜色？", "设定",
-				(data) =>
-				{
-					targetColor = mostColor;
-					rectColor.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(targetColor.R, targetColor.G, targetColor.B));
-
-					data.Close();
-				},"取消",
-				(data)=> data.Close()).ShowDialog();
+				// 计算该颜色在区域内的占比
+				var percent = CalculateHealthPercent(selectedArea, mostColor, tolerance) * 100;
+				new MessageDialog(
+					"推荐的设定值",
+					$"观测色：R={mostColor.R}, G={mostColor.G}, B={mostColor.B}\n" +
+					$"最佳百分比：{percent:F2}%\n" +
+					$"主人，是否将其设定为推荐值？",
+					"设定",
+					(data) =>
+					{
+						targetColor = mostColor;
+						rectColor.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(targetColor.R, targetColor.G, targetColor.B));
+						bestPercentage = (float)(percent / 100.0);
+						txtBestPercentage.Text = $"{percent:F2}%";
+						data.Close();
+					},
+					"取消",
+					(data) => data.Close()
+				).ShowDialog();
 			}
 		}
 
 		/// <summary>
 		/// 颜色选择按钮点击事件
 		/// </summary>
-		private void btnPickColor_Click(object sender, RoutedEventArgs e)
+		private void BtnPickColor_Click(object sender, RoutedEventArgs e)
 		{
-			var dlg = new System.Windows.Forms.ColorDialog();
-			dlg.Color = targetColor;
+			var dlg = new System.Windows.Forms.ColorDialog
+			{
+				Color = targetColor
+			};
 			if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				targetColor = dlg.Color;
@@ -127,7 +139,7 @@ namespace HealthBarDetector
 		/// <summary>
 		/// 开始检测按钮点击事件
 		/// </summary>
-		private async void btnStart_Click(object sender, RoutedEventArgs e)
+		private async void BtnStart_Click(object sender, RoutedEventArgs e)
 		{
 			if (!isDetecting)
 			{

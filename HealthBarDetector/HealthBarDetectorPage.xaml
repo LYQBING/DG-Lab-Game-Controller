@@ -104,11 +104,11 @@
 				<ColumnDefinition Width="100" />
 			</Grid.ColumnDefinitions>
 
-			<Button Click="btnSelectArea_Click" Grid.Column="0" Height="36" Margin="0,0,5,0"
+			<Button Click="BtnSelectArea_Click" Grid.Column="0" Height="36" Margin="0,0,5,0"
 			Background="{StaticResource StandardColor_HighLight}" Foreground="{StaticResource BackgroundColor_Light}" FontWeight="Bold"
 			Style="{StaticResource RoundButtonStyle}">框选检测区域</Button>
 
-			<Button x:Name="btnStart" Click="btnStart_Click" Grid.Column="1" Height="36" Margin="5,0,0,0"
+			<Button x:Name="btnStart" Click="BtnStart_Click" Grid.Column="1" Height="36" Margin="5,0,0,0"
 			Background="{StaticResource StandardColor_Light}" Foreground="{StaticResource BackgroundColor_Light}" FontWeight="Bold"
 			Style="{StaticResource RoundButtonStyle}">开始检测</Button>
 		</Grid>
@@ -119,7 +119,7 @@
 				<!-- 检测的颜色 -->
 				<Grid Style="{StaticResource SettingRowGridStyle}">
 					<TextBlock Text="检测的颜色" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
-					<Button Grid.Column="1" Click="btnPickColor_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
+					<Button Grid.Column="1" Click="BtnPickColor_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 							<Rectangle Name="rectColor" Width="28" Height="14" Stroke="{StaticResource FontColor}" Margin="5,0"/>
 							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
@@ -132,7 +132,7 @@
 					<TextBlock Text="色彩容差值" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
 					<Button Grid.Column="1" Click="ToleranceValue_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-							<TextBlock x:Name="txtTolerance" Text="20" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<TextBlock x:Name="txtTolerance" Text="25" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
 							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button>
