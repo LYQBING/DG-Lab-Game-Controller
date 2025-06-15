@@ -1,108 +1,104 @@
-﻿using Hardcodet.Wpf.TaskbarNotification;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace DGLabGameController
 {
-	public partial class MainWindow : Window
-	{
-		// 缓存的标准页面
-		private FuncSelectPage? _funcPage;
-		private LogPage? _logPage;
-		private SettingPage? _settingPage;
-		// 缓存的模块页面
-		private IModule? _activeModule;
-		private string? NowPage;
+    public partial class MainWindow : Window
+    {
+        // 缓存的标准页面
+        private FuncSelectPage? _funcPage;
+        private LogPage? _logPage;
 
-		#region 启动及关闭事件
-		public MainWindow()
-		{
-			InitializeComponent();
-			NavFunc_Click();
-			InternalServerManager.StartServer();
-		}
+        private SettingPage? _settingPage;
 
-		protected override void OnClosing(System.ComponentModel.CancelEventArgs eventArgs)
-		{
-			if (ConfigManager.Current.ExitMenu)
-			{
-				eventArgs.Cancel = true;
-				this.Hide();
-				_ = Application.Current.Resources["MyNotifyIcon"];
-				return;
-			}
+        // 缓存的模块页面
+        private IModule? _activeModule;
+        private string? _nowPage;
 
-			// 移除模块页面
-			_activeModule?.OnModulePageClosed();
-		}
+        #region 启动及关闭事件
 
-		#endregion
+        public MainWindow()
+        {
+            InitializeComponent();
+            NavFunc_Click();
+            InternalServerManager.StartServer();
+        }
 
-		#region Dock相关
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs eventArgs)
+        {
+            if (ConfigManager.Current.ExitMenu)
+            {
+                eventArgs.Cancel = true;
+                this.Hide();
+                _ = Application.Current.Resources["MyNotifyIcon"];
+                return;
+            }
 
-		public void NavFunc_Click(object? sender = null, RoutedEventArgs? e = null)
-		{
-			SetNavImages("Func");
+            // 移除模块页面
+            _activeModule?.OnModulePageClosed();
+        }
 
-			// 如果模块已启动，显示模块页面
-			if (_activeModule != null)
-			{
-				MainContent.Content = _activeModule.GetPage();
-				return;
-			}
-			else
-			{
-				_funcPage ??= new FuncSelectPage();
-				MainContent.Content = _funcPage;
-			}
-		}
+        #endregion
 
-		public void NavLog_Click(object? sender = null, RoutedEventArgs? e = null)
-		{
-			SetNavImages("Log");
-			_logPage ??= new LogPage();
-			MainContent.Content = _logPage;
-		}
+        #region Dock相关
 
-		public void NavSetting_Click(object? sender = null, RoutedEventArgs? e = null)
-		{
-			SetNavImages("Setting");
-			_settingPage ??= new SettingPage();
-			MainContent.Content = _settingPage;
-		}
+        public void NavFunc_Click(object? sender = null, RoutedEventArgs? e = null)
+        {
+            SetNavImages("Func");
+            MainContent.Content = _activeModule == null
+                ? _funcPage ??= new FuncSelectPage()
+                : _activeModule.GetPage();
+        }
 
-		private void SetNavImages(string page)
-		{
-			if (NowPage == page) return;
-			else NowPage = page;
+        public void NavLog_Click(object? sender = null, RoutedEventArgs? e = null)
+        {
+            SetNavImages("Log");
+            MainContent.Content = _logPage ??= new LogPage();
+        }
 
-			FuncImage.Source = new BitmapImage(new Uri(
-				page == "Func" ? "pack://application:,,,/Assets/icon/func_selected.png" : "pack://application:,,,/Assets/icon/func.png"));
-			LogImage.Source = new BitmapImage(new Uri(
-				page == "Log" ? "pack://application:,,,/Assets/icon/log_selected.png" : "pack://application:,,,/Assets/icon/log.png"));
-			SettingImage.Source = new BitmapImage(new Uri(
-				page == "Setting" ? "pack://application:,,,/Assets/icon/setting_selected.png" : "pack://application:,,,/Assets/icon/setting.png"));
-		}
+        public void NavSetting_Click(object? sender = null, RoutedEventArgs? e = null)
+        {
+            SetNavImages("Setting");
+            MainContent.Content = _settingPage ??= new SettingPage();
+        }
 
-		#endregion
+        private void SetNavImages(string page)
+        {
+            if (_nowPage == page)
+                return;
 
-		#region 模块页面相关
+            _nowPage = page;
+            SetImageSource(FuncImage, "Func", "func");
+            SetImageSource(LogImage, "Log", "log");
+            SetImageSource(SettingImage, "Setting", "setting");
+        }
 
-		public void ShowModulePage(IModule module)
-		{
-			_activeModule = module;
-			NavFunc_Click();
-		}
+        private void SetImageSource(Image image, string pageName, string iconName)
+        {
+            string state = _nowPage == pageName ? "_selected" : string.Empty;
+            string path = $"pack://application:,,,/Assets/icon/{iconName}{state}.png";
+            image.Source = new BitmapImage(new Uri(path));
+        }
 
-		public void CloseActiveModule()
-		{
-			_activeModule?.OnModulePageClosed();
-			_activeModule = null;
+        #endregion
 
-			NavFunc_Click();
-		}
+        #region 模块页面相关
 
-		#endregion
-	}
+        public void ShowModulePage(IModule module)
+        {
+            _activeModule = module;
+            NavFunc_Click();
+        }
+
+        public void CloseActiveModule()
+        {
+            _activeModule?.OnModulePageClosed();
+            _activeModule = null;
+
+            NavFunc_Click();
+        }
+
+        #endregion
+    }
 }
