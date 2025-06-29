@@ -127,6 +127,7 @@ namespace GamepadVibrationProcessor
 				if (InjectionManager.Inject(selected.Id, dllPathX86, dllPathX64, out string? error))
 				{
 					DebugHub.Success("等待客户端", error);
+					DebugHub.Log("特别注意", "已注入模块的客户端再次注入时将不会回执任何数据：若需要重新注入，请重启对应客户端");
 				}
 				else
 				{

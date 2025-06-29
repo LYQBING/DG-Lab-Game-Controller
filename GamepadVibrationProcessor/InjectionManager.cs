@@ -1,16 +1,14 @@
 ﻿using GamepadVibrationProcessor;
-using lyqbing.DGLAB;
 using System.IO;
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows;
 
 namespace DGLabGameController
 {
 	/// <summary>
 	/// 一个内置的简单 DLL 注入器
-	/// </summary>
+	/// </summary>f
 	public static class InjectionManager
 	{
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -112,7 +110,7 @@ namespace DGLabGameController
 					return false;
 				}
 
-				error = $"若长时间没有回执事件，则客户端通讯失败：等待客户端回执中...";
+				error = $"等待客户端回执中...";
 				CloseHandle(hThread);
 				return true;
 			}
@@ -199,7 +197,7 @@ namespace DGLabGameController
 								float output = Math.Max(left, right) / 65535;
 								output = (output * HandleInjection.penaltyValue) + HandleInjection.baseValue;
 
-								DGLab.SetStrength.Set((int)output);
+								lyqbing.DGLAB.DGLab.SetStrength.Set((int)output);
 
 								if (ConfigManager.Current.VerboseLogs)
 								{
