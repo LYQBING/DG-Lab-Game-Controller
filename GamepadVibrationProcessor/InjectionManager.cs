@@ -197,7 +197,7 @@ namespace DGLabGameController
 								float output = Math.Max(left, right) / 65535;
 								output = (output * HandleInjection.penaltyValue) + HandleInjection.baseValue;
 
-								lyqbing.DGLAB.DGLab.SetStrength.Set((int)output);
+								_ = lyqbing.DGLAB.DGLab.SetStrength.Set((int)output);
 
 								if (ConfigManager.Current.VerboseLogs)
 								{

@@ -1,9 +1,6 @@
 ﻿using DGLabGameController;
 using lyqbing.DGLAB;
-using System;
 using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -187,7 +184,7 @@ namespace HealthBarDetector
 					double normalizedPercent = bestPercentage > 0 ? percent / bestPercentage : percent;
 					int Value = (int)(penaltyValue * (1 - normalizedPercent)) + baseValue;
 					if (Value < 0) Value = 0; if (Value > 100) Value = 100;
-					DGLab.SetStrength.Set(Value);
+					_ = DGLab.SetStrength.Set(Value);
 
 					Dispatcher.Invoke(() => txtCurrentPercent.Text = $"系统识别: {percent * 100:F2}% - 最佳化后: {normalizedPercent * 100:F2}% => {Value}");
 					// if (ConfigManager.Current.VerboseLogs) DebugHub.Log("输出", $"系统识别 {percent * 100:F2}% || 最佳化后 {normalizedPercent * 100:F2}% || 输出惩罚 {Value}");
