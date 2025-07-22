@@ -195,13 +195,13 @@ namespace DGLabGameController
 								float left = BitConverter.ToUInt16(buf, 0);
 								float right = BitConverter.ToUInt16(buf, 2);
 								float output = Math.Max(left, right) / 65535;
-								output = (output * HandleInjection.penaltyValue) + HandleInjection.baseValue;
+								output = (output * HandleInjection.PenaltyValue) + HandleInjection.BaseValue;
 
 								_ = lyqbing.DGLAB.DGLab.SetStrength.Set((int)output);
 
 								if (ConfigManager.Current.VerboseLogs)
 								{
-									DebugHub.Log("震动", $"Left: {left}，Right: {right} || DG-LAB：{output}, PenaltyValue: {HandleInjection.penaltyValue}, baseValue: {HandleInjection.baseValue}");
+									DebugHub.Log("震动", $"Left: {left}，Right: {right} || DG-LAB：{output}, PenaltyValue: {HandleInjection.PenaltyValue}, baseValue: {HandleInjection.BaseValue}");
 								}
 							}
 							else

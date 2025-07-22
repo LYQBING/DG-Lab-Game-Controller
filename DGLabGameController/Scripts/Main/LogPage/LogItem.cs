@@ -48,7 +48,7 @@ namespace DGLabGameController
 		public static void ClearLogs()
 		{
 			Logs.Clear();
-			Log("初始化完成", "欢迎回来！我们将一直保持免费且开源：关注开发者项目以表支持\r欢迎加入官方项目群聊：928175340");
+			Log("日志已清空", "我们将一直保持免费且开源：关注开发者项目以表支持\r欢迎加入官方项目群聊：928175340");
 		}
 
 		public static void Log(string eventName, string content, LogType type = LogType.Info)

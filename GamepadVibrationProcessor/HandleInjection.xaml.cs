@@ -23,24 +23,25 @@ namespace GamepadVibrationProcessor
 		/// <summary>
 		/// 存储进程信息的集合
 		/// </summary>
-		public ObservableCollection<ProcessInfo> ProcessList { get; set; } = new();
+		public ObservableCollection<ProcessInfo> ProcessList { get; set; } = [];
 
-		public static int baseValue { get; set; } = 5;
-		public static int penaltyValue { get; set; } = 20;
+		public static int BaseValue { get; set; } = 5;
+		public static int PenaltyValue { get; set; } = 20;
+		public static string ModuleFolderPath { get; set; } = "";
 
-		public HandleInjection()
+		public HandleInjection(string moduleId)
 		{
 			// 初始化组件
 			InitializeComponent();
 			ProcessListView.ItemsSource = ProcessList;
+			ModuleFolderPath = Path.Combine(ConfigManager.ModulesPath, moduleId);
+
 			Refresh_Click();
 
 			// 绑定初始值
-			BaseValue.Text = baseValue.ToString();
-			PenaltyValue.Text = penaltyValue.ToString();
+			BaseValueText.Text = BaseValue.ToString();
+			PenaltyValueText.Text = PenaltyValue.ToString();
 		}
-
-		~HandleInjection() => DebugHub.Log("手柄的振动天罚", "主人是要抛弃我了吗...");
 
 		#region 按钮事件
 
@@ -61,15 +62,15 @@ namespace GamepadVibrationProcessor
 		/// </summary>
 		public void BaseValue_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog("基础输出值", "无论是否触发惩罚都会输出的基础值哦", BaseValue.Text, "设定", "取消",
+			new InputDialog("基础输出值", "无论是否触发惩罚都会输出的基础值哦", BaseValueText.Text, "设定", "取消",
 			(data) =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText))
 				{
 					if (int.TryParse(data.InputText, out int value))
 					{
-						BaseValue.Text = data.InputText;
-						baseValue = value;
+						BaseValueText.Text = data.InputText;
+						BaseValue = value;
 					}
 					else DebugHub.Warning("设置未生效", "主人...请输入一个正常的 int 数值吧");
 				}
@@ -84,15 +85,15 @@ namespace GamepadVibrationProcessor
 		/// </summary>
 		public void PenaltyValue_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog("惩罚输出值", "主人触发惩罚时就会根据这个值输出哦", PenaltyValue.Text, "设定", "取消",
+			new InputDialog("惩罚输出值", "主人触发惩罚时就会根据这个值输出哦", PenaltyValueText.Text, "设定", "取消",
 			(data) =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText))
 				{
 					if (int.TryParse(data.InputText, out int value))
 					{
-						PenaltyValue.Text = data.InputText;
-						penaltyValue = value;
+						PenaltyValueText.Text = data.InputText;
+						PenaltyValue = value;
 					}
 					else DebugHub.Warning("设置未生效", "主人...请输入一个正常的 int 数值吧");
 				}
@@ -121,8 +122,8 @@ namespace GamepadVibrationProcessor
 
 			try
 			{
-				string dllPathX64 = Path.Combine(ConfigManager.DataPath, "GamepadVibrationHook", "GamepadVibrationHook_X64.dll");
-				string dllPathX86 = Path.Combine(ConfigManager.DataPath, "GamepadVibrationHook", "GamepadVibrationHook_X86.dll");
+				string dllPathX64 = Path.Combine(ModuleFolderPath, "GamepadVibrationHook_X64.dll");
+				string dllPathX86 = Path.Combine(ModuleFolderPath, "GamepadVibrationHook_X86.dll");
 
 				if (InjectionManager.Inject(selected.Id, dllPathX86, dllPathX64, out string? error))
 				{
@@ -196,24 +197,20 @@ namespace GamepadVibrationProcessor
 			if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return null;
 			try
 			{
-				using (var icon = Icon.ExtractAssociatedIcon(filePath))
+				using var icon = Icon.ExtractAssociatedIcon(filePath);
+				if (icon != null)
 				{
-					if (icon != null)
-					{
-						using (var bmp = icon.ToBitmap())
-						using (var stream = new MemoryStream())
-						{
-							bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-							stream.Seek(0, SeekOrigin.Begin);
-							var bitmap = new BitmapImage();
-							bitmap.BeginInit();
-							bitmap.StreamSource = stream;
-							bitmap.CacheOption = BitmapCacheOption.OnLoad;
-							bitmap.EndInit();
-							bitmap.Freeze();
-							return bitmap;
-						}
-					}
+					using var bmp = icon.ToBitmap();
+					using var stream = new MemoryStream();
+					bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+					stream.Seek(0, SeekOrigin.Begin);
+					var bitmap = new BitmapImage();
+					bitmap.BeginInit();
+					bitmap.StreamSource = stream;
+					bitmap.CacheOption = BitmapCacheOption.OnLoad;
+					bitmap.EndInit();
+					bitmap.Freeze();
+					return bitmap;
 				}
 			}
 			catch { }

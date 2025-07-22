@@ -142,7 +142,7 @@
 					<TextBlock Text="基础输出值" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
 					<Button Grid.Column="1" Click="BaseValue_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-							<TextBlock x:Name="BaseValue" Text="5" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<TextBlock x:Name="BaseValueText" Text="5" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
 							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button>
@@ -153,7 +153,7 @@
 					<TextBlock Text="惩罚输出值" Style="{StaticResource SettingRowTextStyle}" Grid.Column="0" />
 					<Button Grid.Column="1" Click="PenaltyValue_Click" Style="{StaticResource FlatButtonStyle}" Height="32" HorizontalAlignment="Right">
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-							<TextBlock x:Name="PenaltyValue" Text="20" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
+							<TextBlock x:Name="PenaltyValueText" Text="20" Style="{StaticResource SettingRowTextStyle}" FontSize="12" VerticalAlignment="Center" Margin="10,0,5,0" />
 							<Image Source="/DGLabGameController;component/Assets/Next.png" Width="14" Height="14" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button>
