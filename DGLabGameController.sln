@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.36105.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGLabGameController", "DGLabGameController\DGLabGameController.csproj", "{2875D1FE-92C1-4DDA-8259-F0A5C834365F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamepadVibrationHook", "GamepadVibrationHook\GamepadVibrationHook.vcxproj", "{54AD6D16-51A4-4C01-8F00-E414C81DA891}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamepadVibrationProcessor", "GamepadVibrationProcessor\GamepadVibrationProcessor.csproj", "{6969BA9F-79D4-4319-A2AC-FD7175128F5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthBarDetector", "HealthBarDetector\HealthBarDetector.csproj", "{25ECACA0-050D-4B06-9E6B-4EDEBA692397}"
@@ -31,6 +33,18 @@ Global
 		{2875D1FE-92C1-4DDA-8259-F0A5C834365F}.Release|x64.Build.0 = Release|Any CPU
 		{2875D1FE-92C1-4DDA-8259-F0A5C834365F}.Release|x86.ActiveCfg = Release|Any CPU
 		{2875D1FE-92C1-4DDA-8259-F0A5C834365F}.Release|x86.Build.0 = Release|Any CPU
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Debug|Any CPU.Build.0 = Debug|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Debug|x64.ActiveCfg = Debug|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Debug|x64.Build.0 = Debug|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Debug|x86.ActiveCfg = Debug|Win32
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Debug|x86.Build.0 = Debug|Win32
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Release|Any CPU.ActiveCfg = Release|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Release|Any CPU.Build.0 = Release|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Release|x64.ActiveCfg = Release|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Release|x64.Build.0 = Release|x64
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Release|x86.ActiveCfg = Release|Win32
+		{54AD6D16-51A4-4C01-8F00-E414C81DA891}.Release|x86.Build.0 = Release|Win32
 		{6969BA9F-79D4-4319-A2AC-FD7175128F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6969BA9F-79D4-4319-A2AC-FD7175128F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6969BA9F-79D4-4319-A2AC-FD7175128F5D}.Debug|x64.ActiveCfg = Debug|Any CPU
