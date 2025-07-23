@@ -1,4 +1,4 @@
-## 游戏惩罚 API 展示
+## 游戏惩罚数据 API 简介
 ### 函数展示：默认惩罚
 ```CS
 // 增加默认惩罚强度
@@ -27,8 +27,7 @@ DGLab.SetRandomStrength.Set(int value);
 DGLab.GetStrengthConfig( );
 ```
 ### 强制参数介绍
-#### value
-所设定的惩罚值，它应该是 int 类型
+- **value** 所设定的惩罚值，它应该是 int 类型
 ### 响应数据
 ```CS
 public class StrengthConfigJson
