@@ -6,8 +6,17 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AreaSelector\icon\check.png" />
+    <None Remove="AreaSelector\icon\close.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DGLabGameController\DGLabGameController.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AreaSelector\icon\check.png" />
+    <Resource Include="AreaSelector\icon\close.png" />
   </ItemGroup>
 
 </Project>

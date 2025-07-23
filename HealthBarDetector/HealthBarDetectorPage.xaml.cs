@@ -115,7 +115,14 @@ namespace HealthBarDetector
 					(data) => data.Close()
 				).ShowDialog();
 			}
-		}
+            // 采集区域调试
+            using (var bmp = new Bitmap(selectedArea.Width, selectedArea.Height))
+            using (var g = Graphics.FromImage(bmp))
+            {
+                g.CopyFromScreen(selectedArea.X, selectedArea.Y, 0, 0, selectedArea.Size);
+                bmp.Save("capture_debug.png"); // 保存到程序运行目录
+            }
+        }
 
 		/// <summary>
 		/// 颜色选择按钮点击事件
