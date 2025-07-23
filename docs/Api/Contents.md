@@ -21,18 +21,18 @@
 ### 游戏惩罚数据 API
 - 根据当前情景所增加/减少或设置指定的惩罚数据
 - 获取当前正在进行的惩罚数据
-- [前往 游戏惩罚数据 API 手册](https://github.com/LYQBING/DG-Lab-Game-Controller/edit/main/docs/Api/StrengthAPI.md)
+- [前往 游戏惩罚数据 API 手册](StrengthAPI.md)
 
 ### 一键开火 API
 - 当触发特殊事件时向 DG-LAB 设备所发送的开火惩罚数据
-- [前往 一键开火 API 手册](https://github.com/LYQBING/DG-Lab-Game-Controller/edit/main/docs/Api/FireApi.md)
+- [前往 一键开火 API 手册](FireApi.md)
 
 ### 游戏波形 API
 - 为您的 DG-LAB 设备设置符合惩罚情景的波形数据
 - 获取当前正在播放的波形数据
-- [前往 游戏波形 API 手册](https://github.com/LYQBING/DG-Lab-Game-Controller/edit/main/docs/Api/PulseApi.md)
+- [前往 游戏波形 API 手册](PulseApi.md)
 
 ### 响应数据 API
 - 获取当前服务器的状态及数据
 - 获取当前游戏的状态及数据
-- [前往 响应数据 API 手册](https://github.com/LYQBING/DG-Lab-Game-Controller/edit/main/docs/Api/ResponseApi.md)
+- [前往 响应数据 API 手册](ResponseApi.md)
