@@ -1,4 +1,4 @@
-![image](DG-Lab-Game-Controller.png)
+![image](docs/DG-Lab-Game-Controller.png)
 
 # DG-Lab 游戏控制器
 一个希望将全部游戏郊狼化的控制器：让所有游戏都和郊狼 DG-Lab 一起发电吧！
