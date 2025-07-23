@@ -16,10 +16,8 @@ DGLab.SetPulseID(string pulseId);
 DGLab.SetPulseID(List<string> pulseIds);
 ```
 ### 强制参数介绍
-#### pulseId 
-波形ID
-#### pulseIds
-波形ID列表
+- **pulseId** 您想要指定的波形ID，它应该是 string 类型
+- **pulseIds** 您想要设置的波形ID列表，它应该是 string 类型的数组
 ### 响应数据
 ```CS
 public class PulseId
