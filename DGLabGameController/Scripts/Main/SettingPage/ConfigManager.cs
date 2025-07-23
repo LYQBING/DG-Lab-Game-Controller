@@ -28,14 +28,13 @@ namespace DGLabGameController
                 }
 				catch (Exception)
 				{
-					// ignored
-				}
+					DebugHub.Warning("配置加载失败", "客户端配置文件错误或已损坏，将使用默认配置。");
+                }
 
-				if (config != null)
-					Current = config;
+				if (config != null) Current = config;
 			}
 
-			CoyoteApi.CoyotreUrl = Current.ServerUrl + ":" + Current.ServerPort + "/";
+            CoyoteApi.CoyotreUrl = Current.ServerUrl + ":" + Current.ServerPort + "/";
 			CoyoteApi.ClientID = Current.ClientId;
 			return Current;
 		}
