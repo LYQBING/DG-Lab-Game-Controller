@@ -1,9 +1,11 @@
 ## 服务器响应数据 API 简介
+
 ### 函数展示：获取相关
 ```CS
 // 获取服务器响应数据
 DGLab.GetServerResponse( );
 ```
+
 ### 响应数据
 ```CS
 public class ServerResponse
@@ -16,13 +18,18 @@ public class ServerResponse
 	public int MaxApiVersion { get; set; }
 }
 ```
+
 ## 游戏响应数据 API 简介
+
 ### 函数展示：获取相关
+
 ```CS
 // 获取游戏响应数据
 DGLab.GetGameResponse( );
 ```
+
 ### 响应数据
+
 ```CS
 public class GameResponse
 {
