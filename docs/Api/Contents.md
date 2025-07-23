@@ -21,7 +21,7 @@
 ### 游戏惩罚数据 API
 - 根据当前情景所增加/减少或设置指定的惩罚数据
 - 获取当前正在进行的惩罚数据
-- [前往 游戏惩罚数据 API 手册](docs/Api/StrengthAPI.md)
+- [前往 游戏惩罚数据 API 手册](../docs/Api/StrengthAPI.md)
 
 ### 一键开火 API
 - 当触发特殊事件时向 DG-LAB 设备所发送的开火惩罚数据
