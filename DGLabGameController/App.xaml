@@ -4,101 +4,25 @@
 			 xmlns:tb="http://www.hardcodet.net/taskbar"
 			 StartupUri="Scripts/Main/MainWindow.xaml"> <!-- xmlns:local="clr-namespace:DGLabGameController" -->
 	<Application.Resources>
-		<!-- 全局颜色 -->
-		<SolidColorBrush x:Key="StandardColor_HighLight" Color="#FFE99D" />
-		<SolidColorBrush x:Key="StandardColor_Light" Color="#b8a870" />
-		<SolidColorBrush x:Key="StandardColor_Dark" Color="#807652" />
-		<SolidColorBrush x:Key="BackgroundColor_HighLight" Color="#272727" />
-		<SolidColorBrush x:Key="BackgroundColor_Light" Color="#1c1c1c" />
-		<SolidColorBrush x:Key="BackgroundColor_Dark" Color="#121212" />
-		<SolidColorBrush x:Key="FontColor" Color="#FFFFFF" />
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Themes/Colors.xaml"/>
+				<ResourceDictionary Source="Themes/ButtonStyles.xaml"/>
+				<ResourceDictionary Source="Themes/ToggleButtonStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
 
-		<!-- 桌面托盘 -->
-		<tb:TaskbarIcon x:Key="MyNotifyIcon"
-				IconSource="/icon.ico"
-				ToolTipText="DGLabGameController">
-			<tb:TaskbarIcon.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="启动主程序" Click="ShowMainWindow_Click" />
-					<MenuItem Header="启动控制台" Click="OpenConsole_Click" />
-					<MenuItem Header="退出主程序" Click="ExitMenu_Click" />
-				</ContextMenu>
-			</tb:TaskbarIcon.ContextMenu>
-		</tb:TaskbarIcon>
-
-		<!-- 选项 Button 样式 -->
-		<Style x:Key="SwitchToggleStyle" TargetType="ToggleButton">
-			<Setter Property="Width" Value="40"/>
-			<Setter Property="Height" Value="25"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="ToggleButton">
-						<Grid Height="25">
-							<Border x:Name="SwitchBorder" CornerRadius="12" Background="{StaticResource BackgroundColor_HighLight}" Height="24"/>
-							<Ellipse x:Name="SwitchThumb" Width="16" Height="16" Fill="{StaticResource StandardColor_Dark}" Margin="4,4,4,4" HorizontalAlignment="Left"/>
-						</Grid>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsChecked" Value="True">
-								<Setter TargetName="SwitchBorder" Property="Background" Value="{StaticResource StandardColor_Dark}"/>
-								<Setter TargetName="SwitchThumb" Property="Fill" Value="{StaticResource StandardColor_HighLight}"/>
-								<Setter TargetName="SwitchThumb" Property="HorizontalAlignment" Value="Right"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<!-- 圆角 Button 样式，带悬停和按下反馈 -->
-		<Style x:Key="RoundButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-			<Setter Property="Background" Value="{StaticResource StandardColor_HighLight}" />
-			<Setter Property="Foreground" Value="{StaticResource FontColor}" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border x:Name="border"
-						Background="{TemplateBinding Background}"
-						CornerRadius="8"
-						BorderThickness="0"
-						BorderBrush="{TemplateBinding BorderBrush}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						</Border>
-						<ControlTemplate.Triggers>
-							<!-- 选择时颜色 -->
-							<Trigger Property="IsPressed" Value="True">
-								<Setter TargetName="border" Property="Background" Value="{StaticResource StandardColor_Dark}" />
-							</Trigger>
-							
-							<!-- 禁用时颜色 -->
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundColor_Dark}" />
-								<Setter Property="Foreground" Value="{StaticResource StandardColor_Dark}"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<!-- 扁平化 Button 样式 -->
-		<Style x:Key="FlatButtonStyle" TargetType="Button">
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="BorderBrush" Value="Transparent"/>
-			<Setter Property="BorderThickness" Value="0"/>
-			<Setter Property="Padding" Value="0"/>
-			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border Background="{TemplateBinding Background}"
-						BorderBrush="{TemplateBinding BorderBrush}"
-						BorderThickness="{TemplateBinding BorderThickness}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
+			<!-- 桌面托盘（如需全局可用可保留在此） -->
+			<tb:TaskbarIcon x:Key="MyNotifyIcon"
+			IconSource="/icon.ico"
+			ToolTipText="DGLabGameController">
+				<tb:TaskbarIcon.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="启动主程序" Click="ShowMainWindow_Click" />
+						<MenuItem Header="启动控制台" Click="OpenConsole_Click" />
+						<MenuItem Header="退出主程序" Click="ExitMenu_Click" />
+					</ContextMenu>
+				</tb:TaskbarIcon.ContextMenu>
+			</tb:TaskbarIcon>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>
