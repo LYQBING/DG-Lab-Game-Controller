@@ -1,6 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<!-- 圆角 Button 样式，带悬停和按下反馈 -->
-	<Style x:Key="RoundButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+	<Style x:Key="RoundButtonStyle" TargetType="Button">
 		<Setter Property="Background" Value="{DynamicResource StandardColor_HighLight}" />
 		<Setter Property="Foreground" Value="{DynamicResource FontColor}" />
 		<Setter Property="Template">
