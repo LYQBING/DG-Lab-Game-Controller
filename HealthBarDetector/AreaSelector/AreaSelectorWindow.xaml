@@ -69,13 +69,13 @@
 					Click="ConfirmButton_Click"
 					ToolTip="确定"
 					Margin="0,0,5,0">
-					<Image Source="/HealthBarDetector;component/AreaSelector/icon/check.png" Width="28" Height="28"/>
+					<Image Source="/HealthBarDetector;component/Assets/check.png" Width="28" Height="28"/>
 				</Button>
 
 				<Button Style="{StaticResource FlatButtonStyle}"
 					Click="CancelButton_Click"
 					ToolTip="取消">
-					<Image Source="/HealthBarDetector;component/AreaSelector/icon/close.png" Width="28" Height="28"/>
+					<Image Source="/HealthBarDetector;component/Assets/close.png" Width="28" Height="28"/>
 				</Button>
 			</StackPanel>
 		</Border>

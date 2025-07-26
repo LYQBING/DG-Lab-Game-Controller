@@ -8,15 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AreaSelector\icon\check.png" />
-    <None Remove="AreaSelector\icon\close.png" />
+    <None Remove="Assets\check.png" />
+    <None Remove="Assets\close.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DGLabGameController\DGLabGameController.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="AreaSelector\icon\check.png" />
-    <Resource Include="AreaSelector\icon\close.png" />
+    <Resource Include="Assets\check.png" />
+    <Resource Include="Assets\close.png" />
   </ItemGroup>
 
 </Project>
