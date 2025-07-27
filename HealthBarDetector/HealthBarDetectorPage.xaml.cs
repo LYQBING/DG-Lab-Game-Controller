@@ -16,12 +16,14 @@ namespace HealthBarDetector
 		public int SleepTime { get; set; } = 200; // 检测间隔时间，单位毫秒
 
 		public int BaseValue { get; set; } = 5; // 基础输出值，无论是否触发惩罚都会输出的基础值
-
+		
+		public static HealthBarDetectorPage? Instance { get; private set; }
 		public HealthBarDetectorPage()
 		{
 			InitializeComponent();
 
 			// 初始化检测区域列表
+			Instance = this;
 			AreaList.ItemsSource = detectionManager.Areas;
 			AreaList.MouseDoubleClick += AreaList_MouseDoubleClick;
 
@@ -85,9 +87,8 @@ namespace HealthBarDetector
 		/// <summary>
 		/// 开始/停止检测按钮事件
 		/// </summary>
-		public async void BtnStart_Click(object sender, RoutedEventArgs e)
+		public async void BtnStart_Click(object? sender = null, RoutedEventArgs? e =null)
 		{
-			// 如果当前正在检测，则取消检测
 			if (cts != null)
 			{
 				cts.Cancel();
@@ -101,7 +102,6 @@ namespace HealthBarDetector
 				return;
 			}
 
-			// 启动检测
 			cts = new CancellationTokenSource();
 			BtnStart.Content = "停止检测";
 			try

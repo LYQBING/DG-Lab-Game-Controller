@@ -14,7 +14,8 @@ namespace HealthBarDetector.Services
 			[DetectionType.MostFrequentColorIsTarget] = area =>
 			{
 				var mostColor = ColorUtils.GetMostFrequentColor(area.Area);
-				if(mostColor != area.Temps.color && ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance))
+				if (mostColor == area.Temps.color) return;
+				if (ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance))
 				{
 					PenaltyExecutor.Execute(area.PenaltyType, area.PenaltyValueA);
 				}
@@ -23,7 +24,8 @@ namespace HealthBarDetector.Services
 			[DetectionType.MostFrequentColorIsNotTarget] = area =>
 			{
 				var mostColor = ColorUtils.GetMostFrequentColor(area.Area);
-				if(mostColor != area.Temps.color && !ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance))
+				if (mostColor == area.Temps.color) return;
+				if (!ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance))
 				{
 					PenaltyExecutor.Execute(area.PenaltyType, area.PenaltyValueA);
 				}
@@ -49,6 +51,15 @@ namespace HealthBarDetector.Services
 					double penaltyValue = area.PenaltyValueA * (1 - percent);
 
 					PenaltyExecutor.Execute(area.PenaltyType, (int)penaltyValue);
+				}
+			},
+			[DetectionType.TargetColorDifferentTemp] = area =>
+			{
+				var mostColor = ColorUtils.GetMostFrequentColor(area.Area);
+				if(mostColor != area.Temps.color)
+				{
+					area.Temps.color = mostColor;
+					PenaltyExecutor.Execute(area.PenaltyType, area.PenaltyValueA);
 				}
 			}
 		};

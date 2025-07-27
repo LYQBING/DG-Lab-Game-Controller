@@ -14,7 +14,9 @@ namespace HealthBarDetector.Services
 		/// <summary> 根据颜色已占据比例执行 </summary>
 		TargetColorPercentage,
 		/// <summary> 根据颜色未占据比例执行 </summary>
-		TargetColorNotPercentage
+		TargetColorNotPercentage,
+		/// <summary> 当颜色发生变化时执行 </summary>
+		TargetColorDifferentTemp
 	}
 
 	/// <summary>
@@ -33,7 +35,9 @@ namespace HealthBarDetector.Services
 		/// <summary> 增加随机强度 </summary>
 		AddRandomStrength,
 		/// <summary> 减弱随机强度 </summary>
-		SubRandomStrength
+		SubRandomStrength,
+		/// <summary> 停止监测 </summary>
+		Stop
 	}
 
 	/// <summary>

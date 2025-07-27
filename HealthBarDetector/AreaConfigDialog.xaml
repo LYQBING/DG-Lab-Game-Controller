@@ -109,6 +109,7 @@
 						<ComboBoxItem Content="指定颜色最少时执行" Tag="{x:Static models:DetectionType.MostFrequentColorIsNotTarget}"/>
 						<ComboBoxItem Content="根据颜色已占据比例执行" Tag="{x:Static models:DetectionType.TargetColorPercentage}"/>
 						<ComboBoxItem Content="根据颜色未占据比例执行" Tag="{x:Static models:DetectionType.TargetColorNotPercentage}"/>
+						<ComboBoxItem Content="当颜色与上次不同时执行" Tag="{x:Static models:DetectionType.TargetColorDifferentTemp}"/>
 					</ComboBox>
 				</Grid>
 
@@ -124,6 +125,7 @@
 						<ComboBoxItem Content="设置随机惩罚强度" Tag="{x:Static models:PenaltyType.SetRandomStrength}"/>
 						<ComboBoxItem Content="增加随机惩罚强度" Tag="{x:Static models:PenaltyType.AddRandomStrength}"/>
 						<ComboBoxItem Content="减少随机惩罚强度" Tag="{x:Static models:PenaltyType.SubRandomStrength}"/>
+						<ComboBoxItem Content="停止监测:无参" Tag="{x:Static models:PenaltyType.Stop}"/>
 					</ComboBox>
 				</Grid>
 

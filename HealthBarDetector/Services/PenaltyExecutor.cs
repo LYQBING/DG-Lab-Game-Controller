@@ -29,6 +29,9 @@ namespace HealthBarDetector.Services
 				case PenaltyType.SubRandomStrength:
 					DGLab.SetRandomStrength.Sub(value);
 					break;
+				case PenaltyType.Stop:
+					HealthBarDetectorPage.Instance?.BtnStart_Click();
+					break;
 			}
 		}
 	}
