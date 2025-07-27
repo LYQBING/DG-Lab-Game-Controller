@@ -3,39 +3,22 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		WindowStyle="None"
 		AllowsTransparency="True"
-		Background="#22FFFFFF"
+		Background="#88000000"
 		Topmost="True"
 		WindowState="Maximized"
 		ShowInTaskbar="False"
 		KeyDown="Window_KeyDown" Cursor="">
 	<Window.Resources>
-		<DropShadowEffect x:Key="DropShadowEffect"
-			Color="#121212"
-			BlurRadius="8"
-			ShadowDepth="2"
-			Opacity="0.4"/>
-		
-		<!-- 扁平化 Button 样式 -->
-		<Style x:Key="FlatButtonStyle" TargetType="Button">
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="BorderBrush" Value="Transparent"/>
-			<Setter Property="BorderThickness" Value="0"/>
-			<Setter Property="Padding" Value="0"/>
-			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border Background="{TemplateBinding Background}"
-								BorderBrush="{TemplateBinding BorderBrush}"
-								BorderThickness="{TemplateBinding BorderThickness}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/DGLabGameController;component/Themes/ButtonStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+
+			<DropShadowEffect x:Key="DropShadowEffect" Color="#121212" BlurRadius="8" ShadowDepth="2" Opacity="0.4"/>
+
+		</ResourceDictionary>
 	</Window.Resources>
-	
+
 	<Canvas Name="canvas">
 		<!-- 选择区域矩形 -->
 		<Rectangle x:Name="selectionRect"
@@ -45,8 +28,8 @@
 			Visibility="Collapsed"/>
 		
 		<!-- 调整手柄 -->
-        <Rectangle x:Name="resizeHandle"
-			Fill="Red"
+		<Rectangle x:Name="resizeHandle"
+			Fill="#50FF0000"
 			StrokeThickness="1"
 			Width="10" Height="10"
 			Cursor="SizeNWSE"

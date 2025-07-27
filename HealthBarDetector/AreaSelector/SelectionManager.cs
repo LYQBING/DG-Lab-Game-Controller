@@ -74,7 +74,7 @@ namespace HealthBarDetector
             isSelecting = false;
             (canvas.Parent as Window)?.ReleaseMouseCapture();
 
-            if (selectionRect.Width < 5 || selectionRect.Height < 5)
+            if (selectionRect.Width < 1 || selectionRect.Height < 1)
             {
                 selectionRect.Visibility = Visibility.Collapsed;
                 buttonPanel.Visibility = Visibility.Collapsed;
@@ -129,7 +129,7 @@ namespace HealthBarDetector
         {
             if (isResizing || isSelecting) return;
             var pos = e.GetPosition(selectionRect);
-            double margin = 5;
+            double margin = 1;
             if (pos.X > margin && pos.X < selectionRect.Width - margin &&
                 pos.Y > margin && pos.Y < selectionRect.Height - margin)
             {

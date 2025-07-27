@@ -140,7 +140,7 @@ namespace HealthBarDetector
 
 		private void Threshold_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog("最佳百分比", "当观测的颜色占满时的最佳百分比\n例：13.14% 请输入 13.14", Config.Threshold.ToString(), "设定", "取消", data =>
+			new InputDialog("最佳百分比", "当观测的颜色占满时的最佳百分比\n例：13.14% 请输入 13.14", $"{Config.Threshold * 100}%", "设定", "取消", data =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText) && float.TryParse(data.InputText, out float value) && value <= 100 && value >= 0)
 				{
