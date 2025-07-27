@@ -8,71 +8,13 @@
 	Background="{DynamicResource BackgroundColor_Dark}">
 
 	<UserControl.Resources>
-		<Style x:Key="SettingRowGridStyle" TargetType="Grid">
-			<Setter Property="Height" Value="36" />
-			<Setter Property="VerticalAlignment" Value="Center" />
-		</Style>
-		<Style x:Key="SettingRowTextStyle" TargetType="TextBlock">
-			<Setter Property="VerticalAlignment" Value="Center" />
-			<Setter Property="FontSize" Value="14" />
-			<Setter Property="Foreground" Value="{DynamicResource FontColor }" />
-		</Style>
-
-		<!-- 若你想要将其样式与主程序同步：请在保存前移除下面代码 -->
-		<!-- 移除后将会报错，但不必担心，因为主程序中包含的样式这里读取不到 -->
-		<!-- 当程序运行时就能正常读取了，这是 Xaml 的自身问题 -->
-		<SolidColorBrush x:Key="StandardColor_HighLight" Color="#FFE99D" />
-		<SolidColorBrush x:Key="StandardColor_Light" Color="#b8a870" />
-		<SolidColorBrush x:Key="StandardColor_Dark" Color="#807652" />
-		<SolidColorBrush x:Key="BackgroundColor_HighLight" Color="#272727" />
-		<SolidColorBrush x:Key="BackgroundColor_Light" Color="#1c1c1c" />
-		<SolidColorBrush x:Key="BackgroundColor_Dark" Color="#121212" />
-		<SolidColorBrush x:Key="FontColor" Color="#FFFFFF" />
-		<Style x:Key="RoundButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-			<Setter Property="Background" Value="{StaticResource StandardColor_HighLight}" />
-			<Setter Property="Foreground" Value="{StaticResource FontColor}" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border x:Name="border"
-							Background="{TemplateBinding Background}"
-							CornerRadius="8"
-							BorderThickness="0"
-							BorderBrush="{TemplateBinding BorderBrush}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsPressed" Value="True">
-								<Setter TargetName="border" Property="Background" Value="{StaticResource StandardColor_Dark}" />
-							</Trigger>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundColor_Dark}" />
-								<Setter Property="Foreground" Value="{StaticResource StandardColor_Dark}" />
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		<Style x:Key="FlatButtonStyle" TargetType="Button">
-			<Setter Property="Background" Value="Transparent" />
-			<Setter Property="BorderBrush" Value="Transparent" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Padding" Value="0" />
-			<Setter Property="FocusVisualStyle" Value="{x:Null}" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		<!-- 若你想要将其样式与主程序同步，请在保存前移除上面代码 -->
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/DGLabGameController;component/Themes/Colors.xaml"/>
+				<ResourceDictionary Source="pack://application:,,,/DGLabGameController;component/Themes/ButtonStyles.xaml"/>
+				<ResourceDictionary Source="pack://application:,,,/DGLabGameController;component/Themes/SettingRowGridStyle.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</UserControl.Resources>
 
 	<Grid>
