@@ -44,7 +44,7 @@ namespace HealthBarDetector.Services
 		public Rectangle Area { get; set; } = new(255,255,255,255); // 屏幕坐标区域
 		public Color TargetColor { get; set; } = Color.Black; // 目标颜色
 		public int Tolerance { get; set; } = 25; // 容差值
-		public DetectionType DetectionType { get; set; } = DetectionType.TargetColorPercentage; // 处罚方案
+		public DetectionType DetectionType { get; set; } = DetectionType.MostFrequentColorIsTarget; // 处罚方案
 		public float Threshold { get; set; } = 1; // 最佳百分比
 		public PenaltyType PenaltyType { get; set; } = PenaltyType.SetStrength; // 惩罚类型
 		public int PenaltyValueA { get; set; } = 30; // 惩罚值 A
@@ -59,5 +59,6 @@ namespace HealthBarDetector.Services
 	public class AreaTemp()
 	{
 		public double percent = 0;
+		public Color color = Color.White;
 	}
 }

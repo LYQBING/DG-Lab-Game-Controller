@@ -189,18 +189,14 @@ namespace HealthBarDetector
 
 		#region 配置单/存档事件
 
-		private void Back_Click(object sender, RoutedEventArgs e) => DialogResult = false;
-
 		private void BtnOK_Click(object sender, RoutedEventArgs e) => DialogResult = true;
 
-		private void BtnCancel_Click(object sender, RoutedEventArgs e)
+		private void BtnCancel_Click(object sender, RoutedEventArgs e) => DialogResult = false;
+
+		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
-			if (IsLoad)
-			{
-				IsDelete = true;
-				DialogResult = true;
-			}
-			else DialogResult = false;
+			IsDelete = true;
+			DialogResult = true;
 		}
 
 		private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

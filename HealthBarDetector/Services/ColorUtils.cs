@@ -82,9 +82,9 @@ namespace HealthBarDetector.Services
 		/// <returns></returns>
 		public static bool IsColorMatch(Color a, Color b, int tolerance)
 		{
-			return System.Math.Abs(a.R - b.R) <= tolerance &&
-				   System.Math.Abs(a.G - b.G) <= tolerance &&
-				   System.Math.Abs(a.B - b.B) <= tolerance;
+			return Math.Abs(a.R - b.R) <= tolerance &&
+				   Math.Abs(a.G - b.G) <= tolerance &&
+				   Math.Abs(a.B - b.B) <= tolerance;
 		}
 	}
 }

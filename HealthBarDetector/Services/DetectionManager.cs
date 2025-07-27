@@ -8,40 +8,48 @@ namespace HealthBarDetector.Services
 	/// </summary>
 	public class DetectionManager
 	{
-		public ObservableCollection<DetectionAreaConfig> Areas { get; set; } = [];
-		public Func<int> GetSleepTime { get; set; } = () => 200;
-
-		// 规则委托
-		private delegate (bool trigger, int penaltyValue) DetectionStrategy(DetectionAreaConfig area);
+		private delegate void DetectionStrategy(DetectionAreaConfig area);
 		private static readonly Dictionary<DetectionType, DetectionStrategy> Strategies = new()
 		{
 			[DetectionType.MostFrequentColorIsTarget] = area =>
 			{
 				var mostColor = ColorUtils.GetMostFrequentColor(area.Area);
-				bool trigger = ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance);
-				return (trigger, area.PenaltyValueA);
+				if(mostColor != area.Temps.color && ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance))
+				{
+					PenaltyExecutor.Execute(area.PenaltyType, area.PenaltyValueA);
+				}
+				area.Temps.color = mostColor;
 			},
 			[DetectionType.MostFrequentColorIsNotTarget] = area =>
 			{
 				var mostColor = ColorUtils.GetMostFrequentColor(area.Area);
-				bool trigger = !ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance);
-				return (trigger, area.PenaltyValueA);
+				if(mostColor != area.Temps.color && !ColorUtils.IsColorMatch(mostColor, area.TargetColor, area.Tolerance))
+				{
+					PenaltyExecutor.Execute(area.PenaltyType, area.PenaltyValueA);
+				}
+				area.Temps.color = mostColor;
 			},
 			[DetectionType.TargetColorPercentage] = area =>
 			{
 				double percent = ColorUtils.CalculateColorPercent(area.Area, area.TargetColor, area.Tolerance);
-				bool trigger = Math.Abs(percent - area.Temps.percent) > 0.01 && percent <= area.Threshold;
-				area.Temps.percent = percent;
-				double penaltyValue = area.PenaltyValueA * percent;
-				return (trigger, (int)penaltyValue);
+				if (Math.Abs(percent - area.Temps.percent) > 0.01 && percent <= area.Threshold)
+				{
+					area.Temps.percent = percent;
+					double penaltyValue = area.PenaltyValueA * percent;
+
+					PenaltyExecutor.Execute(area.PenaltyType, (int)penaltyValue);
+				}
 			},
 			[DetectionType.TargetColorNotPercentage] = area =>
 			{
 				double percent = ColorUtils.CalculateColorPercent(area.Area, area.TargetColor, area.Tolerance);
-				bool trigger = Math.Abs(percent - area.Temps.percent) > 0.01 && percent <= area.Threshold;
-				area.Temps.percent = percent;
-				double penaltyValue = area.PenaltyValueA * (1 - percent);
-				return (trigger, (int)penaltyValue);
+				if (Math.Abs(percent - area.Temps.percent) > 0.01 && percent <= area.Threshold)
+				{
+					area.Temps.percent = percent;
+					double penaltyValue = area.PenaltyValueA * (1 - percent);
+
+					PenaltyExecutor.Execute(area.PenaltyType, (int)penaltyValue);
+				}
 			}
 		};
 
@@ -61,23 +69,22 @@ namespace HealthBarDetector.Services
 			}
 		}
 
+		#region 监测及惩罚处理
+
+		public Func<int> GetSleepTime { get; set; } = () => 200;
+
+		public ObservableCollection<DetectionAreaConfig> Areas { get; set; } = [];
+
 		public async Task StartDetectionAsync(CancellationToken token)
 		{
 			while (!token.IsCancellationRequested)
 			{
-				foreach (var area in Areas.Where(a => a.Enabled))
+				foreach (DetectionAreaConfig? area in Areas.Where(a => a.Enabled))
 				{
 					try
 					{
-						if (Strategies.TryGetValue(area.DetectionType, out var strategy))
-						{
-							var (trigger, penaltyValue) = strategy(area);
-							if (trigger) Executor.Execute(area.PenaltyType, penaltyValue);
-						}
-						else
-						{
-							DebugHub.Warning("未知检测类型", $"区域[{area.Name}]检测类型未注册：{area.DetectionType}");
-						}
+						if (Strategies.TryGetValue(area.DetectionType, out DetectionStrategy? strategy)) strategy(area);
+						else DebugHub.Warning("未知检测类型", $"区域[{area.Name}]检测类型未注册：{area.DetectionType}");
 					}
 					catch (Exception ex)
 					{
@@ -87,5 +94,7 @@ namespace HealthBarDetector.Services
 				await Task.Delay(GetSleepTime(), token);
 			}
 		}
+
+		#endregion
 	}
 }

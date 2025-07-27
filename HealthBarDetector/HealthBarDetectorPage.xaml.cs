@@ -57,8 +57,14 @@ namespace HealthBarDetector
 				if (dialog.ShowDialog() == true)
 				{
 					int idx = detectionManager.Areas.IndexOf(config);
-					if (dialog.IsDelete && idx >= 0) detectionManager.Areas.RemoveAt(idx);
-					else if (idx >= 0) detectionManager.Areas[idx] = dialog.Config;
+					if (dialog.IsDelete && idx >= 0)
+					{
+						detectionManager.Areas.RemoveAt(idx);
+					}
+					else if (idx >= 0)
+					{
+						detectionManager.Areas[idx] = dialog.Config;
+					}
 				}
 			}
 		}
@@ -118,8 +124,10 @@ namespace HealthBarDetector
 		private void BtnAddArea_Click(object sender, RoutedEventArgs e)
 		{
 			var dialog = new AreaConfigDialog();
-			if (dialog.ShowDialog() == true)
+			if (dialog.ShowDialog() == true && dialog.IsDelete == false)
+			{
 				detectionManager.Areas.Add(dialog.Config);
+			}
 		}
 
 		#endregion

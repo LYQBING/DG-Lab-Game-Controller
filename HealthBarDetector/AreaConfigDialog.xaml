@@ -36,8 +36,8 @@
 						   FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-					<Button Click="Back_Click" Width="32" Height="32" Style="{StaticResource FlatButtonStyle}">
-						<Image Source="/DGLabGameController;component/Assets/Back.png" Width="24" Height="24" />
+					<Button Click="Delete_Click" Width="32" Height="32" Style="{StaticResource FlatButtonStyle}">
+						<Image Source="/DGLabGameController;component/Assets/Delete.png" Width="24" Height="24" />
 					</Button>
 				</StackPanel>
 			</Grid>
@@ -168,7 +168,7 @@
 
 				<Button Click="BtnCancel_Click"
 					Grid.Column="2" 
-					Content="移除"
+					Content="取消"
 					Width="90" Height="36"
 					Style="{StaticResource RoundButtonStyle}"
 					FontSize="14"
