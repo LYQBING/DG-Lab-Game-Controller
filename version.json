@@ -1,4 +1,6 @@
 {
-    "version": "2.0.0",
-    "description": "测试"
+    "VersionNumber": "v3.5.00",
+    "VersionName": "发现新版本",
+    "VersionDescription": "一个更适合模块开发的版本，支持了远程更新",
+    "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
 }
