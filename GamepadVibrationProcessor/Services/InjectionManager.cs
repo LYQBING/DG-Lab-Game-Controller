@@ -1,4 +1,5 @@
-﻿using DGLabGameController;
+﻿using DGLabGameController.Core.Debug;
+using DGLabGameController.Core.DGLabApi;
 using System.IO;
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
@@ -189,7 +190,7 @@ namespace GamepadVibrationProcessor.Services
 								float output = Math.Max(left, right) / 65535;
 								output = output * HandleInjection.PenaltyValue + HandleInjection.BaseValue;
 
-								_ = lyqbing.DGLAB.DGLab.SetStrength.Set((int)output);
+								_ = DGLab.SetStrength.Set((int)output);
 							}
 							else
 							{

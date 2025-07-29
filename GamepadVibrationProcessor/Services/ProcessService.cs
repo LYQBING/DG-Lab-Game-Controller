@@ -1,4 +1,4 @@
-﻿using DGLabGameController;
+﻿using DGLabGameController.Core.Debug;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,12 +10,12 @@ namespace GamepadVibrationProcessor.Services
 	/// <summary>
 	/// 进程服务：用于获取当前系统中所有正在运行的进程列表
 	/// </summary>
-	public class ProcessService
+	public static class ProcessService
     {
 		/// <summary>
 		/// 获取当前系统中所有正在运行的进程列表
 		/// </summary>
-		public ObservableCollection<ProcessInfo> GetProcessList(bool verboseLogs = false)
+		public static ObservableCollection<ProcessInfo> GetProcessList()
         {
             var list = new ObservableCollection<ProcessInfo>();
             foreach (var proc in Process.GetProcesses())
@@ -36,8 +36,7 @@ namespace GamepadVibrationProcessor.Services
                 }
                 catch (Exception ex)
                 {
-                    if (verboseLogs)
-                        DebugHub.Log("进程访问异常", $"无法访问程序: {proc.ProcessName}:{ex.Message}");
+                    DebugHub.Log("进程访问异常", $"无法访问程序: {proc.ProcessName}:{ex.Message}",true);
                 }
             }
             return list;

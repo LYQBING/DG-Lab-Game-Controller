@@ -1,4 +1,6 @@
 ﻿using DGLabGameController;
+using DGLabGameController.Core.Config;
+using DGLabGameController.Core.Debug;
 using GamepadVibrationProcessor.Services;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -22,13 +24,11 @@ namespace GamepadVibrationProcessor
 		public static int PenaltyValue { get; set; } = 20;
 		public string ModuleFolderPath { get; set; } = "";
 
-		private readonly ProcessService _processService = new();
-
 		public HandleInjection(string moduleId)
 		{
 			InitializeComponent();
 			ProcessListView.ItemsSource = ProcessList;
-			ModuleFolderPath = Path.Combine(ConfigManager.ModulesPath, moduleId);
+			ModuleFolderPath = Path.Combine(AppConfig.ModulesPath, moduleId);
 
 			Refresh_Click();
 			BaseValueText.Text = BaseValue.ToString();
@@ -49,7 +49,7 @@ namespace GamepadVibrationProcessor
 		/// </summary>
 		public void BaseValue_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog("基础输出值", "无论是否触发惩罚都会输出的基础值哦", BaseValueText.Text, "设定", "取消",
+			new InputDialog("基础输出值", "无论是否触发惩罚都会输出的基础值哦", BaseValueText.Text, "设定",
 			(data) =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText) && int.TryParse(data.InputText, out int value))
@@ -62,7 +62,7 @@ namespace GamepadVibrationProcessor
 					DebugHub.Warning("设置未生效", "主人...请输入一个正常的 int 数值吧");
 				}
 				data.Close();
-			},
+			}, "取消",
 			(data) => data.Close()).ShowDialog();
 		}
 
@@ -71,7 +71,7 @@ namespace GamepadVibrationProcessor
 		/// </summary>
 		public void PenaltyValue_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog("惩罚输出值", "主人触发惩罚时就会根据这个值输出哦", PenaltyValueText.Text, "设定", "取消",
+			new InputDialog("惩罚输出值", "主人触发惩罚时就会根据这个值输出哦", PenaltyValueText.Text, "设定",
 			(data) =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText) && int.TryParse(data.InputText, out int value))
@@ -84,7 +84,7 @@ namespace GamepadVibrationProcessor
 					DebugHub.Warning("设置未生效", "主人...请输入一个正常的 int 数值吧");
 				}
 				data.Close();
-			},
+			}, "取消",
 			(data) => data.Close()).ShowDialog();
 		}
 
@@ -103,16 +103,15 @@ namespace GamepadVibrationProcessor
 				new MessageDialog("禁止自注入", "主人...无论如何也不能对自己下手哦！", "知道了", (data) => data.Close()).ShowDialog();
 				return;
 			}
-
+			// 注入 DLL
 			string dllPath = Path.Combine(ModuleFolderPath, "GamepadVibrationHook.dll");
-			bool result = InjectionManager.Inject(selected.Id, dllPath, out var error);
-			if (Application.Current.MainWindow is MainWindow mw) mw.NavLog_Click();
-			if (result)
+			if (InjectionManager.Inject(selected.Id, dllPath, out var error))
 			{
 				DebugHub.Success("等待客户端", "等待客户端回执中...");
 				DebugHub.Log("特别注意", "无法向已注入模块的客户端再次注入！这将不会返回任何回执数据。若需重新注入，请重启对应客户端。");
 			}
 			else DebugHub.Error("注入失败", "尝试对客户端释放 DLL 时发生了意料之外的错误！");
+			if (Application.Current.MainWindow is MainWindow mw) mw.NavLog_Click();
 		}
 
 		/// <summary>
@@ -122,8 +121,7 @@ namespace GamepadVibrationProcessor
 		{
 			ProcessList.Clear();
 			await Task.Delay(1);
-			foreach (var proc in _processService.GetProcessList(ConfigManager.Current.VerboseLogs))
-				ProcessList.Add(proc);
+			foreach (var proc in ProcessService.GetProcessList()) ProcessList.Add(proc);
 		}
 	}
 }
