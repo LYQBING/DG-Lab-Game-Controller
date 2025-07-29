@@ -1,4 +1,5 @@
 ﻿using DGLabGameController;
+using DGLabGameController.Core.Debug;
 using HealthBarDetector.Services;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,7 +70,7 @@ namespace HealthBarDetector
 
 		private void Name_Click(object sender, EventArgs e)
 		{
-			new InputDialog("配置单名称", "主人，请为当前的配置单设置个名称吧...", TxtName.Text, "设定", "取消", data =>
+			new InputDialog("配置单名称", "主人，请为当前的配置单设置个名称吧...", TxtName.Text, "设定", data =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText))
 				{
@@ -78,7 +79,7 @@ namespace HealthBarDetector
 				}
 				else DebugHub.Warning("设置未生效", "杂鱼主人！什么都没有是什么意思嘛！？");
 				data.Close();
-			}, data => data.Close()).ShowDialog();
+			}, "取消", data => data.Close()).ShowDialog();
 		}
 
 		private void BtnSelectArea_Click(object sender, RoutedEventArgs e)
@@ -126,7 +127,7 @@ namespace HealthBarDetector
 
 		private void Tolerance_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog("色彩容差值", "请输入 0-255 之间的整数，数值越大对颜色要求越宽松哦", TxtTolerance.Text, "设定", "取消", data =>
+			new InputDialog("色彩容差值", "请输入 0-255 之间的整数，数值越大对颜色要求越宽松哦", TxtTolerance.Text, "设定", data =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText) && int.TryParse(data.InputText, out int value) && value >= 0 && value <= 255)
 				{
@@ -135,12 +136,12 @@ namespace HealthBarDetector
 				}
 				else DebugHub.Warning("设置未生效", "杂鱼主人！必须输入一个有效的容差值哦！");
 				data.Close();
-			}, data => data.Close()).ShowDialog();
+			}, "取消", data => data.Close()).ShowDialog();
 		}
 
 		private void Threshold_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog("最佳百分比", "当观测的颜色占满时的最佳百分比\n例：13.14% 请输入 13.14", $"{Config.Threshold * 100}%", "设定", "取消", data =>
+			new InputDialog("最佳百分比", "当观测的颜色占满时的最佳百分比\n例：13.14% 请输入 13.14", $"{Config.Threshold * 100}%", "设定", data =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText) && float.TryParse(data.InputText, out float value) && value <= 100 && value >= 0)
 				{
@@ -149,7 +150,7 @@ namespace HealthBarDetector
 				}
 				else DebugHub.Warning("设置未生效", "喂喂喂！请输入在 0 - 100 之间且是一个正常的 float 数值哦，主人？");
 				data.Close();
-			}, data => data.Close()).ShowDialog();
+			}, "取消", data => data.Close()).ShowDialog();
 		}
 
 		string penaltyTitleAText = "Null";
@@ -170,7 +171,7 @@ namespace HealthBarDetector
 
 		private void PenaltyValueA_Click(object sender, RoutedEventArgs e)
 		{
-			new InputDialog(TxtPenaltyTitleA.Text, penaltyTitleAText, TxtPenaltyValueA.Text, "设定", "取消", data =>
+			new InputDialog(TxtPenaltyTitleA.Text, penaltyTitleAText, TxtPenaltyValueA.Text, "设定", data =>
 			{
 				if (!string.IsNullOrWhiteSpace(data.InputText) && int.TryParse(data.InputText, out int value))
 				{
@@ -179,7 +180,7 @@ namespace HealthBarDetector
 				}
 				else DebugHub.Warning("设置未生效", "杂鱼主人！就算不想被调教的喵喵叫，至少也输入个 0 吧？");
 				data.Close();
-			}, data => data.Close()).ShowDialog();
+			}, "取消", data => data.Close()).ShowDialog();
 		}
 
 		private void ChkEnabled_Checked(object sender, RoutedEventArgs e) => Config.Enabled = true;

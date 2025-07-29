@@ -1,4 +1,4 @@
-﻿using DGLabGameController;
+﻿using DGLabGameController.Core.Debug;
 using System.Collections.ObjectModel;
 
 namespace HealthBarDetector.Services

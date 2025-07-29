@@ -1,4 +1,4 @@
-﻿using lyqbing.DGLAB;
+﻿using DGLabGameController.Core.DGLabApi;
 
 namespace HealthBarDetector.Services
 {
