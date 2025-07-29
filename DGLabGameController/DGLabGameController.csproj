@@ -12,13 +12,13 @@
 
   <ItemGroup>
     <Compile Remove="DLL\**" />
-    <Compile Remove="Scripts\HandleInjection\**" />
+    <Compile Remove="Core\HandleInjection\**" />
     <EmbeddedResource Remove="DLL\**" />
-    <EmbeddedResource Remove="Scripts\HandleInjection\**" />
+    <EmbeddedResource Remove="Core\HandleInjection\**" />
     <None Remove="DLL\**" />
-    <None Remove="Scripts\HandleInjection\**" />
+    <None Remove="Core\HandleInjection\**" />
     <Page Remove="DLL\**" />
-    <Page Remove="Scripts\HandleInjection\**" />
+    <Page Remove="Core\HandleInjection\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Scripts\Main\FuncSelectPage\FuncSelectPage.xaml.cs">
+    <Compile Update="Main\FuncSelectPage.xaml.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
   </ItemGroup>

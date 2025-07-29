@@ -1,70 +1,61 @@
 ﻿using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Diagnostics;
-using lyqbing.DGLAB;
+using DGLabGameController.Core.DGLabApi;
+using DGLabGameController.Core.Config;
 
 namespace DGLabGameController
 {
 	public partial class App : Application
 	{
-		private const string UniqueMutexName = "DGLabGameController_SingleInstanceMutex";
-		public const int ApiVersion = 10086;
 		private static Mutex? _mutex;
 
+		// 程序启动时的唯一入口
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			// 确保单实例
-			_mutex = new Mutex(true, UniqueMutexName, out bool createdNew);
-			if (createdNew)
+			_mutex = new Mutex(true, "DGLabGameController_SingleInstanceMutex", out bool createdNew);
+			if (!createdNew)
 			{
-				// 初始化程序
-				base.OnStartup(e);
-				ConfigManager.Load();
-				DebugHub.Log("一切准备就绪", "欢迎回来！我们将一直保持免费且开源：关注开发者项目以表支持");
-                DebugHub.Log("程序 API 版本", $"{ApiVersion}");
-                DebugHub.Success("欢迎加入官方项目群聊", "928175340");
-                // 创建程序托盘
-                if (Current.Resources["MyNotifyIcon"] is TaskbarIcon notifyIcon) notifyIcon.TrayLeftMouseDown += ShowMainWindow_Click;
+				MessageBox.Show("再来一个是真的会坏掉的啦！", "程序正在运行", MessageBoxButton.OK, MessageBoxImage.Information);
+				Current.Shutdown();
+				return;
 			}
-			else
-			{
-                MessageBox.Show("再来一个是真的会坏掉的啦！", "程序正在运行", MessageBoxButton.OK, MessageBoxImage.Information);
-                Current.Shutdown();
-                return;
-            }
+
+			base.OnStartup(e);
+			SettingsRepository.Load();
+			InternalServerManager.StartServer();
+			if (Current.Resources["MyNotifyIcon"] is TaskbarIcon notifyIcon) notifyIcon.TrayLeftMouseDown += ShowMainWindow_Click;
 		}
 
+		// 程序退出时的唯一入口
 		protected override void OnExit(ExitEventArgs e)
 		{
-			// 关闭服务
+			// 停止服务器并保存数据
 			InternalServerManager.StopServer();
+			SettingsRepository.SaveAll();
 
-			// 保存数据
-			ConfigManager.SaveConfig();
-			ConfigManager.SaveServerConfig();
-
-			if (_mutex != null)
-			{
-				_mutex.ReleaseMutex();
-				_mutex.Dispose();
-			}
-
+			// 释放各种资源
+			_mutex?.ReleaseMutex();
+			_mutex?.Dispose();
 			base.OnExit(e);
 		}
 
-		// 启动主程序
+
+		#region 托盘菜单事件
+
+		// 启动主程序按钮事件
 		private void ShowMainWindow_Click(object sender, RoutedEventArgs e)
 		{
 			// 确保窗口不为空且未被关闭
-			if (Current.MainWindow == null)
-				return;
+			if (Current.MainWindow == null) return;
 
 			Current.MainWindow.Show();
 			Current.MainWindow.WindowState = WindowState.Normal;
 			Current.MainWindow.Activate();
 		}
 
-		// 启动控制台浏览器
+		// 启动控制台浏览器按钮事件
 		private void OpenConsole_Click(object sender, RoutedEventArgs e)
 		{
 			try
@@ -81,7 +72,9 @@ namespace DGLabGameController
 			}
 		}
 
-		// 退出主程序
+		// 退出主程序按钮事件
 		private void ExitMenu_Click(object sender, RoutedEventArgs e) => Current.Shutdown();
 	}
+
+	#endregion
 }
