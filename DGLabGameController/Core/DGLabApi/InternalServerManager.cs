@@ -27,7 +27,7 @@ namespace DGLabGameController.Core.DGLabApi
 			{
 				if (IsServerRunning())
 				{
-					DebugHub.Warning("服务器已存在", "嗯...是重复的请求呢。服务器正处于运行状态：创建请求驳回！");
+					DebugHub.Warning("服务器已启动", "嗯...是重复的请求呢。服务器正处于运行状态：创建请求驳回！");
 					return;
 				}
 
@@ -39,12 +39,12 @@ namespace DGLabGameController.Core.DGLabApi
 
 					if (!File.Exists(nodePath))
 					{
-						DebugHub.Error("服务器启动失败", $"嗯？必要的 node.exe 不存在欸：{nodePath}");
+						DebugHub.Error("服务器异常", $"嗯？必要的 node.exe 不存在欸：{nodePath}");
 						return;
 					}
 					if (!File.Exists(serverScript))
 					{
-						DebugHub.Error("服务器启动失败", $"服务器启动脚本不存在欸：{serverScript}");
+						DebugHub.Error("服务器异常", $"服务器启动脚本不存在欸：{serverScript}");
 						return;
 					}
 					if(config.DisplayPowerShell)
@@ -73,12 +73,12 @@ namespace DGLabGameController.Core.DGLabApi
 				{
 					_serverProcess?.Dispose();
 					_serverProcess = null;
-					DebugHub.Error("服务器启动失败", $"对不起...主人...我好像搞砸了...异常：{ex.Message}");
+					DebugHub.Error("服务器异常", $"对不起...主人...我好像搞砸了...异常：{ex.Message}");
 					return;
 				}
 			}
 
-			DebugHub.Success("服务器启动成功", "主人...要开始了吗？");
+			DebugHub.Log("服务器已启动", "主人...这就要开始了吗？");
 		}
 
 		/// <summary>
@@ -91,7 +91,7 @@ namespace DGLabGameController.Core.DGLabApi
 			{
 				if (_serverProcess == null)
 				{
-					DebugHub.Success("服务器关闭成功", "嗯...主人是要到此为止了吗？");
+					DebugHub.Success("服务器未启动", "嗯...主人是要到此为止了吗？");
 					return;
 				}
 
@@ -108,7 +108,7 @@ namespace DGLabGameController.Core.DGLabApi
 			}
 			catch (Exception ex)
 			{
-				DebugHub.Error("关闭服务器失败", $"对不起...主人...我好像搞砸了...异常：{ex.Message}");
+				DebugHub.Error("服务器异常", $"对不起...主人...我好像搞砸了...异常：{ex.Message}");
 				return;
 			}
 			finally
@@ -116,7 +116,7 @@ namespace DGLabGameController.Core.DGLabApi
 				processToStop.Dispose();
 			}
 
-			DebugHub.Success("服务器关闭成功", "嗯...主人是要到此为止了吗？");
+			DebugHub.Log("服务器已关闭", "嗯...主人是要到此为止了吗？");
 		}
 
 		/// <summary>
