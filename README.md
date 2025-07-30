@@ -69,3 +69,7 @@
 **它是否支持 DG-Lab-Coyote-Game-Hub 的功能？**
 
 它支持所有 [DG-Lab-Coyote-Game-Hub](https://github.com/hyperzlib/DG-Lab-Coyote-Game-Hub) 的功能或程序。同时您无需考虑本程序内是否存在相关模块，它们会通过 API 调用对您发送惩罚数据。
+
+**为什么我无法启动服务器或服务器闪退？**
+
+请确保没有将它安装在 包含特殊字符或中文字符 的路径下，在部分设备上这将会导致郊狼服务器无法获得正确的资源路径，从而发生崩溃！
