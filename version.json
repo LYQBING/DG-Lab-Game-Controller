@@ -1,6 +1,6 @@
 {
     "VersionNumber": "v3.5.02",
     "VersionName": "发现新版本",
-    "VersionDescription": "修复列表样式在部分情况下为黑色的问题\r修复颜色识别器可以保存无效数据的问题\r修复颜色识别器配置单与主要色调冲突的问题
+    "VersionDescription": "修复列表样式在部分情况下为黑色的问题\r修复颜色识别器可以保存无效数据的问题\r修复颜色识别器配置单与主要色调冲突的问题"
     "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
 }
