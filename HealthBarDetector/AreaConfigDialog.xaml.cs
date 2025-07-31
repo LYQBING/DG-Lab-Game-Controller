@@ -190,7 +190,15 @@ namespace HealthBarDetector
 
 		#region 配置单/存档事件
 
-		private void BtnOK_Click(object sender, RoutedEventArgs e) => DialogResult = true;
+		private void BtnOK_Click(object sender, RoutedEventArgs e)
+		{
+			if (Config.Area.Width == 0 || Config.Area.Height == 0)
+			{
+				new MessageDialog("无效的框选区域", $"请框选一个有效的识别区域吧...主人！", "好的", data => data.Close()).ShowDialog();
+				return;
+			}
+			DialogResult = true;
+		}
 
 		private void BtnCancel_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 

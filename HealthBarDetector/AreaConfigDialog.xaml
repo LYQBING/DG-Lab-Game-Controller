@@ -22,7 +22,8 @@
 		</ResourceDictionary>
 	</Window.Resources>
 
-	<Border Background="{StaticResource BackgroundColor_Light}" CornerRadius="15" Padding="30" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+	<Border Background="{StaticResource BackgroundColor_Light}" CornerRadius="15" Padding="30" 
+		BorderBrush="{StaticResource StandardColor_Dark}" BorderThickness="2" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>

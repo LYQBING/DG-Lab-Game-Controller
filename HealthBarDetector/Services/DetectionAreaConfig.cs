@@ -45,7 +45,7 @@ namespace HealthBarDetector.Services
 	/// </summary>
 	public class DetectionAreaConfig
 	{
-		public Rectangle Area { get; set; } = new(255,255,255,255); // 屏幕坐标区域
+		public Rectangle Area { get; set; } = new(0,0,0,0); // 屏幕坐标区域
 		public Color TargetColor { get; set; } = Color.Black; // 目标颜色
 		public int Tolerance { get; set; } = 25; // 容差值
 		public DetectionType DetectionType { get; set; } = DetectionType.MostFrequentColorIsTarget; // 处罚方案

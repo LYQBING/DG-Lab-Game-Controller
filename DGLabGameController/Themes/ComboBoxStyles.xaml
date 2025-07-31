@@ -95,7 +95,7 @@
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="32">
 						<!-- 选中项文字 -->
 						<TextBlock
-							Text="{Binding Path=SelectedItem.Content, RelativeSource={RelativeSource TemplatedParent}}"
+							Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}"
 							Style="{DynamicResource SettingRowTextStyle}"
 							FontSize="12"
 							VerticalAlignment="Center"
