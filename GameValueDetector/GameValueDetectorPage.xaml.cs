@@ -38,7 +38,18 @@ namespace GameValueDetector
             else DebugHub.Warning("返回失败", "主人...我不知道该回哪里去呢？");
         }
 
-        private void RefreshProcessButton_Click(object ?sender = null, RoutedEventArgs ?e = null)
+		private void Edit_Click(object sender, RoutedEventArgs e)
+		{
+			// 打开模块目录
+			if (!Directory.Exists(_moduleFolderPath)) Directory.CreateDirectory(_moduleFolderPath);
+			new MessageDialog("添加新脚本", "添加或管理脚本将在资源管理器中进行，是否继续前往？", "继续", data =>
+			{
+				Process.Start("explorer.exe", _moduleFolderPath);
+				data.Close();
+			}, "取消").ShowDialog();
+		}
+
+		private void RefreshProcessButton_Click(object ?sender = null, RoutedEventArgs ?e = null)
         {
 			ProcessComboBox.ItemsSource = ProcessManager.GetProcessList(); // 刷新进程列表
 			JsonFileListBox.ItemsSource = ScriptManager.GetScriptFiles(_moduleFolderPath); // 刷新脚本列表
