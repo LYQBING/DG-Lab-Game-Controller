@@ -1,6 +1,6 @@
 {
-    "VersionNumber": "v3.6.00",
-    "VersionName": "发现新版本",
-    "VersionDescription": "新增内存脚本功能，一个全新的管理器时代",
+    "VersionNumber": "v3.6.10",
+    "VersionName": "补丁修复版本",
+    "VersionDescription": "优化部分图标与现有图片大小统一\r\r内存检测器更新直观的脚本管理按钮\r\r内存检测器介绍页面完善度",
     "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
 }
