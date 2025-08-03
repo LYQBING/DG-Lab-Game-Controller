@@ -30,7 +30,7 @@
 
 			<StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
 				<Button Click="Edit_Click" Width="32" Height="32" Style="{StaticResource FlatButtonStyle}">
-					<Image Source="/DGLabGameController;component/Assets/Add.png" Width="24" Height="24" />
+					<Image Source="/DGLabGameController;component/Assets/Edit.png" Width="24" Height="24" />
 				</Button>
 				<Button Click="Back_Click" Width="32" Height="32" Style="{StaticResource FlatButtonStyle}">
 					<Image Source="/DGLabGameController;component/Assets/Back.png" Width="24" Height="24" />
