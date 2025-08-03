@@ -42,7 +42,7 @@ namespace GameValueDetector
 		{
 			// 打开模块目录
 			if (!Directory.Exists(_moduleFolderPath)) Directory.CreateDirectory(_moduleFolderPath);
-			new MessageDialog("添加新脚本", "添加或管理脚本将在资源管理器中进行，是否继续前往？", "继续", data =>
+			new MessageDialog("管理基址脚本", "管理脚本操作将在资源管理器中进行，是否继续前往？", "继续", data =>
 			{
 				Process.Start("explorer.exe", _moduleFolderPath);
 				data.Close();
