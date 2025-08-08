@@ -60,4 +60,17 @@ namespace GameValueDetector.Models
 		/// <summary>监控项列表</summary>
 		public List<MonitorItem> Monitors { get; set; } = [];
 	}
+
+	/// <summary>
+	/// 历史值类
+	/// </summary>
+	public class ValueHistory
+	{
+		/// <summary> 上次值 </summary>
+		public string LastValue { get; set; } = "0";
+		/// <summary> 当前值 </summary>
+		public string InitialValue { get; set; } = "0";
+		/// <summary> 最大值 </summary>
+		public double MaxValue { get; set; } = 0;
+	}
 }

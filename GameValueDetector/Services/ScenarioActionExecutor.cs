@@ -9,10 +9,8 @@ namespace GameValueDetector.Services
 	/// </summary>
 	public static class ScenarioActionExecutor
 	{
-		public static void Execute(ScenarioPunishment scenario, object? lastValue, object? currentValue)
+		public static void Execute(ScenarioPunishment scenario, int value)
 		{
-			int value = (int)PunishmentValueCalculator.Calculate(scenario, lastValue, currentValue);
-
 			switch (scenario.Action)
 			{
 				case "SetStrengthSet": DGLab.SetStrength.Set(value); break;

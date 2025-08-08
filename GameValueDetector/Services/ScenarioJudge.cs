@@ -1,4 +1,6 @@
-﻿namespace GameValueDetector.Services
+﻿using GameValueDetector.Models;
+
+namespace GameValueDetector.Services
 {
 	/// <summary>
 	/// 惩罚情景判断器
@@ -9,40 +11,36 @@
 		/// 惩罚情景匹配
 		/// </summary>
 		/// <param name="scenario">情景名称</param>
-		/// <param name="lastValue">上次的值</param>
-		/// <param name="currentValue">当前值</param>
 		/// <param name="compareValue">比较参数</param>
 		/// <returns></returns>
-		public static bool Match(string scenario, object? lastValue, object? currentValue, object? compareValue)
+		public static bool Match(string scenario, object? compareValue, ValueHistory valueHistory)
         {
-			string? lastStr = lastValue?.ToString(); // 上次值转换为字符串
-			string? currStr = currentValue?.ToString(); // 当前值转换为字符串
+			string lastStr = valueHistory.LastValue; // 上次值转换为字符串
+			string currStr = valueHistory.InitialValue; // 当前值转换为字符串
 			string? cmpStr = compareValue?.ToString(); // 比较值转换为字符串
-
-			static bool TryGetDouble(string? str, out double result) => double.TryParse(str, out result);
 
 			return scenario switch
 			{
 				// 检测值是否变化 : 通用
-				"Changed" => !Equals(lastValue, currentValue),
+				"Changed" => !Equals(lastStr, currStr),
 
 				// 检测值是否增加 : 数字类型
-				"Increased" when TryGetDouble(lastStr, out double oldNum) && TryGetDouble(currStr, out double newNum) => newNum > oldNum,
+				"Increased" when double.TryParse(lastStr, out double oldNum) && double.TryParse(currStr, out double newNum) => newNum > oldNum,
 
 				// 检测值是否减少 : 数字类型
-				"Decreased" when TryGetDouble(lastStr, out double oldNum) && TryGetDouble(currStr, out double newNum) => newNum < oldNum,
+				"Decreased" when double.TryParse(lastStr, out double oldNum) && double.TryParse(currStr, out double newNum) => newNum < oldNum,
 
 				// 检测值是否等于某个值 : 数字类型
-				"EqualTo" when TryGetDouble(currStr, out double newNum) && TryGetDouble(cmpStr, out double cmp) => newNum == cmp,
+				"EqualTo" when double.TryParse(currStr, out double newNum) && double.TryParse(cmpStr, out double cmp) => newNum == cmp,
 
 				// 检测值是否大于某个值 : 数字类型
-				"GreaterThan" when TryGetDouble(currStr, out double newNum) && TryGetDouble(cmpStr, out double cmp) => newNum > cmp,
+				"GreaterThan" when double.TryParse(currStr, out double newNum) && double.TryParse(cmpStr, out double cmp) => newNum > cmp,
 
 				// 检测值是否小于某个值 : 数字类型
-				"LessThan" when TryGetDouble(currStr, out double newNum) && TryGetDouble(cmpStr, out double cmp) => newNum < cmp,
+				"LessThan" when double.TryParse(currStr, out double newNum) && double.TryParse(cmpStr, out double cmp) => newNum < cmp,
 
 				// 检测值是否不等于某个值 : 数字类型
-				"NotEqualTo" when TryGetDouble(currStr, out double newNum) && TryGetDouble(cmpStr, out double cmp) => newNum != cmp,
+				"NotEqualTo" when double.TryParse(currStr, out double newNum) && double.TryParse(cmpStr, out double cmp) => newNum != cmp,
 
 				// 检测字符串是否相等 : 字符串类型
 				"StringEquals" => currStr == cmpStr,

@@ -1,51 +1,42 @@
-﻿using GameValueDetector.Models;
+﻿using DGLabGameController.Core.Debug;
+using GameValueDetector.Models;
 
 namespace GameValueDetector.Services
 {
-    public static class PunishmentValueCalculator
-    {
-        /// <summary>
-        /// 计算惩罚值
-        /// </summary>
-        public static float Calculate(ScenarioPunishment config, object? lastValue, object? memoryValueTemp)
-        {
-			float oldNum = ToFloat(lastValue);
-			float memoryValue = ToFloat(memoryValueTemp);
-			float targetValue = config.ActionValue;
-			float baseValue = GameValueDetectorPage.PenaltyValue;
+	public static class PunishmentValueCalculator
+	{
+		/// <summary>
+		/// 计算惩罚值
+		/// </summary>
+		public static float Calculate(ScenarioPunishment config, ValueHistory valueHistory)
+		{
+			if (!float.TryParse(valueHistory.LastValue, out float lastValue)) lastValue = 0; // 上次值
+			if (!float.TryParse(valueHistory.InitialValue, out float initialValue)) initialValue = 0; // 内存值
+
+			float maxValue = (float)valueHistory.MaxValue; // 最大值
+			float targetValue = config.ActionValue; // 目标值
+			float baseValue = GameValueDetectorPage.PenaltyValue; // 基值
 
 			return config.ActionMode switch
-            {
+			{
 				// 默认模式 : 返回基值乘以目标值
 				"Default" => baseValue * targetValue,
 
-				// 差值模式 : 返回内存值减去上次值 (内存为 string 时无效)
-				"Diff" => memoryValue - oldNum,
+				// 正差值模式 : 返回 内存值减去上次值乘以目标值 (内存为 string 时无效)
+				"Diff" => float.Min(baseValue, (initialValue - lastValue) * targetValue),
 
-				// 反向差值模式 : 返回上次值减去内存值  (内存为 string 时无效)
-				"Reverse_Diff" => oldNum - memoryValue,
+				// 反差值模式 : 返回 上次值减去内存值乘以目标值 (内存为 string 时无效)
+				"Reverse_Diff" => float.Min(baseValue, (lastValue - initialValue) * targetValue),
 
-				// 百分比模式 : 返回基值乘以内存值与目标值的比率  (内存为 string 时无效)
-				"Percent" when targetValue != 0 => baseValue * (memoryValue / targetValue),
+				// 正百分比模式 : 返回 此时内存与最大值时的比率 (内存为 string 时无效)
+				"Percent" => baseValue * (initialValue / maxValue),
 
-				// 反向百分比模式 : 返回基值乘以1减去内存值与目标值的比率  (内存为 string 时无效)
-				"Reverse_Percent" when targetValue != 0 => baseValue * (1f - (memoryValue / targetValue)),
+				// 反百分比模式 : 返回 1 - 此时内存与最大值时的比率 (内存为 string 时无效)
+				"Reverse_Percent" => baseValue * (1f - (initialValue / maxValue)),
 
 				// 未知模式 : 返回0
-				_ => 0f,
-            };
-
-			static float ToFloat(object? val)
-			{
-				return val switch
-				{
-					float f => f,
-					double d => (float)d,
-					int i => i,
-					string s when float.TryParse(s, out var v) => v,
-					_ => 0f
-				};
-			}
+				_ => 0
+			};
 		}
-    }
+	}
 }
