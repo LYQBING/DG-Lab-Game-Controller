@@ -1,6 +1,6 @@
 {
-    "VersionNumber": "v3.6.10",
-    "VersionName": "补丁修复版本",
-    "VersionDescription": "1.优化部分图标与现有图片大小统一\r2.内存检测器更新直观的脚本管理按钮\r3.内存检测器介绍页面完善度",
+    "VersionNumber": "v3.6.20",
+    "VersionName": "特别修订版本",
+    "VersionDescription": "1.修复心跳脚本无法解析的问题\r2.支持更好的脚本检测方案\r3.优化脚本数据计算",
     "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
 }
