@@ -1,6 +1,6 @@
 {
-    "VersionNumber": "v3.6.20",
-    "VersionName": "特别修订版本",
-    "VersionDescription": "1.修复心跳脚本无法解析的问题\r2.支持更好的脚本检测方案\r3.优化脚本数据计算",
+    "VersionNumber": "v3.6.21",
+    "VersionName": "支持脚本倍率",
+    "VersionDescription": "1.支持自定义脚本百分比倍率\r2.修复自定义脚本可能出现错误的问题\r3.更新默认通知",
     "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
 }
