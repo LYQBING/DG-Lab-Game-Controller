@@ -45,7 +45,7 @@ namespace DGLabGameController.Core.Debug
 		{
 			Logs.Clear();
 			Log("欢迎回来", "我们将一直保持免费且开源：关注开发者项目以表支持");
-			DebugHub.Success("欢迎加入官方群聊", "928175340");
+			Success("欢迎加入官方群聊", "更多教程、模块、脚本等资源尽在 QQ 群聊：928175340");
 		}
 	}
 
