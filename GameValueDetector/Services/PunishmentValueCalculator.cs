@@ -29,10 +29,10 @@ namespace GameValueDetector.Services
 				"Reverse_Diff" => float.Min(baseValue, (lastValue - initialValue) * targetValue),
 
 				// 正百分比模式 : 返回 此时内存与最大值时的比率 (内存为 string 时无效)
-				"Percent" => baseValue * (initialValue / maxValue),
+				"Percent" => baseValue * (initialValue / maxValue) * targetValue,
 
 				// 反百分比模式 : 返回 1 - 此时内存与最大值时的比率 (内存为 string 时无效)
-				"Reverse_Percent" => baseValue * (1f - (initialValue / maxValue)),
+				"Reverse_Percent" => baseValue *(1f - (initialValue / maxValue)) * targetValue,
 
 				// 未知模式 : 返回0
 				_ => 0
