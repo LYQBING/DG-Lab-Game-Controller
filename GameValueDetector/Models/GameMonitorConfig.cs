@@ -34,10 +34,10 @@ namespace GameValueDetector.Models
 		public string Action { get; set; } = string.Empty;
 
 		/// <summary>惩罚动作模式</summary>
-		public string ActionMode { get; set; } = "default";
+		public string ActionMode { get; set; } = "Default";
 
 		/// <summary>惩罚动作模式的值</summary>
-		public float ActionValue { get; set; } = 0f;
+		public float ActionValue { get; set; } = 1f;
 
 		/// <summary>惩罚动作的持续时间：目前仅用于一键开火，可以设置开火的时常</summary>
 		public int Time { get; set; } = 3000;
