@@ -5,7 +5,7 @@
 
 **[下载 DG-Lab 游戏控制器](https://github.com/LYQBING/DG-Lab-Game-Controller/releases)**
 
-**[前往开发者文档](docs/Contents.md)**
+**[前往开发者文档](Docs/Contents.md)**
 
 ## 服务器参数介绍
 **强度配置**
