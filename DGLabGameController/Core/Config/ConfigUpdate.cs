@@ -18,7 +18,7 @@ namespace DGLabGameController.Core.Config
 			}
 
 			// 判断当前版本是否在云端版本列表中
-			foreach (string version in cloudConfig.VersionNumber)
+			foreach (string version in cloudConfig.VersionNumbers)
 			{
 				if (AppConfig.AppVersion == version) return;
 			}
@@ -44,7 +44,7 @@ namespace DGLabGameController.Core.Config
 
 	public class CloudConfigItem
 	{
-		public string[] VersionNumber { get; set; } = [];
+		public string[] VersionNumbers { get; set; } = [];
 		public string VersionName { get; set; } = "发现新版本";
 		public string VersionDescription { get; set; } = "版本配置结构已发生变化，无法获取相关数据";
 		public string DownloadUrl { get; set; } = "https://github.com/LYQBING/DG-Lab-Game-Controller";
