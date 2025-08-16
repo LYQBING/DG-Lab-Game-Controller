@@ -1,5 +1,5 @@
 {
-    "VersionNumbers": [{"v3.6.30"}],
+    "VersionNumbers": ["v3.6.30"],
     "VersionName": "完善心跳脚本",
     "VersionDescription": "1.现已支持 32 位程序适配\r2.主程序支持多版本验证\r3.新增在配置结构发生变化时的更新页面",
     "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
