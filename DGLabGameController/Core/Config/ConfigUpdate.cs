@@ -44,9 +44,9 @@ namespace DGLabGameController.Core.Config
 
 	public class CloudConfigItem
 	{
-		public string[] VersionNumber { get; set; } = [];                 // 支持的版本号
-		public string VersionName { get; set; } = string.Empty;           // 版本名称
-		public string VersionDescription { get; set; } = string.Empty;    // 版本介绍
-		public string DownloadUrl { get; set; } = string.Empty;           // 下载链接
+		public string[] VersionNumber { get; set; } = [];
+		public string VersionName { get; set; } = "发现新版本";
+		public string VersionDescription { get; set; } = "版本配置结构已发生变化，无法获取相关数据";
+		public string DownloadUrl { get; set; } = "https://github.com/LYQBING/DG-Lab-Game-Controller";
 	}
 }
