@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GameValueDetector.Models
+﻿namespace GameValueDetector.Models
 {
 	/// <summary>
 	/// 监控单项

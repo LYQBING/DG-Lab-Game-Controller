@@ -1,5 +1,4 @@
-﻿using DGLabGameController.Core.Debug;
-using GameValueDetector.Models;
+﻿using GameValueDetector.Models;
 
 namespace GameValueDetector.Services
 {
