@@ -16,31 +16,35 @@ namespace DGLabGameController.Core.Config
 				DebugHub.Warning("无法获取云端配置", "尝试连接至 Github 远程仓库时发生错误：请检查您的网络环境...");
 				return;
 			}
-			if (AppConfig.AppVersion != cloudConfig.VersionNumber)
+
+			// 判断当前版本是否在云端版本列表中
+			foreach (string version in cloudConfig.VersionNumber)
 			{
-				new MessageDialog(cloudConfig.VersionName, cloudConfig.VersionDescription, "前往", data =>
-				{
-					try
-					{
-						Process.Start(new ProcessStartInfo
-						{
-							FileName = cloudConfig.DownloadUrl,
-							UseShellExecute = true
-						});
-					}
-					catch
-					{
-						DebugHub.Warning(cloudConfig.VersionName, cloudConfig.DownloadUrl);
-						data.Close();
-					}
-				}, "取消").ShowDialog();
+				if (AppConfig.AppVersion == version) return;
 			}
+
+			new MessageDialog(cloudConfig.VersionName, cloudConfig.VersionDescription, "前往", data =>
+			{
+				try
+				{
+					Process.Start(new ProcessStartInfo
+					{
+						FileName = cloudConfig.DownloadUrl,
+						UseShellExecute = true
+					});
+				}
+				catch
+				{
+					DebugHub.Warning(cloudConfig.VersionName, cloudConfig.DownloadUrl);
+					data.Close();
+				}
+			}, "取消").ShowDialog();
 		}
 	}
 
 	public class CloudConfigItem
 	{
-		public string VersionNumber { get; set; } = string.Empty;         // 版本号
+		public string[] VersionNumber { get; set; } = [];                 // 支持的版本号
 		public string VersionName { get; set; } = string.Empty;           // 版本名称
 		public string VersionDescription { get; set; } = string.Empty;    // 版本介绍
 		public string DownloadUrl { get; set; } = string.Empty;           // 下载链接
