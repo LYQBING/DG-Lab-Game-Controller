@@ -1,6 +1,24 @@
 ﻿namespace GameValueDetector.Models
 {
 	/// <summary>
+	/// 游戏监控配置类
+	/// </summary>
+	public class GameMonitorConfig
+	{
+		/// <summary>脚本介绍</summary>
+		public string Description { get; set; } = string.Empty;
+
+		/// <summary>进程名称</summary>
+		public string ProcessName { get; set; } = string.Empty;
+
+		/// <summary>是否为 32 位程序</summary>
+		public bool Is32Bit { get; set; } = false;
+
+		/// <summary>监控项列表</summary>
+		public List<MonitorItem> Monitors { get; set; } = [];
+	}
+
+	/// <summary>
 	/// 监控单项
 	/// </summary>
 	public class MonitorItem
@@ -42,21 +60,6 @@
 
 		/// <summary>是否覆盖参数：用于一键开火</summary>
 		public bool Overrides { get; set; } = false;
-	}
-
-	/// <summary>
-	/// 游戏监控配置类
-	/// </summary>
-	public class GameMonitorConfig
-	{
-		/// <summary>脚本介绍</summary>
-		public string Description { get; set; } = string.Empty;
-
-		/// <summary>进程名称</summary>
-		public string ProcessName { get; set; } = string.Empty;
-
-		/// <summary>监控项列表</summary>
-		public List<MonitorItem> Monitors { get; set; } = [];
 	}
 
 	/// <summary>
