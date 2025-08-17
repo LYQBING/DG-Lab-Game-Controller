@@ -1,0 +1,52 @@
+﻿using DGLabGameController.Core.Debug;
+using DGLabGameController.Core.Network;
+using System.Diagnostics;
+
+namespace DGLabGameController.Core.Config
+{
+	public static class ConfigUpdate
+	{
+		public static async void Update()
+		{
+			string updateUrl = "https://raw.githubusercontent.com/LYQBING/DG-Lab-Game-Controller/main/version.json";
+			CloudConfigItem? cloudConfig = await ApiHelper.GetAndParseAsync<CloudConfigItem>(updateUrl);
+
+			if (cloudConfig == null)
+			{
+				DebugHub.Warning("无法获取云端配置", "尝试连接至 Github 远程仓库时发生错误：请检查您的网络环境...");
+				return;
+			}
+
+			// 判断当前版本是否在云端版本列表中
+			foreach (string version in cloudConfig.VersionNumbers)
+			{
+				if (AppConfig.AppVersion == version) return;
+			}
+
+			new MessageDialog(cloudConfig.VersionName, cloudConfig.VersionDescription, "前往", data =>
+			{
+				try
+				{
+					Process.Start(new ProcessStartInfo
+					{
+						FileName = cloudConfig.DownloadUrl,
+						UseShellExecute = true
+					});
+				}
+				catch
+				{
+					DebugHub.Warning(cloudConfig.VersionName, cloudConfig.DownloadUrl);
+					data.Close();
+				}
+			}, "取消").ShowDialog();
+		}
+	}
+
+	public class CloudConfigItem
+	{
+		public string[] VersionNumbers { get; set; } = [];
+		public string VersionName { get; set; } = "发现新版本";
+		public string VersionDescription { get; set; } = "版本配置结构已发生变化，无法获取相关数据";
+		public string DownloadUrl { get; set; } = "https://github.com/LYQBING/DG-Lab-Game-Controller";
+	}
+}
