@@ -16,13 +16,15 @@
 
 | 参数名         | 类型            | 说明               | 示例值      |
 | ----------- | ------------- | ---------------- | -------- |
-| Description | string        | 脚本介绍：启动成功后输出介绍   | "监控血量变化" |
-| ProcessName | string        | 目标进程名称：如游戏进程名    | "Game"   |
-| Monitors    | MonitorItem[] | 监控项列表：每个元素为一个监控项 |          |
+| Description | string        | 脚本介绍：启动成功后输出介绍     | "监控血量变化" |
+| ProcessName | string        | 目标进程名称：如游戏进程名       | "Game"   |
+| Is32Bit     | bool          | 是否为32位程序                  | true     |
+| Monitors    | MonitorItem[] | 监控项列表：每个元素为一个监控项  |          |
 ```json
 {
 	"Description": "这里是你的脚本的介绍",
 	"ProcessName": "这里是游戏进程的名称",
+    "Is32Bit": 通常忽略此项，除非你要适配的程序或您的设备为 32 位
 	"Monitors": 
 	[
 	    {
