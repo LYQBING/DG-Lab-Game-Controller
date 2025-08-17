@@ -1,6 +1,6 @@
 {
-    "VersionNumbers": ["v3.6.31"],
+    "VersionNumbers": ["v3.6.32"],
     "VersionName": "完善心跳脚本",
-    "VersionDescription": "1.更新 32 位程序适配方案\r2.优化日志输出上限",
+    "VersionDescription": "1.新增 内存检测器：支持 内存值与上次值 的 变化比率 计算模式\r2.新增 内存检测器：脚本触发日志新增当前内存值\r3.恢复 内存检测器：脚本触发时的日志提示\r2.优化日志输出上限",
     "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
 }
