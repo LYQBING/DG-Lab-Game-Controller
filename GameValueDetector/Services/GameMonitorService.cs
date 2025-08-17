@@ -1,5 +1,6 @@
 ﻿using DGLabGameController.Core.Debug;
 using GameValueDetector.Models;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
 namespace GameValueDetector.Services
@@ -44,6 +45,7 @@ namespace GameValueDetector.Services
 							if (ScenarioJudge.Match(scenario.Scenario, scenario.CompareValue, valueHistory))
 							{
 								int setValue = (int)PunishmentValueCalculator.Calculate(scenario, valueHistory);
+								DebugHub.Log("执行惩罚", $"触发情景：{scenario.Scenario}，惩罚值：{setValue}, 内存值：{currentValue}");
 								ScenarioActionExecutor.Execute(scenario, setValue);
 							}
 						}

@@ -33,6 +33,12 @@ namespace GameValueDetector.Services
 				// 反百分比模式 : 返回 1 - 此时内存与最大值时的比率 (内存为 string 时无效)
 				"Reverse_Percent" => baseValue *(1f - (initialValue / maxValue)) * targetValue,
 
+				// 变化百分比模式 : 返回 内存值与上次值的变化比率 (内存为 string 时无效)
+				"ChangePercent" => baseValue * (MathF.Abs(lastValue - initialValue) / maxValue) * targetValue,
+
+				// 变化反百分比模式 : 返回 1 - 内存值与上次值的变化比率 (内存为 string 时无效)
+				"Reverse_ChangePercent" => baseValue * (1f - (MathF.Abs(lastValue - initialValue) / maxValue)) * targetValue,
+
 				// 未知模式 : 返回0
 				_ => 0
 			};
