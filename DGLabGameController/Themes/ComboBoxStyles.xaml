@@ -1,0 +1,136 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- ComboBox 下拉项样式 -->
+	<Style x:Key="ComboBoxItemWhiteTextStyle" TargetType="ComboBoxItem">
+		<!-- 默认文字色 -->
+		<Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
+		<!-- 统一字号 -->
+		<Setter Property="FontSize" Value="12"/>
+		<!-- 内容水平拉伸，垂直居中 -->
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<!-- 列表的背景色应为透明 -->
+		<Setter Property="Background" Value="Transparent"/>
+		<!-- 上下间距加大，左右间距适中，提升可读性和点击体验 -->
+		<Setter Property="Padding" Value="5"/>
+		<!-- 自定义模板，支持高亮/选中/禁用状态 -->
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ComboBoxItem">
+					<Border x:Name="Bd"
+							Background="{TemplateBinding Background}"
+							SnapsToDevicePixels="True">
+						<ContentPresenter
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							Margin="5"/>
+					</Border>
+					<ControlTemplate.Triggers>
+						<!-- 悬停时颜色 -->
+						<Trigger Property="IsHighlighted" Value="True">
+							<Setter TargetName="Bd" Property="Background" Value="{DynamicResource BackgroundColor_HighLight}"/>
+						</Trigger>
+						<!-- 选中时颜色 -->
+						<Trigger Property="IsSelected" Value="True">
+							<Setter TargetName="Bd" Property="Background" Value="{DynamicResource StandardColor_Light}"/>
+						</Trigger>
+						<!-- 禁用时颜色 -->
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="{DynamicResource BackgroundColor_Dark}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- ComboBox 展示区自定义模板 -->
+	<ControlTemplate x:Key="ComboBoxNoHighlightTemplate" TargetType="ComboBox">
+		<Grid>
+			<!-- 展示区按钮，点击展开下拉 -->
+			<ToggleButton
+				Name="ToggleButton"
+				IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+				ClickMode="Press"
+				Focusable="False"
+				Background="Transparent"
+				BorderBrush="Transparent"
+				BorderThickness="0">
+				<ToggleButton.Style>
+					<Style TargetType="ToggleButton">
+						<Setter Property="Background" Value="Transparent"/>
+						<Setter Property="BorderBrush" Value="Transparent"/>
+						<Setter Property="BorderThickness" Value="0"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="ToggleButton">
+									<Border x:Name="border"
+											Background="{TemplateBinding Background}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}">
+										<ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center"/>
+									</Border>
+									<ControlTemplate.Triggers>
+										<!-- 悬停时颜色 -->
+										<Trigger Property="IsMouseOver" Value="True">
+											<Setter TargetName="border" Property="Background" Value="Transparent"/>
+										</Trigger>
+										<!-- 按下时颜色 -->
+										<Trigger Property="IsPressed" Value="True">
+											<Setter TargetName="border" Property="Background" Value="Transparent"/>
+										</Trigger>
+										<!-- 选中时颜色 -->
+										<Trigger Property="IsChecked" Value="True">
+											<Setter TargetName="border" Property="Background" Value="Transparent"/>
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</ToggleButton.Style>
+				<!-- 展示区内容：选中项文字+右侧图标 -->
+				<Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="32">
+						<!-- 选中项文字 -->
+						<TextBlock
+							Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}"
+							Style="{DynamicResource SettingRowTextStyle}"
+							FontSize="12"
+							VerticalAlignment="Center"
+							Margin="10,0,5,0"/>
+						<!-- 右侧图标 -->
+						<Image
+							Source="/DGLabGameController;component/Assets/Next.png"
+							Width="14"
+							Height="14"
+							VerticalAlignment="Center"/>
+					</StackPanel>
+				</Border>
+			</ToggleButton>
+			<!-- 下拉列表弹窗 -->
+			<Popup
+				Name="PART_Popup"
+				Placement="Bottom"
+				IsOpen="{TemplateBinding IsDropDownOpen}"
+				AllowsTransparency="True"
+				FocusManager.IsFocusScope="True"
+				PopupAnimation="Slide">
+				<Grid
+					MinWidth="{TemplateBinding ActualWidth}"
+					MaxHeight="{TemplateBinding MaxDropDownHeight}">
+					<!-- 下拉列表背景和边框 -->
+					<Border
+						Background="{DynamicResource BackgroundColor_Light}"
+						BorderBrush="{DynamicResource FontColor}"
+						BorderThickness="1"/>
+					<!-- 下拉项滚动区 -->
+					<ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+						<ItemsPresenter/>
+					</ScrollViewer>
+				</Grid>
+			</Popup>
+		</Grid>
+	</ControlTemplate>
+</ResourceDictionary>

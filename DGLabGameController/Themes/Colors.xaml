@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- 全局颜色 -->
+	<SolidColorBrush x:Key="StandardColor_HighLight" Color="#FFE99D" />
+	<SolidColorBrush x:Key="StandardColor_Light" Color="#b8a870" />
+	<SolidColorBrush x:Key="StandardColor_Dark" Color="#807652" />
+	<SolidColorBrush x:Key="BackgroundColor_HighLight" Color="#272727" />
+	<SolidColorBrush x:Key="BackgroundColor_Light" Color="#1c1c1c" />
+	<SolidColorBrush x:Key="BackgroundColor_Dark" Color="#121212" />
+	<SolidColorBrush x:Key="FontColor" Color="#FFFFFF" />
+</ResourceDictionary>
