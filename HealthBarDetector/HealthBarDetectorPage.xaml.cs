@@ -47,6 +47,7 @@ namespace HealthBarDetector
 			cts?.Cancel();
 			cts = null;
 			AreaList.MouseDoubleClick -= AreaList_MouseDoubleClick;
+			AreaList = null;
 			GC.SuppressFinalize(this);
 		}
 

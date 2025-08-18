@@ -23,7 +23,6 @@ namespace HealthBarDetector
 		{
 			if (_page is HealthBarDetectorPage healthBarDetectorPage)
 			{
-				healthBarDetectorPage.AreaList= null; // 清除事件绑定
 				healthBarDetectorPage.Dispose(); // 释放资源
 			}
 			_page = null;
