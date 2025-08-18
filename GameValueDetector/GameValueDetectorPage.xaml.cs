@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace GameValueDetector
 {
-	public partial class GameValueDetectorPage : UserControl
+	public partial class GameValueDetectorPage : UserControl, IDisposable
 	{
 		public static int SleepTime { get; set; } = 200; // 检测间隔时间，单位毫秒
 		public static int PenaltyValue { get; set; } = 30; // 惩罚输出值，单位为游戏内数值
@@ -28,6 +28,14 @@ namespace GameValueDetector
 			PenaltyValueText.Text = PenaltyValue.ToString();
 			_moduleFolderPath = Path.Combine(AppConfig.ModulesPath, moduleId, "Archive");
 			RefreshProcessButton_Click();
+		}
+
+		public void Dispose()
+		{
+			// 取消检测任务
+			_cts?.Cancel();
+			_cts = null;
+			GC.SuppressFinalize(this);
 		}
 
 		#region 管理按钮事件

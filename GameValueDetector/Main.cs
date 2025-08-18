@@ -1,4 +1,5 @@
-﻿using DGLabGameController.Core.Module;
+﻿using DGLabGameController.Core.Debug;
+using DGLabGameController.Core.Module;
 using System.Windows.Controls;
 
 namespace GameValueDetector
@@ -14,7 +15,16 @@ namespace GameValueDetector
 
 		protected override UserControl CreatePage()
 		{
+			DebugHub.Clear();
 			return new GameValueDetectorPage(ModuleId);
+		}
+		public override void OnModulePageClosed()
+		{
+			if (_page is GameValueDetectorPage gameValueDetectorPage)
+			{
+				gameValueDetectorPage.Dispose(); // 释放资源
+			}
+			_page = null;
 		}
 	}
 }

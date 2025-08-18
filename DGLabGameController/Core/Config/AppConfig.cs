@@ -9,7 +9,7 @@ namespace DGLabGameController.Core.Config
 	public static class AppConfig
 	{
 		public const int ApiVersion = 10087; // API 版本号
-		public const string AppVersion = "v3.6.31"; // 主程序版本号
+		public const string AppVersion = "v3.6.33"; // 主程序版本号
 
 		public static readonly string DataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data"); // 数据存储路径
 		public static readonly string ModulesPath = Path.Combine(DataPath, "Modules"); // 模块存储路径

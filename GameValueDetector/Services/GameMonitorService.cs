@@ -1,6 +1,5 @@
 ﻿using DGLabGameController.Core.Debug;
 using GameValueDetector.Models;
-using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
 namespace GameValueDetector.Services

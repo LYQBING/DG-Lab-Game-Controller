@@ -15,8 +15,18 @@ namespace HealthBarDetector
 
 		protected override UserControl CreatePage()
 		{
-			DebugHub.Log("羽翼的色彩", "只需要判断这里有没有那个颜色吗？嗯...简单！");
+			DebugHub.Clear();
 			return new HealthBarDetectorPage(ModuleId);
+		}
+
+		public override void OnModulePageClosed()
+		{
+			if (_page is HealthBarDetectorPage healthBarDetectorPage)
+			{
+				healthBarDetectorPage.AreaList= null; // 清除事件绑定
+				healthBarDetectorPage.Dispose(); // 释放资源
+			}
+			_page = null;
 		}
 	}
 }
