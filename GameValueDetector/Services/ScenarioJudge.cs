@@ -30,6 +30,9 @@ namespace GameValueDetector.Services
 				// 检测值是否减少 : 数字类型
 				"Decreased" when double.TryParse(lastStr, out double oldNum) && double.TryParse(currStr, out double newNum) => newNum < oldNum,
 
+				// 检测变化幅度是否大于某个值 : 数字类型
+				"ChangeGreaterThan" when double.TryParse(lastStr, out double oldNum) && double.TryParse(currStr, out double newNum) && double.TryParse(cmpStr, out double cmp) => Math.Abs(newNum - oldNum) > cmp,
+
 				// 检测值是否等于某个值 : 数字类型
 				"EqualTo" when double.TryParse(currStr, out double newNum) && double.TryParse(cmpStr, out double cmp) => newNum == cmp,
 

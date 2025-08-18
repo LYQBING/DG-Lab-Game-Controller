@@ -21,11 +21,8 @@ namespace GameValueDetector.Services
 				// 默认模式 : 返回基值乘以目标值
 				"Default" => baseValue * targetValue,
 
-				// 正差值模式 : 返回 内存值减去上次值乘以目标值 (内存为 string 时无效)
-				"Diff" => float.Min(baseValue, (initialValue - lastValue) * targetValue),
-
-				// 反差值模式 : 返回 上次值减去内存值乘以目标值 (内存为 string 时无效)
-				"Reverse_Diff" => float.Min(baseValue, (lastValue - initialValue) * targetValue),
+				// 差值模式 : 返回 内存值减去上次值乘以目标值 (内存为 string 时无效)
+				"Diff" => float.Min(baseValue, MathF.Abs(initialValue - lastValue) * targetValue),
 
 				// 正百分比模式 : 返回 此时内存与最大值时的比率 (内存为 string 时无效)
 				"Percent" => baseValue * (initialValue / maxValue) * targetValue,
@@ -33,7 +30,7 @@ namespace GameValueDetector.Services
 				// 反百分比模式 : 返回 1 - 此时内存与最大值时的比率 (内存为 string 时无效)
 				"Reverse_Percent" => baseValue *(1f - (initialValue / maxValue)) * targetValue,
 
-				// 变化百分比模式 : 返回 内存值与上次值的变化比率 (内存为 string 时无效)
+				// 变化正百分比模式 : 返回 内存值与上次值的变化比率 (内存为 string 时无效)
 				"ChangePercent" => baseValue * (MathF.Abs(lastValue - initialValue) / maxValue) * targetValue,
 
 				// 变化反百分比模式 : 返回 1 - 内存值与上次值的变化比率 (内存为 string 时无效)
