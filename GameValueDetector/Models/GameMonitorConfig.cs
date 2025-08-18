@@ -33,6 +33,9 @@
 		public string Type { get; set; } = "";
 		/// <summary> 惩罚情景 </summary>
 		public List<ScenarioPunishment> Scenarios { get; set; } = [];
+
+		/// <summary> 监控项的唯一标识 </summary>
+		public string UniqueKey => $"{BaseAddress}_{string.Join("_", Offsets)}";
 	}
 
 	/// <summary>

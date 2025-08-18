@@ -14,14 +14,14 @@ namespace GameValueDetector.Services
 			switch (scenario.Action)
 			{
 				case "SetStrengthSet": DGLab.SetStrength.Set(value); break;
-				case "SetStrengthAdd": DGLab.SetStrength.Add(value); break;
-				case "SetStrengthSub": DGLab.SetStrength.Sub(value); break;
+				case "SetStrengthAdd": DGLab.SetStrength.Add(Math.Max(value, 1)); break;
+				case "SetStrengthSub": DGLab.SetStrength.Sub(Math.Max(value, 1)); break;
 
 				case "SetRandomStrengthSet": DGLab.SetRandomStrength.Set(value); break;
-				case "SetRandomStrengthAdd": DGLab.SetRandomStrength.Add(value); break;
-				case "SetRandomStrengthSub": DGLab.SetRandomStrength.Sub(value); break;
+				case "SetRandomStrengthAdd": DGLab.SetRandomStrength.Add(Math.Max(value, 1)); break;
+				case "SetRandomStrengthSub": DGLab.SetRandomStrength.Sub(Math.Max(value, 1)); break;
 
-				case "Fire": DGLab.Fire(value, scenario.Time, scenario.Overrides); break;
+				case "Fire": DGLab.Fire(Math.Max(value, 1), scenario.Time, scenario.Overrides); break;
 				default: DebugHub.Warning("未知惩罚动作", $"未识别的惩罚动作：{scenario.Action}"); break;
 			}
 		}

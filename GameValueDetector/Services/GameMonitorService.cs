@@ -26,7 +26,7 @@ namespace GameValueDetector.Services
 					foreach (MonitorItem monitor in config.Monitors)
 					{
 						// 获取唯一标识符
-						string key = monitor.BaseAddress;
+						string key = monitor.UniqueKey;
 						if (!valueHistories.TryGetValue(key, out ValueHistory? valueHistory)) valueHistory = new ValueHistory();
 
 						// 读取当前内存的值
@@ -44,7 +44,7 @@ namespace GameValueDetector.Services
 							if (ScenarioJudge.Match(scenario.Scenario, scenario.CompareValue, valueHistory))
 							{
 								int setValue = (int)PunishmentValueCalculator.Calculate(scenario, valueHistory);
-								DebugHub.Log("执行惩罚", $"触发情景：{scenario.Scenario}，惩罚值：{setValue}, 内存值：{currentValue}");
+								DebugHub.Log(key, $"触发情景：{scenario.Scenario}，惩罚值：{setValue}, 内存值：{currentValue}");
 								ScenarioActionExecutor.Execute(scenario, setValue);
 							}
 						}
