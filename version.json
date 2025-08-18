@@ -1,6 +1,6 @@
 {
-    "VersionNumbers": ["v3.6.33"],
-    "VersionName": "紧急补丁版本",
-    "VersionDescription": "1.优化 部分模块：开始运行时自动清除历史日志\r2.优化 内存检测器：模块关闭时，脚本仍在运行的异常问题",
+    "VersionNumbers": ["v3.6.34"],
+    "VersionName": "更好的脚本化",
+    "VersionDescription": "1.优化 内存检测器：差值模式，现在正/反差值合并处理\r2.优化 内存检测器：获取唯一标识符，解决部分情况下无法标识冲突的问题\r3.优化 内存检测器：部分惩罚输出为 0 的异常问题\r4.新增 内存检测器：检测变化幅度是否大于某个值 : 数字类型",
     "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
 }
