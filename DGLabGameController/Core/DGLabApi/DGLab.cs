@@ -66,7 +66,7 @@ namespace DGLabGameController.Core.DGLabApi
 			[
 				new KeyValuePair<string, string>("strength", strength.ToString()),
 				new KeyValuePair<string, string>("time", time.ToString()),
-				new KeyValuePair<string, string>("overrides", overrides.ToString()),
+				new KeyValuePair<string, string>("override", overrides.ToString()),
 				new KeyValuePair<string, string>("pulseId", pulseId)
 			]
 		);

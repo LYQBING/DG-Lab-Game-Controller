@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using GameValueDetector.Models;
+﻿using DGLabGameController.Core.Debug;
 using GameValueDetector.Interop;
-using DGLabGameController.Core.Debug;
+using GameValueDetector.Models;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace GameValueDetector.Services
 {
@@ -17,21 +18,22 @@ namespace GameValueDetector.Services
 		/// <param name="monitor">监控项配置</param>
 		/// <param name="is32Bit">是否为 32 位进程</param>
 		/// <returns>读取到的值</returns>
-		public static object? ReadValue(Process process, MonitorItem monitor, bool is32Bit)
+		public static bool TryReadValue(Process process, MonitorItem monitor, bool is32Bit, out float value, IntPtr processHandle)
 		{
 			// 获取目标模块
+			value = default;
 			ProcessModule? module = process.Modules.Cast<ProcessModule>().FirstOrDefault(m => m.ModuleName == monitor.Module);
 			if (module == null)
 			{
 				DebugHub.Error("未找到模块", monitor.Module, true);
-				return null;
+				return false;
 			}
 
 			// 解析基地址
 			if (!long.TryParse(monitor.BaseAddress, System.Globalization.NumberStyles.HexNumber, null, out long baseAddr))
 			{
 				DebugHub.Error("基地址错误", monitor.BaseAddress, true);
-				return null;
+				return false;
 			}
 
 			// 解析偏移列表
@@ -43,74 +45,76 @@ namespace GameValueDetector.Services
 			catch
 			{
 				DebugHub.Error("偏移量错误", $"{string.Join(", ", monitor.Offsets)}", true);
-				return null;
+				return false;
 			}
 
-			string type = monitor.Type;
-			IntPtr hProcess = IntPtr.Zero;
+			string type = monitor.Type; // 监控项类型
 			try
 			{
-				hProcess = Win32Helper.OpenProcess(ProcessAccessFlags.VirtualMemoryRead, false, process.Id);
-				if (hProcess == IntPtr.Zero)
-				{
-					DebugHub.Warning("无法打开进程", "主人...似乎是没有权限呢", true);
-					return null;
-				}
-
+				// 计算最终地址、指针大小和读取内存
 				long address = module.BaseAddress.ToInt64() + baseAddr;
 				int pointerSize = is32Bit ? 4 : 8;
 				byte[] buffer = new byte[pointerSize];
-				foreach (var offset in offsets)
+
+				foreach (int offset in offsets)
 				{
-					if (!Win32Helper.ReadProcessMemory(hProcess, checked((IntPtr)address), buffer, pointerSize, out _))
+					if (!Win32Helper.ReadProcessMemory(processHandle, checked((IntPtr)address), buffer, pointerSize, out _))
 					{
 						DebugHub.Warning("读取内存失败", $"地址: {address:X}, 偏移: {offset}", true);
-						return null;
+						return false;
 					}
-					address = is32Bit
-						? BitConverter.ToInt32(buffer, 0)
-						: BitConverter.ToInt64(buffer, 0);
+					address = is32Bit ? BitConverter.ToInt32(buffer, 0) : BitConverter.ToInt64(buffer, 0);
 					address += offset;
 				}
 
-				int size = type switch
-				{
-					"Int32" => 4,
-					"Float" => 4,
-					"Double" => 8,
-					"Int64" => 8,
-					"Byte" => 1,
-					"String" => 32,
-					_ => 4
-				};
+				// 根据类型读取内存
+				int size = type switch { "Int32" => 4, "Float" => 4, "Double" => 8, "Int64" => 8, "Byte" => 1, _ => 4 };
 				buffer = new byte[size];
-				if (!Win32Helper.ReadProcessMemory(hProcess, checked((IntPtr)address), buffer, size, out _))
+
+				if (!Win32Helper.ReadProcessMemory(processHandle, checked((IntPtr)address), buffer, size, out _))
 				{
 					DebugHub.Warning("读取内存失败", $"地址: {address:X}, 类型: {type}", true);
-					return null;
+					return false;
 				}
-				object? value = type switch
+				value = type switch
 				{
 					"Int32" => BitConverter.ToInt32(buffer, 0),
 					"Float" => BitConverter.ToSingle(buffer, 0),
-					"Double" => BitConverter.ToDouble(buffer, 0),
+					"Double" => (float)BitConverter.ToDouble(buffer, 0),
 					"Int64" => BitConverter.ToInt64(buffer, 0),
 					"Byte" => buffer[0],
-					"String" => System.Text.Encoding.UTF8.GetString(buffer).TrimEnd('\0'),
-					_ => null
+					_ => default
 				};
-				return value;
+				return true;
 			}
 			catch (System.Exception ex)
 			{
 				DebugHub.Warning("读取内存异常", ex.Message, true);
-				return null;
+				return false;
 			}
-			finally
+		}
+
+		/// <summary>
+		/// 打开进程句柄
+		/// </summary>
+		public static bool OpenProcessHandle(Process process, out IntPtr hProcess)
+		{
+			DebugHub.Log("尝试打开进程", $"进程 ID: {process.Id}");
+			hProcess = Win32Helper.OpenProcess(ProcessAccessFlags.VirtualMemoryRead, false, process.Id);
+			if (hProcess == IntPtr.Zero)
 			{
-				// 若果打开了进程句柄，则关闭它
-				if (hProcess != IntPtr.Zero) Win32Helper.CloseHandle(hProcess);
+				DebugHub.Error("进程启动失败", "似乎是权限不足呢...");
+				return false;
 			}
+			return true;
+		}
+
+		/// <summary>
+		/// 关闭进程句柄
+		/// </summary>
+		public static void CloseProcessHandle(IntPtr handle)
+		{
+			if (handle != IntPtr.Zero) Win32Helper.CloseHandle(handle);
 		}
 	}
 }

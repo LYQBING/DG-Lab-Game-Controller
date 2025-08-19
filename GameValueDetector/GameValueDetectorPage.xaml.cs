@@ -12,7 +12,7 @@ namespace GameValueDetector
 {
 	public partial class GameValueDetectorPage : UserControl, IDisposable
 	{
-		public static int SleepTime { get; set; } = 200; // 检测间隔时间，单位毫秒
+		public static int SleepTime { get; set; } = 300; // 检测间隔时间，单位毫秒
 		public static int PenaltyValue { get; set; } = 30; // 惩罚输出值，单位为游戏内数值
 
 		private GameMonitorConfig? _config; // 当前脚本配置

@@ -35,7 +35,7 @@
 		public List<ScenarioPunishment> Scenarios { get; set; } = [];
 
 		/// <summary> 历史数据类 </summary>
-		public HistoryValue? History { get; set; }
+		public HistoryValue History { get; set; } = new HistoryValue();
 	}
 
 	/// <summary>
@@ -47,7 +47,7 @@
 		public string Scenario { get; set; } = string.Empty;
 
 		/// <summary>比较参数：用于触发检测时使用，部分检测需要传入一个检测参数(例：如果内存值大于xxx值)</summary>
-		public object? CompareValue { get; set; }
+		public float CompareValue { get; set; } = 0;
 
 		/// <summary>惩罚动作：如果满足惩罚条件，则根据此值执行对应的惩罚动作</summary>
 		public string Action { get; set; } = string.Empty;
@@ -74,10 +74,10 @@
 	public class HistoryValue
 	{
 		/// <summary> 上次值 </summary>
-		public string LastValue { get; set; } = "0";
+		public float LastValue { get; set; } = 0;
 		/// <summary> 当前值 </summary>
-		public string InitialValue { get; set; } = "0";
+		public float InitialValue { get; set; } = 0;
 		/// <summary> 最大值 </summary>
-		public double MaxValue { get; set; } = 0;
+		public float MaxValue { get; set; } = 0;
 	}
 }

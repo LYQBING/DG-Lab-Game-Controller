@@ -9,10 +9,6 @@ namespace GameValueDetector.Services
 		/// </summary>
 		public static float Calculate(ScenarioPunishment config, HistoryValue Historyvalue)
 		{
-			if (!float.TryParse(Historyvalue.LastValue, out float lastValue)) lastValue = 0; // 上次值
-			if (!float.TryParse(Historyvalue.InitialValue, out float initialValue)) initialValue = 0; // 内存值
-
-			float maxValue = (float)Historyvalue.MaxValue; // 最大值
 			float targetValue = config.ActionValue; // 目标值
 			float baseValue = GameValueDetectorPage.PenaltyValue; // 基值
 
@@ -21,20 +17,26 @@ namespace GameValueDetector.Services
 				// 默认模式 : 返回基值乘以目标值
 				"Default" => baseValue * targetValue,
 
-				// 差值模式 : 返回 内存值减去上次值乘以目标值 (内存为 string 时无效)
-				"Diff" => float.Min(baseValue, MathF.Abs(initialValue - lastValue) * targetValue),
+				// 固定模式 : 返回 目标值
+				"Fixed" => targetValue,
 
-				// 正百分比模式 : 返回 此时内存与最大值时的比率 (内存为 string 时无效)
-				"Percent" => baseValue * (initialValue / maxValue) * targetValue,
+				// 差值模式 : 返回 内存值 与 上次值 的差值 乘 目标值
+				"Diff" => baseValue * MathF.Abs(Historyvalue.InitialValue - Historyvalue.LastValue) * targetValue,
 
-				// 反百分比模式 : 返回 1 - 此时内存与最大值时的比率 (内存为 string 时无效)
-				"Reverse_Percent" => baseValue *(1f - (initialValue / maxValue)) * targetValue,
+				// 内存值模式 : 返回 内存值 乘 目标值
+				"MemoryValue" => baseValue * Historyvalue.InitialValue * targetValue,
 
-				// 变化正百分比模式 : 返回 内存值与上次值的变化比率 (内存为 string 时无效)
-				"ChangePercent" => baseValue * (MathF.Abs(lastValue - initialValue) / maxValue) * targetValue,
+				// 正百分比模式 : 返回 当前值 除 最大值 乘 目标值
+				"Percent" => baseValue * (Historyvalue.InitialValue / Historyvalue.MaxValue) * targetValue,
 
-				// 变化反百分比模式 : 返回 1 - 内存值与上次值的变化比率 (内存为 string 时无效)
-				"Reverse_ChangePercent" => baseValue * (1f - (MathF.Abs(lastValue - initialValue) / maxValue)) * targetValue,
+				// 反百分比模式 : 返回 1 - 当前值 除 最大值 乘 目标值
+				"Reverse_Percent" => baseValue *(1f - (Historyvalue.InitialValue / Historyvalue.MaxValue)) * targetValue,
+
+				// 变化正百分比模式 : 返回 内存值 与 上次值 的 变化比率
+				"ChangePercent" => baseValue * (MathF.Abs(Historyvalue.LastValue - Historyvalue.InitialValue) / Historyvalue.MaxValue) * targetValue,
+
+				// 变化反百分比模式 : 返回 1 - 内存值 与 上次值 的 变化比率
+				"Reverse_ChangePercent" => baseValue * (1f - (MathF.Abs(Historyvalue.LastValue - Historyvalue.InitialValue) / Historyvalue.MaxValue)) * targetValue,
 
 				// 未知模式 : 返回0
 				_ => 0

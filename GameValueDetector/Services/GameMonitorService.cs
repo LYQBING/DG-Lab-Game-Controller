@@ -19,33 +19,51 @@ namespace GameValueDetector.Services
 		/// <returns></returns>
 		public async Task MonitorLoopAsync(Process process, CancellationToken token)
 		{
+			IntPtr hProcess = IntPtr.Zero;
 			try
 			{
 				while (!token.IsCancellationRequested)
 				{
+					// 检查进程是否仍在运行
+					if (process.HasExited)
+					{
+						DebugHub.Warning("进程已关闭", "等待进程重启中...");
+						while (!token.IsCancellationRequested)
+						{
+							Process? newProcess = ProcessManager.FindProcessByName(Process.GetProcesses(), config.ProcessName);
+							if (newProcess != null && !newProcess.HasExited)
+							{
+								process = newProcess;
+								DebugHub.Success("进程已重启", "已重新连接至新进程！");
+								break;
+							}
+							await Task.Delay(GameValueDetectorPage.SleepTime, token);
+						}
+						continue;
+					}
+
+					// 遍历并执行所有监控项
+					if (hProcess == IntPtr.Zero && !MemoryReader.OpenProcessHandle(process,out hProcess)) continue;
 					foreach (MonitorItem monitor in config.Monitors)
 					{
 						// 读取当前内存的值
-						string? currentValue = MemoryReader.ReadValue(process, monitor, config.Is32Bit)?.ToString();
-						if (currentValue == null) continue;
+						if (!MemoryReader.TryReadValue(process, monitor, config.Is32Bit, out float currentValue, hProcess)) continue;
 
-						// 获取历史值
-						HistoryValue historyValue = monitor.History ?? new();
+						// 更新历史值
+						HistoryValue historyValue = monitor.History;
 						historyValue.InitialValue = currentValue;
-
-						// 若为数值类型，更新最大值
-						if (monitor.Type != "String" && double.TryParse(currentValue, out double value) && historyValue.MaxValue < value)
-						historyValue.MaxValue = value;
+						if (historyValue.MaxValue < currentValue) historyValue.MaxValue = currentValue;
 
 						// 检查是否满足惩罚条件
-						foreach (ScenarioPunishment scenario in monitor.Scenarios)
+						Parallel.ForEach(monitor.Scenarios, scenario =>
 						{
 							if (ScenarioJudge.Match(scenario.Scenario, scenario.CompareValue, historyValue))
 							{
 								float calcValue = PunishmentValueCalculator.Calculate(scenario, historyValue);
 								float totalValue = calcValue + scenario.AccumulatedValue;
 								int setValue = (int)totalValue;
-								if (setValue > 0)
+
+								if (MathF.Abs(setValue) > 0)
 								{
 									DebugHub.Log("执行事件", $"触发情景：{scenario.Scenario}，惩罚值：{setValue}, 内存值：{currentValue}");
 									ScenarioActionExecutor.Execute(scenario, setValue);
@@ -55,10 +73,9 @@ namespace GameValueDetector.Services
 								}
 								else scenario.AccumulatedValue += calcValue;
 							}
-						}
+						});
 
 						historyValue.LastValue = currentValue;
-						monitor.History = historyValue;
 					}
 					await Task.Delay(GameValueDetectorPage.SleepTime, token);
 				}
@@ -67,6 +84,11 @@ namespace GameValueDetector.Services
 			catch (Exception ex)
 			{
 				DebugHub.Error("检测线程异常", $"{ex.Message}\n{ex.StackTrace}");
+			}
+			finally
+			{
+				MemoryReader.CloseProcessHandle(hProcess);
+				hProcess = IntPtr.Zero;
 			}
 		}
 	}

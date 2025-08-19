@@ -49,6 +49,7 @@
 | Offsets     | string[]             | 偏移列表                         | ["0", "10", "20"] |
 | Type        | string               | 监控项类型：如 Int32, Float, String | "Float"           |
 | Scenarios   | ScenarioPunishment[] | 惩罚情景列表：每个元素为一个情景项            |                   |
+| History     | HistoryValue         | 历史数据类，可以存放初始数据               | 通常留空              |
 ```json
 "Monitors": 
 [
@@ -68,6 +69,12 @@
 				也就是说：你有多少需要监控的就可以向下创建多少个
 			},
 		]
+		"History":
+		{
+			"LastValue": 上次值
+			"InitialValue":当前值
+			"MaxValue":最大值
+		}
     },
 ]
 ```
@@ -75,15 +82,16 @@
 
 ### 3. ScenarioPunishment（情景惩罚配置）
 
-| 参数名          | 类型     | 说明                                          | 示例值              |
-| ------------ | ------ | ------------------------------------------- | ---------------- |
-| Scenario     | string | 触发条件类型（如 Changed, Increased, GreaterThan 等） | "GreaterThan"    |
-| CompareValue | object | 比较参数，部分情景需要（如大于某值、正则匹配等）                    | 100              |
-| Action       | string | 惩罚动作（如 SetStrengthSet, Fire 等）              | "SetStrengthSet" |
-| ActionMode   | string | 惩罚模式（如 default, percent, diff 等）            | "percent"        |
-| ActionValue  | float  | 惩罚模式的参数值                                    | 50.0             |
-| Time         | int    | 惩罚持续时间（如开火时长，单位毫秒）                          | 3000             |
-| Overrides    | bool   | 是否覆盖参数（如开火时是否强制覆盖）                          | false            |
+| 参数名              | 类型     | 说明                                          | 示例值              |
+| ---------------- | ------ | ------------------------------------------- | ---------------- |
+| Scenario         | string | 触发条件类型（如 Changed, Increased, GreaterThan 等） | "GreaterThan"    |
+| CompareValue     | float  | 比较参数，部分情景需要（如大于某值、正则匹配等）                    | 100              |
+| Action           | string | 惩罚动作（如 SetStrengthSet, Fire 等）              | "SetStrengthSet" |
+| ActionMode       | string | 惩罚模式（如 default, percent, diff 等）            | "percent"        |
+| ActionValue      | float  | 惩罚模式的参数值                                    | 50.0             |
+| Time             | int    | 惩罚持续时间（如开火时长，单位毫秒）                          | 3000             |
+| Overrides        | bool   | 是否覆盖参数（如开火时是否强制覆盖）                          | false            |
+| AccumulatedValue | float  | 累计处罚值，可作为首次处罚的额外值填写                         | 1                |
 ```json
 "Scenarios": 
 [
@@ -95,6 +103,7 @@
           "ActionValue": 为 计算惩罚参数传参，参考 ActionMode 常用值,
           "Time": 惩罚持续时间，通常用于 开火惩罚，一般留空,
           "Overrides": 是否覆盖参数，通常用于 开火惩罚，一般留空
+          "AccumulatedValue":通常无视，留空
 	},
 ]
 ```
@@ -104,19 +113,17 @@
 
 ### 1. Scenario（情景类型）常用值
 
-| 类型             | 说明          | CompareValue 示例  |
-| -------------- | ----------- | ---------------- |
-| Changed        | 值发生变化时触发    | 无需填写             |
-| Increased      | 值增加时触发      | 无需填写             |
-| Decreased      | 值减少时触发      | 无需填写             |
-| EqualTo        | 值等于某个数时触发   | 100              |
-| GreaterThan    | 值大于某个数时触发   | 100              |
-| LessThan       | 值小于某个数时触发   | 50               |
-| NotEqualTo     | 值不等于某个值时触发  | “ABCD”           |
-| StringEquals   | 字符串相等时触发    | "Ready"          |
-| StringContains | 字符串包含某子串时触发 | "Error"          |
-| RegexMatch     | 字符串正则匹配时触发  | "^1[3-9]\\d{9}$" |
-
+| 类型                 | 说明         | CompareValue 示例 |
+| ------------------ | ---------- | --------------- |
+| Changed            | 值发生变化时触发   | 无需填写，默认为 0      |
+| Increased          | 值增加X时处罚    | 无需填写，默认为 0      |
+| Decreased          | 值减少X时触发    | 无需填写，默认为 0      |
+| EqualTo            | 值等于某个数时触发  | 100             |
+| GreaterThan        | 值大于某个数时触发  | 100             |
+| LessThan           | 值小于某个数时触发  | 50              |
+| NotEqualTo         | 值不等于某个值时触发 | 123             |
+| PercentLessThan    | 值小于最大百分比时  | 0.96            |
+| PercentGreaterThan | 值大于最大百分比时  | 0.69            |
 **注意：**  
 - 如果 Scenario 类型不需要 CompareValue，可省略或填 null。
 - 如果 Scenario 类型需要 CompareValue，必须填写对应值。
@@ -125,29 +132,30 @@
 
 ### 2. Action（惩罚动作）常用值
 
-| 类型                   | 说明                             |
-| -------------------- | ------------------------------ |
-| SetStrengthSet       | 设置强度值                          |
-| SetStrengthAdd       | 增加强度值                          |
-| SetStrengthSub       | 减少强度值                          |
-| SetRandomStrengthSet | 设置随机强度值                        |
-| SetRandomStrengthAdd | 增加随机强度值                        |
-| SetRandomStrengthSub | 减少随机强度值                        |
-| Fire                 | 执行开火动作                         |
+| 类型                   | 说明      |
+| -------------------- | ------- |
+| SetStrengthSet       | 设置强度值   |
+| SetStrengthAdd       | 增加强度值   |
+| SetStrengthSub       | 减少强度值   |
+| SetRandomStrengthSet | 设置随机强度值 |
+| SetRandomStrengthAdd | 增加随机强度值 |
+| SetRandomStrengthSub | 减少随机强度值 |
+| Fire                 | 执行开火动作  |
 
 ---
 
 ### 3. ActionMode（惩罚模式）常用值
 
-| 类型              | 说明                             | ActionValue 填写示例    |
-| --------------------- | ------------------------------------ | ------------------- |
-| Default               | 用户设置的值 乘 ActionValu 值          | 倍率：建议 0.1 - 1 (可超出) |
-| Diff                  | 当前内存的值 减 上次值 乘 ActionValu 值 | 倍率：建议 0.1 - 1 (可超出) |
-| Reverse_Diff          | 上次内存的值 减 当前值 乘 ActionValu 值 | 倍率：建议 0.1 - 1 (可超出) |
-| Percent               | 当前内存的值 与 最大值 的 正百分比            | 倍率：建议 1 (可超出)       |
-| Reverse_Percent       | 当前内存的值 与 最大值 的 反百分比            | 倍率：建议 1 (可超出)       |
-| ChangePercent         | 当前内存的值 与 上次值 的 变化正百分比           | 倍率：建议 1 (可超出)       |
-| Reverse_ChangePercent | 当前内存的值 与 上次值 的 变化反百分比           | 倍率：建议 1 (可超出)       |
+| 类型                    | 说明                     | ActionValue 填写示例    |
+| --------------------- | ---------------------- | ------------------- |
+| Default               | 返回基值 乘 目标值             | 倍率：建议 0.1 - 1 (可超出) |
+| Fixed                 | 返回 目标值                 |                     |
+| Diff                  | 返回 内存值 与 上次值 的差值 乘 目标值 | 倍率：建议 0.1 - 1 (可超出) |
+| MemoryValue           | 返回 内存值 乘 目标值           |                     |
+| Percent               | 当前内存的值 与 最大值 的 正百分比    | 倍率：建议 1 (可超出)       |
+| Reverse_Percent       | 当前内存的值 与 最大值 的 反百分比    | 倍率：建议 1 (可超出)       |
+| ChangePercent         | 当前内存的值 与 上次值 的 变化正百分比  | 倍率：建议 1 (可超出)       |
+| Reverse_ChangePercent | 当前内存的值 与 上次值 的 变化反百分比  | 倍率：建议 1 (可超出)       |
 **注意：**  
 - 填写 ActionValue 是倍数时：通常你只需要输入 0.1-1 的范围 (可超出) ，建议根据实际情况配置。
 - Percent 的附加说明：假设你使用它检测血条，它会自动保存值的最大值。惩罚将根据用户所设置的值进行计算：血量越多则惩罚越强。公式：用户设置的值 ⨉ 百分比 ⨉ 倍率 = 输出

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "DGLabGameController"
-#define MyAppVersion "3.6.33"
+#define MyAppVersion "3.6.40"
 #define MyAppPublisher "lyqbing"
 #define MyAppURL "https://lyqbing.top/"
 #define MyAppExeName "DGLabGameController.exe"
