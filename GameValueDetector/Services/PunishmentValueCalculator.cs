@@ -7,12 +7,12 @@ namespace GameValueDetector.Services
 		/// <summary>
 		/// 计算惩罚值
 		/// </summary>
-		public static float Calculate(ScenarioPunishment config, ValueHistory valueHistory)
+		public static float Calculate(ScenarioPunishment config, HistoryValue Historyvalue)
 		{
-			if (!float.TryParse(valueHistory.LastValue, out float lastValue)) lastValue = 0; // 上次值
-			if (!float.TryParse(valueHistory.InitialValue, out float initialValue)) initialValue = 0; // 内存值
+			if (!float.TryParse(Historyvalue.LastValue, out float lastValue)) lastValue = 0; // 上次值
+			if (!float.TryParse(Historyvalue.InitialValue, out float initialValue)) initialValue = 0; // 内存值
 
-			float maxValue = (float)valueHistory.MaxValue; // 最大值
+			float maxValue = (float)Historyvalue.MaxValue; // 最大值
 			float targetValue = config.ActionValue; // 目标值
 			float baseValue = GameValueDetectorPage.PenaltyValue; // 基值
 

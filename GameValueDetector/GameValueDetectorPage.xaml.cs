@@ -16,7 +16,6 @@ namespace GameValueDetector
 		public static int PenaltyValue { get; set; } = 30; // 惩罚输出值，单位为游戏内数值
 
 		private GameMonitorConfig? _config; // 当前脚本配置
-		private readonly Dictionary<string, ValueHistory> _valueHistories = []; // 历史值字典
 		private CancellationTokenSource? _cts; // 取消令牌源，用于停止检测
 		private readonly string _moduleFolderPath = ""; // 模块目录路径
 
@@ -106,7 +105,7 @@ namespace GameValueDetector
 
 			try
 			{
-				var monitorService = new GameMonitorService(_config, _valueHistories);
+				var monitorService = new GameMonitorService(_config);
 				DebugHub.Log(_config.ProcessName, _config.Description);
 				await monitorService.MonitorLoopAsync(process, token);
 			}

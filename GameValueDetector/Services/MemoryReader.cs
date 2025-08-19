@@ -47,9 +47,10 @@ namespace GameValueDetector.Services
 			}
 
 			string type = monitor.Type;
+			IntPtr hProcess = IntPtr.Zero;
 			try
 			{
-				IntPtr hProcess = Win32Helper.OpenProcess(ProcessAccessFlags.VirtualMemoryRead, false, process.Id);
+				hProcess = Win32Helper.OpenProcess(ProcessAccessFlags.VirtualMemoryRead, false, process.Id);
 				if (hProcess == IntPtr.Zero)
 				{
 					DebugHub.Warning("无法打开进程", "主人...似乎是没有权限呢", true);
@@ -63,7 +64,6 @@ namespace GameValueDetector.Services
 				{
 					if (!Win32Helper.ReadProcessMemory(hProcess, checked((IntPtr)address), buffer, pointerSize, out _))
 					{
-						Win32Helper.CloseHandle(hProcess);
 						DebugHub.Warning("读取内存失败", $"地址: {address:X}, 偏移: {offset}", true);
 						return null;
 					}
@@ -86,7 +86,6 @@ namespace GameValueDetector.Services
 				buffer = new byte[size];
 				if (!Win32Helper.ReadProcessMemory(hProcess, checked((IntPtr)address), buffer, size, out _))
 				{
-					Win32Helper.CloseHandle(hProcess);
 					DebugHub.Warning("读取内存失败", $"地址: {address:X}, 类型: {type}", true);
 					return null;
 				}
@@ -100,13 +99,17 @@ namespace GameValueDetector.Services
 					"String" => System.Text.Encoding.UTF8.GetString(buffer).TrimEnd('\0'),
 					_ => null
 				};
-				Win32Helper.CloseHandle(hProcess);
 				return value;
 			}
 			catch (System.Exception ex)
 			{
 				DebugHub.Warning("读取内存异常", ex.Message, true);
 				return null;
+			}
+			finally
+			{
+				// 若果打开了进程句柄，则关闭它
+				if (hProcess != IntPtr.Zero) Win32Helper.CloseHandle(hProcess);
 			}
 		}
 	}

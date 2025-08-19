@@ -34,8 +34,8 @@
 		/// <summary> 惩罚情景 </summary>
 		public List<ScenarioPunishment> Scenarios { get; set; } = [];
 
-		/// <summary> 监控项的唯一标识 </summary>
-		public string UniqueKey => $"{BaseAddress}_{string.Join("_", Offsets)}";
+		/// <summary> 历史数据类 </summary>
+		public HistoryValue? History { get; set; }
 	}
 
 	/// <summary>
@@ -63,12 +63,15 @@
 
 		/// <summary>是否覆盖参数：用于一键开火</summary>
 		public bool Overrides { get; set; } = false;
+
+		/// <summary> 累计值 </summary>
+		public float AccumulatedValue { get; set; } = 0;
 	}
 
 	/// <summary>
 	/// 历史值类
 	/// </summary>
-	public class ValueHistory
+	public class HistoryValue
 	{
 		/// <summary> 上次值 </summary>
 		public string LastValue { get; set; } = "0";

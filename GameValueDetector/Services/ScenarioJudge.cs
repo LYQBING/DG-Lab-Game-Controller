@@ -13,7 +13,7 @@ namespace GameValueDetector.Services
 		/// <param name="scenario">情景名称</param>
 		/// <param name="compareValue">比较参数</param>
 		/// <returns></returns>
-		public static bool Match(string scenario, object? compareValue, ValueHistory valueHistory)
+		public static bool Match(string scenario, object? compareValue, HistoryValue valueHistory)
         {
 			string lastStr = valueHistory.LastValue; // 上次值转换为字符串
 			string currStr = valueHistory.InitialValue; // 当前值转换为字符串

@@ -9,7 +9,7 @@ namespace GameValueDetector.Services
 	/// </summary>
 	/// <param name="config">配置文件</param>
 	/// <param name="valueHistories">全部的历史值表</param>
-	public class GameMonitorService(GameMonitorConfig config, Dictionary<string, ValueHistory> valueHistories)
+	public class GameMonitorService(GameMonitorConfig config)
 	{
 		/// <summary>
 		/// 异步监控循环
@@ -25,32 +25,40 @@ namespace GameValueDetector.Services
 				{
 					foreach (MonitorItem monitor in config.Monitors)
 					{
-						// 获取唯一标识符
-						string key = monitor.UniqueKey;
-						if (!valueHistories.TryGetValue(key, out ValueHistory? valueHistory)) valueHistory = new ValueHistory();
-
 						// 读取当前内存的值
 						string? currentValue = MemoryReader.ReadValue(process, monitor, config.Is32Bit)?.ToString();
 						if (currentValue == null) continue;
 
-						// 更新当前值
-						valueHistory.InitialValue = currentValue;
-						if (monitor.Type != "String" && double.TryParse(currentValue, out double value) && valueHistory.MaxValue < value)
-						valueHistory.MaxValue = value;
+						// 获取历史值
+						HistoryValue historyValue = monitor.History ?? new();
+						historyValue.InitialValue = currentValue;
+
+						// 若为数值类型，更新最大值
+						if (monitor.Type != "String" && double.TryParse(currentValue, out double value) && historyValue.MaxValue < value)
+						historyValue.MaxValue = value;
 
 						// 检查是否满足惩罚条件
 						foreach (ScenarioPunishment scenario in monitor.Scenarios)
 						{
-							if (ScenarioJudge.Match(scenario.Scenario, scenario.CompareValue, valueHistory))
+							if (ScenarioJudge.Match(scenario.Scenario, scenario.CompareValue, historyValue))
 							{
-								int setValue = (int)PunishmentValueCalculator.Calculate(scenario, valueHistory);
-								DebugHub.Log(key, $"触发情景：{scenario.Scenario}，惩罚值：{setValue}, 内存值：{currentValue}");
-								ScenarioActionExecutor.Execute(scenario, setValue);
+								float calcValue = PunishmentValueCalculator.Calculate(scenario, historyValue);
+								float totalValue = calcValue + scenario.AccumulatedValue;
+								int setValue = (int)totalValue;
+								if (setValue > 0)
+								{
+									DebugHub.Log("执行事件", $"触发情景：{scenario.Scenario}，惩罚值：{setValue}, 内存值：{currentValue}");
+									ScenarioActionExecutor.Execute(scenario, setValue);
+
+									// 扣除已执行的惩罚值，保留小数部分
+									scenario.AccumulatedValue = totalValue - setValue;
+								}
+								else scenario.AccumulatedValue += calcValue;
 							}
 						}
 
-						valueHistory.LastValue = currentValue;
-						valueHistories[key] = valueHistory;
+						historyValue.LastValue = currentValue;
+						monitor.History = historyValue;
 					}
 					await Task.Delay(GameValueDetectorPage.SleepTime, token);
 				}
