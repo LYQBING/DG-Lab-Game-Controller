@@ -7,7 +7,7 @@ namespace GameValueDetector.Services
 		/// <summary>
 		/// 计算惩罚值
 		/// </summary>
-		public static float Calculate(ScenarioPunishment config, HistoryValue Historyvalue)
+		public static float Calculate(ScenarioPunishment config, DataValue Historyvalue)
 		{
 			float targetValue = config.ActionValue; // 目标值
 			float baseValue = GameValueDetectorPage.PenaltyValue; // 基值

@@ -29,39 +29,43 @@
 		public string BaseAddress { get; set; } = "";
 		/// <summary> 偏移列表 </summary>
 		public List<string> Offsets { get; set; } = [];
-		/// <summary> 监控项类型：如 Int32, Float, String 等 </summary>
-		public string Type { get; set; } = "";
-		/// <summary> 惩罚情景 </summary>
+		/// <summary> 监控项类型：Int32 / Float / Double / Int64 / Byte </summary>
+		public string Type { get; set; } = "Int32";
+
+		/// <summary> 启动条件：开始检测的的条件 </summary>
+		public string StartCondition { get; set; } = "Always";
+
+		/// <summary> 惩罚情景列表 </summary>
 		public List<ScenarioPunishment> Scenarios { get; set; } = [];
 
-		/// <summary> 历史数据类 </summary>
-		public HistoryValue History { get; set; } = new HistoryValue();
+		/// <summary> 数据类：会自动储存临时数据，同时你也可以自定义其中内容以便检测 </summary>
+		public DataValue Data { get; set; } = new DataValue();
 	}
 
 	/// <summary>
-	/// 情景惩罚配置类
+	/// 情景惩罚配置类：单项
 	/// </summary>
 	public class ScenarioPunishment
 	{
-		/// <summary>触发条件：检测触发后是否满足此条件，若满足则开始惩罚</summary>
+		/// <summary> 触发情景 </summary>
 		public string Scenario { get; set; } = string.Empty;
 
-		/// <summary>比较参数：用于触发检测时使用，部分检测需要传入一个检测参数(例：如果内存值大于xxx值)</summary>
+		/// <summary> 情景比较参数：用于触发检测时使用，部分检测需要传入一个检测参数(例：如果内存值大于xxx值) </summary>
 		public float CompareValue { get; set; } = 0;
 
-		/// <summary>惩罚动作：如果满足惩罚条件，则根据此值执行对应的惩罚动作</summary>
+		/// <summary> 惩罚动作：如果满足惩罚条件，则根据此值执行对应的惩罚动作 </summary>
 		public string Action { get; set; } = string.Empty;
 
-		/// <summary>惩罚动作模式</summary>
+		/// <summary> 惩罚动作模式 </summary>
 		public string ActionMode { get; set; } = "Default";
 
-		/// <summary>惩罚动作模式的值</summary>
+		/// <summary> 惩罚动作模式的值 </summary>
 		public float ActionValue { get; set; } = 1f;
 
-		/// <summary>惩罚动作的持续时间：目前仅用于一键开火，可以设置开火的时常</summary>
+		/// <summary> 惩罚动作的持续时间：目前仅用于一键开火，可以设置开火的时常 </summary>
 		public int Time { get; set; } = 3000;
 
-		/// <summary>是否覆盖参数：用于一键开火</summary>
+		/// <summary> 是否覆盖参数：用于一键开火 </summary>
 		public bool Overrides { get; set; } = false;
 
 		/// <summary> 累计值 </summary>
@@ -69,9 +73,9 @@
 	}
 
 	/// <summary>
-	/// 历史值类
+	/// 数据值类
 	/// </summary>
-	public class HistoryValue
+	public class DataValue
 	{
 		/// <summary> 上次值 </summary>
 		public float LastValue { get; set; } = 0;
@@ -79,5 +83,7 @@
 		public float InitialValue { get; set; } = 0;
 		/// <summary> 最大值 </summary>
 		public float MaxValue { get; set; } = 0;
+		/// <summary> 初始值 </summary>
+		public float InitialMaxValue { get; set; } = 0;
 	}
 }

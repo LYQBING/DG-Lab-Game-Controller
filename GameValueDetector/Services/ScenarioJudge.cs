@@ -13,7 +13,7 @@ namespace GameValueDetector.Services
 		/// <param name="scenario">情景名称</param>
 		/// <param name="compareValue">比较参数</param>
 		/// <returns></returns>
-		public static bool Match(string scenario, float compareValue, HistoryValue valueHistory)
+		public static bool Match(string scenario, float compareValue, DataValue valueHistory)
         {
 			return scenario switch
 			{

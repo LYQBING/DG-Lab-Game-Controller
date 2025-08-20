@@ -1,6 +1,7 @@
 ﻿using DGLabGameController.Core.Debug;
 using GameValueDetector.Models;
 using System.Diagnostics;
+using System.Threading;
 
 namespace GameValueDetector.Services
 {
@@ -48,34 +49,25 @@ namespace GameValueDetector.Services
 					{
 						// 读取当前内存的值
 						if (!MemoryReader.TryReadValue(process, monitor, config.Is32Bit, out float currentValue, hProcess)) continue;
+						if (!IsRunConditionMet(monitor.StartCondition, currentValue, monitor.Data)) continue;
 
-						// 更新历史值
-						HistoryValue historyValue = monitor.History;
-						historyValue.InitialValue = currentValue;
-						if (historyValue.MaxValue < currentValue) historyValue.MaxValue = currentValue;
-
-						// 检查是否满足惩罚条件
+						// 开始执行情景惩罚
 						Parallel.ForEach(monitor.Scenarios, scenario =>
 						{
-							if (ScenarioJudge.Match(scenario.Scenario, scenario.CompareValue, historyValue))
+							if (ScenarioJudge.Match(scenario.Scenario, scenario.CompareValue, monitor.Data))
 							{
-								float calcValue = PunishmentValueCalculator.Calculate(scenario, historyValue);
+								float calcValue = PunishmentValueCalculator.Calculate(scenario, monitor.Data);
 								float totalValue = calcValue + scenario.AccumulatedValue;
 								int setValue = (int)totalValue;
 
 								if (MathF.Abs(setValue) > 0)
 								{
-									DebugHub.Log("执行事件", $"触发情景：{scenario.Scenario}，惩罚值：{setValue}, 内存值：{currentValue}");
 									ScenarioActionExecutor.Execute(scenario, setValue);
-
-									// 扣除已执行的惩罚值，保留小数部分
 									scenario.AccumulatedValue = totalValue - setValue;
 								}
 								else scenario.AccumulatedValue += calcValue;
 							}
 						});
-
-						historyValue.LastValue = currentValue;
 					}
 					await Task.Delay(GameValueDetectorPage.SleepTime, token);
 				}
@@ -90,6 +82,45 @@ namespace GameValueDetector.Services
 				MemoryReader.CloseProcessHandle(hProcess);
 				hProcess = IntPtr.Zero;
 			}
+		}
+		private static bool IsRunConditionMet(string condition, float currentValue, DataValue dataValue)
+		{
+			bool isRun = condition switch
+			{
+				// 无条件运行
+				"Always" => true,
+
+				// 最大值变化时运行
+				"MaxValueUpdated" => currentValue > dataValue.MaxValue,
+
+				// 最大值不变时运行
+				"MaxValueUnchanged" => currentValue <= dataValue.MaxValue,
+
+				// 最大值小于参考值时运行
+				"MaxValueLessThanReference" => dataValue.InitialMaxValue < dataValue.MaxValue,
+
+				// 最大值大于参考值时运行
+				"MaxValueGreaterThanReference" => dataValue.InitialMaxValue > dataValue.MaxValue,
+
+				// 当前值大于参考值时运行
+				"CurrentValueGreaterThanReference" => currentValue > dataValue.InitialMaxValue,
+
+				// 当前值小于参考值时运行
+				"CurrentValueLessThanReference" => currentValue < dataValue.InitialMaxValue,
+
+				// 值不为空时运行
+				"ValueNotZero" => dataValue.InitialValue != 0 || dataValue.MaxValue != 0 || dataValue.LastValue != 0,
+
+				_ => false,
+			};
+
+			if (dataValue.InitialMaxValue == 0 && isRun == true) dataValue.InitialMaxValue = currentValue;
+			dataValue.MaxValue = MathF.Max(dataValue.MaxValue, currentValue);
+
+			dataValue.LastValue = dataValue.InitialValue;
+			dataValue.InitialValue = currentValue;
+
+			return isRun;
 		}
 	}
 }
