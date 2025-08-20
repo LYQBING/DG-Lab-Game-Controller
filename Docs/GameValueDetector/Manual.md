@@ -42,14 +42,15 @@
 
 ### 2. MonitorItem（监控项）
 
-| 参数名         | 类型                   | 说明                           | 示例值               |
-| ----------- | -------------------- | ---------------------------- | ----------------- |
-| Module      | string               | 监控的 DLL 名称                   | "Game.dll"        |
-| BaseAddress | string               | 基地址                          | "0x12345678"      |
-| Offsets     | string[]             | 偏移列表                         | ["0", "10", "20"] |
-| Type        | string               | 监控项类型：如 Int32, Float, String | "Float"           |
-| Scenarios   | ScenarioPunishment[] | 惩罚情景列表：每个元素为一个情景项            |                   |
-| History     | HistoryValue         | 历史数据类，可以存放初始数据               | 通常留空              |
+| 参数名            | 类型                   | 说明                           | 示例值               |
+| -------------- | -------------------- | ---------------------------- | ----------------- |
+| Module         | string               | 监控的 DLL 名称                   | "Game.dll"        |
+| BaseAddress    | string               | 基地址                          | "0x12345678"      |
+| Offsets        | string[]             | 偏移列表                         | ["0", "10", "20"] |
+| Type           | string               | 监控项类型：如 Int32, Float, String | "Float"           |
+| StartCondition | string               | 开始检测的的条件                     | 通常留空              |
+| Scenarios      | ScenarioPunishment[] | 惩罚情景列表：每个元素为一项情景             |                   |
+| Data           | DataValue            | 数据类，可以存放初始数据                 | 通常留空              |
 ```json
 "Monitors": 
 [
@@ -58,6 +59,7 @@
 		"BaseAddress": "基地址",
 		"Offsets": ["偏移1", "偏移2", "偏移3"], 
 		"Type": "所监控项的类型",
+		"StartCondition": "启动惩罚的条件"
 		"Scenarios": 
 		[
 			{
@@ -69,11 +71,12 @@
 				也就是说：你有多少需要监控的就可以向下创建多少个
 			},
 		]
-		"History":
+		"Data":
 		{
 			"LastValue": 上次值
 			"InitialValue":当前值
 			"MaxValue":最大值
+			"InitialMaxValue":初始值/参考值
 		}
     },
 ]
@@ -160,3 +163,18 @@
 - 填写 ActionValue 是倍数时：通常你只需要输入 0.1-1 的范围 (可超出) ，建议根据实际情况配置。
 - Percent 的附加说明：假设你使用它检测血条，它会自动保存值的最大值。惩罚将根据用户所设置的值进行计算：血量越多则惩罚越强。公式：用户设置的值 ⨉ 百分比 ⨉ 倍率 = 输出
 - ChangePercent 的附加说明：他与 Percent 类似，但它所计算的是 [( 上次的值 - 当前值 )/ 最大值 ] 得到变化的百分比。公式：用户设置的值 ⨉ 百分比 ⨉ 倍率 = 输出
+
+---
+
+### 4.StartCondition（开始检测的的条件）常用值
+
+| 类型                               | 说明                  |
+| -------------------------------- | ------------------- |
+| Always                           |                     |
+| MaxValueUpdated                  | 最大值变化时运行            |
+| MaxValueUnchanged                | 最大值不变时运行            |
+| MaxValueLessThanReference        | 最大值小于参考值时运行         |
+| MaxValueGreaterThanReference     | 最大值大于参考值时运行         |
+| CurrentValueGreaterThanReference | 当前值大于参考值时运行         |
+| CurrentValueLessThanReference    | 当前值小于参考值时运行         |
+| ValueNotZero                     | 任何值不为空时运行：可用来确保被初始化 |
