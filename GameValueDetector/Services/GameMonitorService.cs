@@ -62,6 +62,7 @@ namespace GameValueDetector.Services
 
 								if (MathF.Abs(setValue) > 0)
 								{
+									DebugHub.Log($"{monitor.BaseAddress}:{monitor.BaseAddress}", $"触发项：{scenario.Scenario}:{scenario.Action} 输出值: {setValue}");
 									ScenarioActionExecutor.Execute(scenario, setValue);
 									scenario.AccumulatedValue = totalValue - setValue;
 								}
