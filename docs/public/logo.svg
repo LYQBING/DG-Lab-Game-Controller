@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_2" data-name="图层 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #ffe99d;
+        stroke-miterlimit: 10;
+        stroke-width: 4px;
+      }
+
+      .cls-2 {
+        fill: #ffe99d;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect x="2" y="2" width="124" height="124" rx="17.92" ry="17.92"/>
+    <path class="cls-2" d="M108.09,4c8.78,0,15.91,7.14,15.91,15.91v88.17c0,8.78-7.14,15.91-15.91,15.91H19.91c-8.78,0-15.91-7.14-15.91-15.91V19.91c0-8.78,7.14-15.91,15.91-15.91h88.17M108.09,0H19.91C8.92,0,0,8.92,0,19.91v88.17c0,11,8.92,19.91,19.91,19.91h88.17c11,0,19.91-8.92,19.91-19.91V19.91c0-11-8.92-19.91-19.91-19.91h0Z"/>
+  </g>
+  <g>
+    <g>
+      <circle class="cls-2" cx="74.5" cy="75.5" r="8.5"/>
+      <circle class="cls-2" cx="97.5" cy="75.5" r="8.5"/>
+    </g>
+    <g>
+      <circle class="cls-2" cx="74.5" cy="98.5" r="8.5"/>
+      <circle class="cls-2" cx="97.5" cy="98.5" r="8.5"/>
+    </g>
+  </g>
+  <g>
+    <rect class="cls-2" x="32.8" y="16.23" width="16.26" height="50.41" rx="8.13" ry="8.13" transform="translate(-17.31 41.08) rotate(-45)"/>
+    <rect class="cls-2" x="15.73" y="33.3" width="50.41" height="16.26" rx="8.13" ry="8.13" transform="translate(-17.31 41.08) rotate(-45)"/>
+  </g>
+  <path class="cls-1" d="M.69,72.71c8.36-2.39,17.74-.28,24.32,6.3l23.48,23.48c6.69,6.69,8.75,16.27,6.18,24.73"/>
+  <path class="cls-1" d="M48.03,1.86c8.45,3.41,16.37,8.53,23.22,15.38l40.01,40.01c6.38,6.38,11.26,13.68,14.65,21.48"/>
+</svg>
