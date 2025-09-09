@@ -1,6 +1,0 @@
-{
-    "VersionNumbers": ["v3.6.41"],
-    "VersionName": "修复部分问题",
-    "VersionDescription": "\r1.新增 内存检测器：现在支持启动前事件啦！防止无效数据造成的异常惩罚！\r2.优化 内存检测器：更详细的默认日志输出\r3.优化 内存检测器：更新历史数据名称：符合场景的数据结构",
-    "DownloadUrl": "https://github.com/LYQBING/DG-Lab-Game-Controller/releases/"
-}
