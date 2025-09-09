@@ -3,7 +3,6 @@ import { withSidebar } from 'vitepress-sidebar';
 
 const vitePressOptions =
 {
-	base: '/DG-Lab-Game-Controller',
 	title: "DG-Lab Game Controller",
 	description: "一个希望将全部游戏郊狼化的控制器：让所有游戏都和郊狼 DG-Lab 一起发电吧！",
 	head: [
