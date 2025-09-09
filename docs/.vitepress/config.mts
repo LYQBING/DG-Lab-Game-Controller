@@ -6,15 +6,15 @@ const vitePressOptions =
 	title: "DG-Lab Game Controller",
 	description: "一个希望将全部游戏郊狼化的控制器：让所有游戏都和郊狼 DG-Lab 一起发电吧！",
 	head: [
-		['link', { rel: 'icon', type: 'image/svg+xml', href: '/Image/logo.svg' }],
-		['link', { rel: 'icon', type: 'image/png', href: '/Image/logo.png' }],
+		['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+		['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
 		['meta', { name: 'keywords', content: 'DG-Lab,dglab,郊狼游戏控制器,郊狼连接游戏,郊狼游戏,郊狼,连接,游戏' }],
 		['meta', { name: 'author', content: 'LYQBING' }]],
 
 	cleanUrls: true,
 	themeConfig:
 	{
-		logo: '/Image/logo.svg',
+		logo: '/logo.svg',
 
 		nav: [
 			{ text: '首页', link: '/' },
