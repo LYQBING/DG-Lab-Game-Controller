@@ -1,32 +1,26 @@
-﻿// 遍历支持的语言，生成语言配置
-export const generateLocalesConfig = (languageConfig) =>
+// 生成多语言配置和重写规则配置
+export const generateLocalesAndRewritesConfig = (languageConfig) =>
 {
-    const locales = {};
-    Object.entries(languageConfig.supported).forEach(([key, config]) =>
-    {
-		const localeKey = key === languageConfig.default ? 'root' : key; // 默认语言使用根路径
-        locales[localeKey] = {
-            label: config.label,
-            lang: config.lang,
-            description: config.description,
-            themeConfig: config.themeConfig || {}
-        };
-    });
+	const locales = {};
+	const rewrites = {};
+	const defaultLang = languageConfig.default;
 
-    return locales;
-};
+	Object.entries(languageConfig.supported).forEach(([key, config]) =>
+	{
+		const localeKey = key === defaultLang ? 'root' : key; // 默认语言使用根路径
+		locales[localeKey] = {
+			label: config.label,
+			lang: config.lang,
+			description: config.description,
+			themeConfig: config.themeConfig || {}
+		};
 
-// 生成重写规则配置，也就是访问的路径
-export const generateRewritesConfig = (languageConfig) =>
-{
-    const defaultLang = languageConfig.default;
-    const rewrites = {};
+		// 如果是默认语言，则重写规则为根路径
+		if (key === defaultLang)
+		{
+			rewrites[`${config.dir}/:rest*`] = ':rest*';
+		}
+	});
 
-    if (languageConfig.supported[defaultLang])
-    {
-        const defaultDir = languageConfig.supported[defaultLang].dir;
-        rewrites[`${defaultDir}/:rest*`] = ':rest*';
-    }
-
-    return rewrites;
+	return { locales, rewrites };
 };
