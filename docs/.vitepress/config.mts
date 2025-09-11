@@ -2,14 +2,13 @@ import { defineConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 
 import languageConfig from './locales/index.js';
-import { generateLocalesConfig, generateRewritesConfig } from './theme/components/generators.mts';
+import { generateLocalesAndRewritesConfig } from './theme/components/generators.mts';
 import { generateSidebarConfigs } from './theme/components/sidebar.mts';
 
-const localesConfig = generateLocalesConfig(languageConfig);
-const rewritesConfig = generateRewritesConfig(languageConfig);
+const { locales: localesConfig, rewrites: rewritesConfig } = generateLocalesAndRewritesConfig(languageConfig);
 const sidebarConfigs = generateSidebarConfigs(languageConfig);
 
-const vitePressOptions =
+const vitePressOptions = 
 {
 	title: "DG-Lab Game Controller",
 	locales: localesConfig,
@@ -33,8 +32,7 @@ const vitePressOptions =
 
 	sitemap: { hostname: 'https://dg-lab.lyqbing.top' },
 
-	themeConfig:
-	{
+	themeConfig: {
 		logo: { src: '/logo.svg', width: 24, height: 24 },
 		socialLinks: [{ icon: 'github', link: 'https://github.com/LYQBING/DG-Lab-Game-Controller' }],
 
