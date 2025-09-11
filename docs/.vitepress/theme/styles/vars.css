@@ -1,0 +1,18 @@
+﻿/* 基础色 */
+:root {
+	--vp-c-indigo-1: #F59300;
+	--vp-c-indigo-2: #F88500;
+	--vp-c-indigo-3: #FA7600;
+}
+
+.dark {
+	--vp-c-indigo-1: #FA7600;
+	--vp-c-indigo-2: #F88500;
+	--vp-c-indigo-3: #F59300;
+}
+
+/* 组件:首页 */
+:root {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: linear-gradient(135deg, #e67e22 30%, #d35400 70%);
+}
