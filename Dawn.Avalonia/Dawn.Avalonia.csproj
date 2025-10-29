@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net9.0</TargetFrameworks>
+		<Title>Dawn.Avalonia</Title>
+		<Description>黎明前的光芒是最耀眼的：一个由黎明而来的暗色主题</Description>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<AvaloniaVersion>11.3.7</AvaloniaVersion>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<IsAotCompatible>true</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.3.7" />
+	</ItemGroup>
+	
+</Project>

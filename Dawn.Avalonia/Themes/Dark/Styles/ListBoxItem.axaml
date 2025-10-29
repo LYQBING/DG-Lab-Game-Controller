@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 文本色：默认 -->
+	<StaticResource x:Key="ListBoxItemDefaultForeground" ResourceKey="Foreground0Color" /> <!-- 常规时 -->
+	<StaticResource x:Key="ListBoxItemPointeroverForeground" ResourceKey="Secondary0Color" /> <!-- 悬停时 -->
+	<StaticResource x:Key="ListBoxItemSelectedForeground" ResourceKey="Secondary0Color" /> <!-- 选中时 -->
+	<StaticResource x:Key="ListBoxItemPressedForeground" ResourceKey="Secondary0Color" /> <!-- 按下时 -->
+	<StaticResource x:Key="ListBoxItemDisabledForeground" ResourceKey="Secondary0Color" /> <!-- 禁用时 -->
+
+	<!-- 背景色：默认 -->
+	<StaticResource x:Key="ListBoxItemDefaultBackground" ResourceKey="Primary0Color" /> <!-- 常规时 -->
+	<StaticResource x:Key="ListBoxItemPointeroverBackground" ResourceKey="Primary2Color" /> <!-- 悬停时 -->
+	<StaticResource x:Key="ListBoxItemSelectedBackground" ResourceKey="Secondary4Color" />  <!-- 选中时 -->
+	<StaticResource x:Key="ListBoxItemPressedBackground" ResourceKey="Primary0Color" /> <!-- 按下时 -->
+	<StaticResource x:Key="ListBoxItemDisabledBackground" ResourceKey="Secondary0Color" /> <!-- 禁用时 -->
+	<StaticResource x:Key="ListBoxItemSelectedDisabledBackground" ResourceKey="Secondary0Color" /> <!-- 禁用却被选中时 -->
+	<StaticResource x:Key="ListBoxItemSelectedPointeroverBackground" ResourceKey="Secondary4Color" />  <!-- 选中且悬停时 -->
+
+</ResourceDictionary>

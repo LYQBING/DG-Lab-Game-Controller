@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 主要色 -->
+    <SolidColorBrush x:Key="Primary0Color" Color="#101010" />
+    <SolidColorBrush x:Key="Primary1Color" Color="#181818" />
+    <SolidColorBrush x:Key="Primary2Color" Color="#202020" />
+    <SolidColorBrush x:Key="Primary3Color" Color="#282828" />
+    <SolidColorBrush x:Key="Primary4Color" Color="#303030" />
+
+    <!-- 辅助色 -->
+    <SolidColorBrush x:Key="Secondary0Color" Color="#FFE999" />
+    <SolidColorBrush x:Key="Secondary1Color" Color="#CAB97D" />
+    <SolidColorBrush x:Key="Secondary2Color" Color="#95885D" />
+    <SolidColorBrush x:Key="Secondary3Color" Color="#5F583E" />
+    <SolidColorBrush x:Key="Secondary4Color" Color="#2A2720" />
+
+    <!-- 前景色 -->
+    <SolidColorBrush x:Key="Foreground0Color" Color="#F3F3F3" />
+    <SolidColorBrush x:Key="Foreground1Color" Color="#C7C7C7" />
+    <SolidColorBrush x:Key="Foreground2Color" Color="#9C9C9C" />
+    <SolidColorBrush x:Key="Foreground3Color" Color="#707070" />
+    <SolidColorBrush x:Key="Foreground4Color" Color="#444444" />
+</ResourceDictionary>

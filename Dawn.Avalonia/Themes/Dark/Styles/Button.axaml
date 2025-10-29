@@ -1,0 +1,26 @@
+﻿<ResourceDictionary
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 文本色：默认 -->
+	<StaticResource x:Key="ButtonDefaultForeground" ResourceKey="Primary0Color" /> <!-- 常规时 -->
+	<StaticResource x:Key="ButtonDefaultDisabledForeground" ResourceKey="Primary1Color" /> <!-- 禁用时 -->
+
+	<!-- 背景色：默认 -->
+	<StaticResource x:Key="ButtonDefaultBackground" ResourceKey="Secondary0Color" /> <!-- 常规时 -->
+	<StaticResource x:Key="ButtonDefaultPointeroverBackground" ResourceKey="Secondary0Color" /> <!-- 悬停时 -->
+	<StaticResource x:Key="ButtonDefaultPressedBackground" ResourceKey="Secondary1Color" /> <!-- 按下时 -->
+	<StaticResource x:Key="ButtonDefaultDisabledBackground" ResourceKey="Secondary2Color" /> <!-- 禁用时 -->
+
+	<!-- 描边色：默认 -->
+	<StaticResource x:Key="ButtonDefaultBorderBrush" ResourceKey="Secondary0Color" /> <!-- 常规时 -->
+	<StaticResource x:Key="ButtonDefaultPointeroverBorderBrush" ResourceKey="Secondary0Color" /> <!-- 悬停时 -->
+	<StaticResource x:Key="ButtonDefaultPressedBorderBrush" ResourceKey="Secondary1Color" /> <!-- 按下时 -->
+	<StaticResource x:Key="ButtonDefaultDisabledBorderBrush" ResourceKey="Secondary2Color" /> <!-- 禁用时 -->
+
+	<!-- 背景色：描边按钮 -->
+	<SolidColorBrush x:Key="ButtonOutlineBackground" Color="Transparent" /> <!-- 常规时 -->
+	<SolidColorBrush x:Key="ButtonOutlinePointeroverBackground" Color="Transparent" /> <!-- 悬停时 -->
+	<StaticResource x:Key="ButtonOutlinePressedBackground" ResourceKey="Secondary1Color" /> <!-- 按下时 -->
+
+	</ResourceDictionary>

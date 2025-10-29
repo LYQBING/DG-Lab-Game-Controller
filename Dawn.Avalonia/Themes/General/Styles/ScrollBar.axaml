@@ -1,0 +1,12 @@
+﻿
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+
+	<!-- 滚动条 -->
+	<StaticResource x:Key="ScrollBarThickness" ResourceKey="DawnSpacingS" /> <!-- 滚动条宽度 -->
+
+	<!-- 滑块 -->
+	<StaticResource x:Key="ScrollBarThumbCornerRadius" ResourceKey="DawnBorderRadiusS" /> <!-- 圆角大小 -->
+	<StaticResource x:Key="ScrollBarThumbThickness" ResourceKey="DawnSpacingS" /> <!-- 滑块大小 -->
+	<StaticResource x:Key="ScrollBarMinLength" ResourceKey="DawnSpacingXS" /> <!-- 最小宽度 -->
+</ResourceDictionary>

@@ -1,0 +1,154 @@
+﻿<ResourceDictionary
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 默认按钮样式 -->
+	<ControlTheme x:Key="{x:Type Button}" TargetType="Button">
+
+		<!-- 尺寸 -->
+		<Setter Property="Padding" Value="{StaticResource ButtonDefaultPadding}" /> <!-- 内边距 -->
+		<Setter Property="MinHeight" Value="{StaticResource ButtonDefaultHeight}" /> <!-- 最小高度 -->
+		<Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThickness}" /> <!-- 边框粗细 -->
+		<Setter Property="CornerRadius" Value="{StaticResource ButtonCornerRadius}" /> <!-- 圆角大小 -->
+
+		<!-- 字体 -->
+		<Setter Property="FontSize" Value="{StaticResource ButtonDefaultFontSize}" /> <!-- 字体大小 -->
+		<Setter Property="FontWeight" Value="{StaticResource ButtonDefaultFontWeight}" /> <!-- 字体粗细 -->
+
+		<!-- 配色 -->
+		<Setter Property="Foreground" Value="{StaticResource ButtonDefaultForeground}" /> <!-- 文字颜色 -->
+		<Setter Property="Background" Value="{StaticResource ButtonDefaultBackground}" /> <!-- 背景颜色 -->
+		<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultBorderBrush}" /> <!-- 边框颜色 -->
+
+		<!-- 对齐 -->
+		<Setter Property="HorizontalAlignment" Value="Center" /> <!-- 父容器水平对齐 -->
+		<Setter Property="VerticalAlignment" Value="Center" /> <!-- 父容器垂直对齐 -->
+		<Setter Property="HorizontalContentAlignment" Value="Center" /> <!-- 内容水平对齐 -->
+		<Setter Property="VerticalContentAlignment" Value="Center" /> <!-- 内容垂直对齐 -->
+
+		<!-- 其他 -->
+		<Setter Property="RenderTransform" Value="none" /> <!-- 渲染变换 -->
+		<Setter Property="BackgroundSizing" Value="OuterBorderEdge" /> <!-- 背景尺寸模式 -->
+		<Setter Property="Cursor" Value="Hand" /> <!-- 鼠标光标 -->
+
+		<!-- 模板 -->
+		<Setter Property="Template">
+			<ControlTemplate TargetType="Button">
+				<ContentPresenter Name="PART_ContentPresenter"
+					HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+					RecognizesAccessKey="True" UseLayoutRounding="False"
+
+					Padding="{TemplateBinding Padding}"
+					HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+					VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+					BackgroundSizing="{TemplateBinding BackgroundSizing}"
+					BorderThickness="{TemplateBinding BorderThickness}"
+					CornerRadius="{TemplateBinding CornerRadius}"
+					Content="{TemplateBinding Content}"
+					ContentTemplate="{TemplateBinding ContentTemplate}"
+					
+					TextElement.FontSize="{TemplateBinding FontSize}"
+					TextElement.FontWeight="{TemplateBinding FontWeight}"/>
+			</ControlTemplate>
+		</Setter>
+
+		<!-- 标准状态 -->
+		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{TemplateBinding Background}" />
+			<Setter Property="BorderBrush" Value="{TemplateBinding BorderBrush}" />
+		</Style>
+
+		<!-- 悬停状态 -->
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonDefaultPointeroverBackground}" />
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultPointeroverBorderBrush}" />
+		</Style>
+
+		<!-- 按下状态 -->
+		<Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonDefaultPressedBackground}" />
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultPressedBorderBrush}" />
+		</Style>
+
+		<!-- 禁用状态 -->
+		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="{StaticResource ButtonDefaultDisabledForeground}" />
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultDisabledBorderBrush}" />
+		</Style>
+
+		<!-- 大按钮类型 -->
+		<Style Selector="^.Large">
+			<Setter Property="MinHeight" Value="{StaticResource ButtonLargeHeight}" />
+			<Setter Property="Padding" Value="{StaticResource ButtonLargePadding}" />
+		</Style>
+
+		<!-- 小按钮类型 -->
+		<Style Selector="^.Small">
+			<Setter Property="MinHeight" Value="{StaticResource ButtonSmallHeight}" />
+			<Setter Property="Padding" Value="{StaticResource ButtonSmallPadding}" />
+		</Style>
+
+	</ControlTheme>
+
+	<!-- 描边按钮样式 -->
+	<ControlTheme x:Key="OutlineButton" BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+
+		<!-- 标准状态 -->
+		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonOutlineBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource ButtonDefaultBorderBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultBorderBrush}" />
+		</Style>
+
+		<!-- 悬停状态 -->
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonOutlinePointeroverBackground}" />
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultPointeroverBackground}" />
+		</Style>
+
+		<!-- 按下状态 -->
+		<Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonOutlinePressedBackground}" />
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultPressedBackground}" />
+		</Style>
+
+		<!-- 禁用状态 -->
+		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="{StaticResource ButtonDefaultDisabledForeground}" />
+			<Setter Property="Background" Value="{StaticResource ButtonOutlineBackground}" />
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonDefaultBorderBrush}" />
+		</Style>
+
+	</ControlTheme>
+
+	<!-- 无边框按钮样式 -->
+	<ControlTheme x:Key="BorderlessButton" BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+
+		<!-- 标准状态 -->
+		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonDefaultBackground}" />
+			<Setter Property="BorderBrush" Value="Transparent" />
+		</Style>
+
+		<!-- 悬停状态 -->
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonDefaultPointeroverBackground}" />
+			<Setter Property="BorderBrush" Value="Transparent" />
+		</Style>
+
+		<!-- 按下状态 -->
+		<Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonDefaultPressedBackground}" />
+			<Setter Property="BorderBrush" Value="Transparent" />
+		</Style>
+
+		<!-- 禁用状态 -->
+		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{StaticResource ButtonDefaultDisabledBackground}" />
+			<Setter Property="BorderBrush" Value="Transparent" />
+			<Setter Property="Foreground" Value="{StaticResource ButtonDefaultDisabledForeground}" />
+		</Style>
+
+	</ControlTheme>
+
+</ResourceDictionary>

@@ -1,0 +1,74 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 无效果列表项样式 -->
+	<ControlTheme x:Key="NoEffectListBoxItem" TargetType="ListBoxItem">
+		<!-- 背景色 -->
+		<Setter Property="Background" Value="Transparent" /> 
+
+		<!-- 模板 -->
+		<Setter Property="Template">
+			<ControlTemplate TargetType="ListBoxItem">
+				<ContentPresenter
+					Name="PART_ContentPresenter"
+					Padding="{TemplateBinding Padding}"
+					Margin="{TemplateBinding Margin}"
+					HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+					VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+					Background="{TemplateBinding Background}"
+					BorderBrush="{TemplateBinding BorderBrush}"
+					BorderThickness="{TemplateBinding BorderThickness}"
+					Content="{TemplateBinding Content}"
+					ContentTemplate="{TemplateBinding ContentTemplate}"
+					CornerRadius="{TemplateBinding CornerRadius}"
+					Foreground="{TemplateBinding Foreground}" />
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+
+	<!-- 默认列表项样式 -->
+	<ControlTheme x:Key="{x:Type ListBoxItem}" BasedOn="{StaticResource NoEffectListBoxItem}" TargetType="ListBoxItem">
+
+		<!-- 颜色 -->
+		<Setter Property="Background" Value="{StaticResource ListBoxItemDefaultBackground}" /> <!-- 默认背景色 -->
+		<Setter Property="Foreground" Value="{StaticResource ListBoxItemDefaultForeground}" /> <!-- 默认前景色 -->
+		
+		<!-- 样式 -->
+		<Setter Property="CornerRadius" Value="{StaticResource ListBoxItemCornerRadius}" /><!-- 默认圆角 -->
+		<Setter Property="Padding" Value="{StaticResource ListBoxItemDefaultPadding}" /> <!-- 默认内边距 -->
+
+		<!-- 悬停状态 -->
+		<Style Selector="^:pointerover">
+			<Setter Property="Foreground" Value="{DynamicResource ListBoxItemPointeroverForeground}" /> <!-- 悬停时前景色 -->
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackground}" /> <!-- 悬停时背景色 -->
+		</Style>
+
+		<!-- 按下状态 -->
+		<Style Selector="^:pressed">
+			<Setter Property="Foreground" Value="{DynamicResource ListBoxItemPressedForeground}" /> <!-- 按下时前景色 -->
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemPressedBackground}" /> <!-- 按下时背景色 -->
+		</Style>
+
+		<!-- 选中状态 -->
+		<Style Selector="^:selected">
+			<Setter Property="Foreground" Value="{DynamicResource ListBoxItemSelectedForeground}" /> <!-- 选中时前景色 -->
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedBackground}" /> <!-- 选中时背景色 -->
+
+			<!-- 选中且悬停时 -->
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointeroverBackground}" /> <!-- 选中且悬停时背景色 -->
+			</Style>
+		</Style>
+
+		<!-- 禁用状态 -->
+		<Style Selector="^:disabled">
+			<Setter Property="Foreground" Value="{DynamicResource ListBoxItemDisabledForeground}" /> <!-- 禁用时前景色 -->
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemDisabledBackground}" /> <!-- 禁用时背景色 -->
+			
+			<!-- 禁用且选中时 -->
+			<Style Selector="^:selected">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedDisabledBackground}" /> <!-- 禁用且选中时背景色 -->
+			</Style>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

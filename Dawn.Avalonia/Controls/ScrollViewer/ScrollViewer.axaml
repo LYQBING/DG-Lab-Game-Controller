@@ -1,0 +1,38 @@
+﻿
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+	<!-- 默认滚动视图 -->
+	<ControlTheme x:Key="{x:Type ScrollViewer}" TargetType="ScrollViewer">
+		
+		<!-- 背景色 -->
+		<Setter Property="Background" Value="Transparent" />
+		
+		<!-- 模板 -->
+		<Setter Property="Template">
+			<ControlTemplate TargetType="ScrollViewer">
+				<Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+					<ScrollContentPresenter
+					Name="PART_ContentPresenter"
+					Grid.RowSpan="2"
+					Grid.ColumnSpan="2"
+					Padding="{TemplateBinding Padding}" 
+					Background="{TemplateBinding Background}" 
+					HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}" 
+					HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}" 
+					ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}" 
+					VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}" 
+					VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}"/>
+
+					<ScrollBar Name="PART_HorizontalScrollBar" Grid.Row="1" Grid.Column="0" Orientation="Horizontal" />
+					<ScrollBar Name="PART_VerticalScrollBar" Grid.Row="0" Grid.Column="1" Orientation="Vertical" />
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+
+		<!-- 插入内容时 -->
+		 <Style Selector="^.InsetContent /template/ ScrollContentPresenter#PART_ContentPresenter">
+            <Setter Property="Grid.RowSpan" Value="1"/> <!-- 行跨度 -->
+            <Setter Property="Grid.ColumnSpan" Value="1"/> <!-- 列跨度 -->
+        </Style>
+	</ControlTheme>
+</ResourceDictionary>

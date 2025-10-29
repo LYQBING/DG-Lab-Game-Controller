@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 描边宽度 -->
+	<Thickness x:Key="DawnBorderThicknessS">0</Thickness>
+	<Thickness x:Key="DawnBorderThicknessM">1</Thickness>
+	<Thickness x:Key="DawnBorderThicknessL">2</Thickness>
+
+	<!-- 字体大小相关 -->
+	<x:Double x:Key="DawnFontSizeSmall">12</x:Double>
+	<x:Double x:Key="DawnFontSizeRegular">14</x:Double>
+	<x:Double x:Key="DawnFontSizeHeader6">16</x:Double>
+	<x:Double x:Key="DawnFontSizeHeader5">18</x:Double>
+	<x:Double x:Key="DawnFontSizeHeader4">20</x:Double>
+	<x:Double x:Key="DawnFontSizeHeader3">24</x:Double>
+	<x:Double x:Key="DawnFontSizeHeader2">28</x:Double>
+	<x:Double x:Key="DawnFontSizeHeader1">32</x:Double>
+
+	<!-- 字体粗细相关 -->
+	<FontWeight x:Key="DawnFontWeightLight">200</FontWeight>
+	<FontWeight x:Key="DawnFontWeightRegular">400</FontWeight>
+	<FontWeight x:Key="DawnFontWeightBold">600</FontWeight>
+
+	<!-- 间距 -->
+	<x:Double x:Key="DawnSpacingN">0</x:Double>
+	<x:Double x:Key="DawnSpacingXS">4</x:Double>
+	<x:Double x:Key="DawnSpacingS">8</x:Double>
+	<x:Double x:Key="DawnSpacingM">12</x:Double>
+	<x:Double x:Key="DawnSpacingL">16</x:Double>
+	<x:Double x:Key="DawnSpacingXL">20</x:Double>
+
+	<!-- 字体族 -->
+	<FontFamily x:Key="DownFontFamilyRegular"> </FontFamily>
+
+	<!-- 高度相关 -->
+	<x:Double x:Key="DawnHeightControlS">24</x:Double>
+	<x:Double x:Key="DawnHeightControlM">32</x:Double>
+	<x:Double x:Key="DawnHeightControlL">40</x:Double>
+
+	<!-- 图标相关 -->
+	<x:Double x:Key="DawnWidthIconXS">8</x:Double>
+	<x:Double x:Key="DawnWidthIconS">12</x:Double>
+	<x:Double x:Key="DawnWidthIconM">16</x:Double>
+	<x:Double x:Key="DawnWidthIconL">20</x:Double>
+	<x:Double x:Key="DawnWidthIconXL">24</x:Double>
+
+	<!-- 描边相关 -->
+	<Thickness x:Key="DawnBorderThicknessControlN">0</Thickness>
+	<Thickness x:Key="DawnBorderThicknessControlS">1</Thickness>
+	<Thickness x:Key="DawnBorderThicknessControlM">1.5</Thickness>
+	<Thickness x:Key="DawnBorderThicknessControlL">2</Thickness>
+
+	<!-- 圆角相关 -->
+	<CornerRadius x:Key="DawnBorderRadiusN">0</CornerRadius>
+	<CornerRadius x:Key="DawnBorderRadiusS">8</CornerRadius>
+	<CornerRadius x:Key="DawnBorderRadiusM">12</CornerRadius>
+	<CornerRadius x:Key="DawnBorderRadiusL">16</CornerRadius>
+</ResourceDictionary>

@@ -1,0 +1,27 @@
+﻿<ResourceDictionary
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 内边距 -->
+	<Thickness x:Key="ButtonSmallPadding">6 0</Thickness>
+	<Thickness x:Key="ButtonDefaultPadding">12 10</Thickness>
+	<Thickness x:Key="ButtonLargePadding">16 0</Thickness>
+
+	<!-- 高度 -->
+	<StaticResource x:Key="ButtonSmallHeight" ResourceKey="DawnHeightControlS" />
+	<StaticResource x:Key="ButtonDefaultHeight" ResourceKey="DawnHeightControlM" />
+	<StaticResource x:Key="ButtonLargeHeight" ResourceKey="DawnHeightControlL" />
+
+	<!-- 边框粗细 -->
+	<StaticResource x:Key="ButtonBorderThickness" ResourceKey="DawnBorderThicknessControlM" />
+
+	<!-- 圆角大小 -->
+	<StaticResource x:Key="ButtonCornerRadius" ResourceKey="DawnBorderRadiusS" />
+
+	<!-- 字体大小 -->
+	<StaticResource x:Key="ButtonDefaultFontSize" ResourceKey="DawnFontSizeRegular" />
+
+	<!-- 字体粗细 -->
+	<StaticResource x:Key="ButtonDefaultFontWeight" ResourceKey="DawnFontWeightBold" />
+
+</ResourceDictionary>

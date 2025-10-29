@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 默认列表框样式 -->
+	<ControlTheme x:Key="{x:Type ListBox}" TargetType="ListBox">
+
+		<!-- 样式 -->
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />  <!-- 水平滚动条 -->
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" /> <!-- 垂直滚动条 -->
+		<Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" /> <!-- 滚动链式效果-->
+
+		<!-- 模板-->
+		<Setter Property="Template">
+			<ControlTemplate TargetType="ListBox">
+				<Border
+					Name="border"
+					Background="{TemplateBinding Background}"
+					BorderBrush="{TemplateBinding BorderBrush}"
+					BorderThickness="{TemplateBinding BorderThickness}"
+					ClipToBounds="{TemplateBinding ClipToBounds}"
+					CornerRadius="{TemplateBinding CornerRadius}">
+					<ScrollViewer
+						Name="PART_ScrollViewer"
+						AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+						HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+						IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+						IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+						IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+						VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+						<ItemsPresenter
+							Name="PART_ItemsPresenter"
+							Margin="{TemplateBinding Padding}"
+							ItemsPanel="{TemplateBinding ItemsPanel}" />
+					</ScrollViewer>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+
+	<!-- 无反馈列表框样式 -->
+	<ControlTheme x:Key="NoEffectListBox" BasedOn="{StaticResource {x:Type ListBox}}" TargetType="ListBox">
+		<Setter Property="ItemContainerTheme" Value="{StaticResource NoEffectListBoxItem}" />
+	</ControlTheme>
+</ResourceDictionary>

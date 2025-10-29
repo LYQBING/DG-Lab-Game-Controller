@@ -1,0 +1,80 @@
+﻿<Window x:Class="DGLabGameController.Views.MainWindow"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns="https://github.com/avaloniaui"
+		Title="DG-Lab Game Controller" Width="1000" Height="600"
+		WindowStartupLocation="CenterScreen"
+		xmlns:vm="clr-namespace:DGLabGameController.Views"
+		x:DataType="vm:MainWindowViewModel">
+
+    <Window.Resources>
+        <vm:DockButtonIconConverter x:Key="DockButtonIconConverter"/>
+    </Window.Resources>
+	<Border >
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			
+			<!-- Dock 栏 -->
+			<Grid Grid.Column="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Image Width="32" Height="32" Margin="25" HorizontalAlignment="Center" Source="/Assets/icons/app/icon.ico"/>
+				<ListBox Grid.Row="1"
+         ItemsSource="{Binding DockButtons}"
+         SelectedItem="{Binding SelectedDockButton, Mode=TwoWay}"
+         BorderThickness="0"
+         Background="Transparent"
+         SelectionMode="Single">
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+              <PathIcon Data="M10,5c-2.76,0-5,2.24-5,5s2.24,5,5,5,5-2.24,5-5-2.24-5-5-5ZM10,12c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2Z"/>
+				<PathIcon Data="M10,5c-2.76,0-5,2.24-5,5s2.24,5,5,5,5-2.24,5-5-2.24-5-5-5ZM10,12c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2Z"/>
+            </StackPanel>
+        </DataTemplate>
+    </ListBox.ItemTemplate>
+</ListBox>
+			</Grid>
+			
+			<!-- 分割线 -->
+			<Border Grid.Column="1" Width="1" Background="{DynamicResource PrimaryLight}"/>
+			
+			<!-- 主程序区 -->
+			<Grid Grid.Column="2">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="80"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				
+				<!-- 顶部栏目 -->
+				<Grid Grid.Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Text="{Binding CurrentPageTitle}" FontSize="{DynamicResource FontSizeTitleLarge}" Foreground="{DynamicResource SecondaryLight}"
+					 FontWeight="Bold" VerticalAlignment="Center" Margin="25"/>
+					<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0">
+						<Button Width="32" Height="32" Classes="Flat">
+							<Image Source="/Assets/icons/back.png" Width="18" Height="18"/>
+						</Button>
+						<Button Width="32" Height="32" Classes="Flat" >
+							<Image Source="/Assets/icons/back.png" Width="18" Height="18"/>
+						</Button>
+						<Button Width="32" Height="32" Classes="Flat" >
+							<Image Source="/Assets/icons/back.png" Width="18" Height="18"/>
+						</Button>
+					</StackPanel>
+				</Grid>
+				
+				<ToggleSwitch/>
+
+			</Grid>
+		</Grid>
+	</Border>
+</Window>

@@ -1,0 +1,11 @@
+﻿
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+
+	<!-- 滚动条 -->
+	<SolidColorBrush x:Key="ScrollBarBackground" Color="Transparent" /> <!-- 滚动条背景色 -->
+
+	<!-- 滑块 -->
+	<StaticResource x:Key="ScrollBarThumbForeground" ResourceKey="Secondary2Color" /> <!-- 滚动条背景色 -->
+	<StaticResource x:Key="ScrollBarThumbPointeroverForeground" ResourceKey="Secondary0Color" /> <!-- 悬停背景色 -->
+</ResourceDictionary>

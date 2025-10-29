@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 默认路径图标样式 -->
+	<ControlTheme x:Key="{x:Type PathIcon}" TargetType="PathIcon">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Height" Value="{StaticResource DawnWidthIconXS}" />
+		<Setter Property="Width" Value="{StaticResource DawnWidthIconXS}" />
+		<Setter Property="Template">
+			<ControlTemplate TargetType="PathIcon">
+				<Border Background="{TemplateBinding Background}">
+					<Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+						<Path
+							Name="PART_Path"
+							Data="{TemplateBinding Data}"
+							Fill="{TemplateBinding Foreground}"
+							Stretch="Uniform" />
+					</Viewbox>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+
+		<!-- 激活状态 -->
+		<Style Selector="^.Active /template/ Path#PART_Path">
+			<Setter Property="Fill" Value="{TemplateBinding BorderBrush}" />
+		</Style>
+	</ControlTheme>
+
+	<!-- 内嵌路径图标样式 -->
+	<ControlTheme x:Key="InnerPathIcon" TargetType="PathIcon">
+		<Setter Property="Width" Value="{StaticResource DawnWidthIconXS}" />
+		<Setter Property="Height" Value="{StaticResource DawnWidthIconXS}" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Template">
+			<ControlTemplate TargetType="PathIcon">
+				<Border Background="{TemplateBinding Background}">
+					<Viewbox
+						Width="{TemplateBinding Width}"
+						Height="{TemplateBinding Height}">
+						<Path
+							Name="PART_Path"
+							Width="24"
+							Height="24"
+							Data="{TemplateBinding Data}"
+							Fill="{TemplateBinding Foreground}" />
+					</Viewbox>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+
+		<!-- 激活状态 -->
+		<Style Selector="^.Active /template/ Path#PART_Path">
+			<Setter Property="Fill" Value="{TemplateBinding BorderBrush}" />
+		</Style>
+
+		<!-- 小 -->
+		<Style Selector="^.S">
+			<Setter Property="Width" Value="{StaticResource DawnWidthIconS}" />
+			<Setter Property="Height" Value="{StaticResource DawnWidthIconS}" />
+		</Style>
+
+		<!-- 中 -->
+		<Style Selector="^.M">
+			<Setter Property="Width" Value="{StaticResource DawnWidthIconM}" />
+			<Setter Property="Height" Value="{StaticResource DawnWidthIconM}" />
+		</Style>
+
+		<!-- 大 -->
+		<Style Selector="^.L">
+			<Setter Property="Width" Value="{StaticResource DawnWidthIconL}" />
+			<Setter Property="Height" Value="{StaticResource DawnWidthIconL}" />
+		</Style>
+
+		<!-- 特大 -->
+		<Style Selector="^.XL">
+			<Setter Property="Width" Value="{StaticResource DawnWidthIconXL}" />
+			<Setter Property="Height" Value="{StaticResource DawnWidthIconXL}" />
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

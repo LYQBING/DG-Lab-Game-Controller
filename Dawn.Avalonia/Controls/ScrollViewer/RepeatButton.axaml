@@ -1,0 +1,26 @@
+﻿
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+
+    <!-- 默认滚动条按钮 -->
+    <ControlTheme x:Key="{x:Type RepeatButton}" TargetType="{x:Type RepeatButton}">
+
+        <!-- 颜色 -->
+        <Setter Property="Background" Value="Transparent" />
+
+        <!-- 模板 -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Padding="{TemplateBinding Padding}"  
+                    Background="{TemplateBinding Background}">
+                    <ContentPresenter
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"  
+                        Content="{TemplateBinding Content}" 
+                        Foreground="{TemplateBinding Foreground}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	
+	<!-- 字体大小 -->
+	<StaticResource x:Key="WindowDefaultFontSize" ResourceKey="DawnFontSizeRegular" />
+	
+	<!-- 字体粗细 -->
+	<StaticResource x:Key="WindowDefaultFontWeight" ResourceKey="DawnFontWeightRegular" />
+	
+	<!-- 字体族 -->
+	<StaticResource x:Key="WindowDefaultFontFamily" ResourceKey="DownFontFamilyRegular" />
+
+</ResourceDictionary>

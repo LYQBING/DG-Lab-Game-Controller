@@ -1,0 +1,122 @@
+﻿
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+
+	<!-- 默认滚动条 -->
+	<ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+
+		<!-- 属性 -->
+		<Setter Property="Cursor" Value="Arrow" />
+		<Setter Property="ShowDelay" Value="0" />
+
+		<!-- 模板 -->
+		<Setter Property="Template">
+			<ControlTemplate TargetType="ScrollBar">
+				<Border Background="{StaticResource ScrollBarBackground}" UseLayoutRounding="False"> <!-- 滚动条背景色 -->
+					<Track
+					Name="PART_Track"
+					DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+					Maximum="{TemplateBinding Maximum}"
+					Minimum="{TemplateBinding Minimum}"
+					Orientation="{TemplateBinding Orientation}" 
+					ViewportSize="{TemplateBinding ViewportSize}" 
+					Value="{TemplateBinding Value, Mode=TwoWay}">
+						<Track.DecreaseButton>
+							<RepeatButton
+							Name="PART_PageUpButton"
+							MinWidth="0"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							CornerRadius="0"
+							Focusable="False"/>
+						</Track.DecreaseButton>
+						<Track.IncreaseButton>
+							<RepeatButton
+								Name="PART_PageDownButton"
+								MinWidth="0"
+								HorizontalAlignment="Stretch"
+								VerticalAlignment="Stretch"
+								CornerRadius="0"
+								Focusable="False"/>
+							</Track.IncreaseButton>
+						<Thumb Name="PART_Thumb"/> 
+					</Track>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+
+		<!-- 滑块默认样式 -->
+		<Style Selector="^ /template/ Thumb#PART_Thumb">
+			<Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="Width" Duration="0:0:0.1" /> <!-- 宽度变化动画 -->
+					<DoubleTransition Property="Height" Duration="0:0:0.1" /> <!-- 高度变化动画  -->
+				</Transitions>
+			</Setter>
+			<Setter Property="Foreground" Value="{StaticResource ScrollBarThumbForeground}" /> <!-- 常规背景色:前景色 -->
+			<Setter Property="Template">
+				<ControlTemplate TargetType="Thumb">
+					<Border Background="{TemplateBinding Foreground}" CornerRadius="{StaticResource ScrollBarThumbCornerRadius}" UseLayoutRounding="False" />
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		
+		<!-- 水平滚动条样式 -->
+		<Style Selector="^:horizontal"> 
+			<Setter Property="Height" Value="{StaticResource ScrollBarThickness}" /> <!-- 滚动条粗细 -->
+			
+			<!-- 滚动条 -->
+			<Style Selector="^ /template/ Track#PART_Track">
+				<Setter Property="IsDirectionReversed" Value="False" />
+			</Style>
+
+			<!-- 滑块 -->
+			<Style Selector="^ /template/ Thumb#PART_Thumb">
+				<Setter Property="MinWidth" Value="{StaticResource ScrollBarMinLength}" /> <!-- 最小宽度 -->
+				<Setter Property="Height" Value="{StaticResource ScrollBarThumbThickness}" /> <!-- 标准厚度 -->
+				<Setter Property="VerticalAlignment" Value="Bottom"/> <!-- 对齐 -->
+			</Style>
+		</Style>
+
+		<!-- 垂直滚动条样式 -->
+		<Style Selector="^:vertical">
+			<Setter Property="Width" Value="{StaticResource ScrollBarThickness}" /> <!-- 滚动条粗细 -->
+
+			<!-- 滚动条 -->
+			<Style Selector="^ /template/ Track#PART_Track">
+				<Setter Property="IsDirectionReversed" Value="True" />
+			</Style>
+
+			<!-- 滑块 -->
+			<Style Selector="^ /template/ Thumb#PART_Thumb">
+				<Setter Property="MinHeight" Value="{StaticResource ScrollBarMinLength}" /> <!-- 最小宽度 -->
+				<Setter Property="Width" Value="{StaticResource ScrollBarThumbThickness}" /> <!-- 标准厚度 -->
+				<Setter Property="HorizontalAlignment" Value="Right"/> <!-- 对齐 -->
+			</Style>
+		</Style>
+		
+		<!-- 悬停时 -->
+		<Style Selector="^ /template/ Thumb#PART_Thumb:pointerover"> 
+			<Setter Property="Foreground" Value="{StaticResource ScrollBarThumbPointeroverForeground}" /> <!-- 悬停色 -->
+		</Style>
+
+		<!-- 折叠时 -->
+		<Style Selector="^[IsExpanded=False]"> 
+			<!-- 隐藏按钮 -->
+			<Style Selector="^ /template/ RepeatButton">
+				<Setter Property="IsVisible" Value="False" />
+			</Style>
+
+			<!-- 垂直 -->
+			<Style Selector="^:vertical /template/ Thumb#PART_Thumb">
+				<Setter Property="Width" Value="2" />
+			</Style>
+
+			<!-- 水平 -->
+			<Style Selector="^:horizontal /template/ Thumb#PART_Thumb">
+				<Setter Property="Height" Value="2" />
+			</Style>
+		</Style>
+	</ControlTheme>
+
+</ResourceDictionary>

@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- 内边距 -->
+	<Thickness x:Key="ListBoxItemDefaultPadding">20 15</Thickness>
+
+	<!-- 圆角大小 -->
+	<StaticResource x:Key="ListBoxItemCornerRadius" ResourceKey="DawnBorderRadiusS"/>
+</ResourceDictionary>

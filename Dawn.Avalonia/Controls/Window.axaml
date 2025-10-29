@@ -1,0 +1,43 @@
+﻿<ResourceDictionary
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ControlTheme x:Key="{x:Type Window}" TargetType="Window">
+
+		<!-- 配色 -->
+		<Setter Property="Background" Value="{StaticResource WindowDefaultBackground}" /> <!-- 默认背景色 -->
+		<Setter Property="TransparencyBackgroundFallback" Value="{StaticResource WindowDefaultTransparencyBackgroundFallback}" /> <!-- 背景回退色 -->
+		<Setter Property="Foreground" Value="{StaticResource WindowDefaultForeground}" /> <!-- 前景色 -->
+
+		<!-- 字体 -->
+		<Setter Property="FontSize" Value="{StaticResource WindowDefaultFontSize}" /> <!-- 字体大小 -->
+		<Setter Property="FontWeight" Value="{StaticResource WindowDefaultFontWeight}" /> <!-- 字体粗细 -->
+		<Setter Property="FontFamily" Value="{StaticResource WindowDefaultFontFamily}" /> <!-- 字体族 -->
+		
+		<!-- 样式 -->
+		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True" /> <!-- 允许内容占用标题栏 -->
+		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="0" /> <!-- 标题栏高度 -->
+		<Setter Property="SystemDecorations" Value="BorderOnly" /> <!-- 窗口方案 -->
+
+		<Setter Property="Template">
+			<ControlTemplate TargetType="Window">
+				<Panel>
+
+					<Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+					<Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+					<Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
+					
+					<VisualLayerManager>
+						<ContentPresenter
+							Name="PART_ContentPresenter"
+							Margin="{TemplateBinding Padding}"
+							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							ContentTemplate="{TemplateBinding ContentTemplate}"
+							Content="{TemplateBinding Content}" />
+					</VisualLayerManager>
+
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

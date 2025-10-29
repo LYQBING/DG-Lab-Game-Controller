@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- 开关 -->
+	<x:Double x:Key="ToggleSwitchWidth">44</x:Double> <!-- 宽度 -->
+	<x:Double x:Key="ToggleSwitchHeight">24</x:Double> <!-- 高度 -->
+	<CornerRadius x:Key="ToggleSwitchCornerRadius">12</CornerRadius> <!-- 圆角 -->
+
+	<!-- 按钮 -->
+	<x:Double x:Key="ToggleSwitchKnobRegion">20</x:Double> <!-- 滑动区域 -->
+	<x:Double x:Key="ToggleSwitchKnobHeight">16</x:Double> <!-- 按钮宽度 -->
+	<CornerRadius x:Key="ToggleSwitchKnobCornerRadius">8</CornerRadius> <!-- 圆角 -->
+	<Thickness x:Key="ToggleSwitchKnobMargin">4 0 0 0</Thickness> <!-- 外边距 -->
+</ResourceDictionary>

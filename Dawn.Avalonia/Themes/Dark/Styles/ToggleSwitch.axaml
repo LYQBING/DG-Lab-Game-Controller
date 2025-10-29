@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- 开启时 -->
+	<StaticResource x:Key="ToggleSwitchCheckedBackground" ResourceKey="Secondary3Color" />
+	<StaticResource x:Key="ToggleSwitchCheckedKnobBackground" ResourceKey="Secondary0Color" />
+	
+	<!-- 关闭时 -->
+	<StaticResource x:Key="ToggleSwitchUnCheckedBackground" ResourceKey="Secondary4Color" />
+	<StaticResource x:Key="ToggleSwitchUnCheckedKnobBackground" ResourceKey="Secondary2Color" />
+
+	<!-- 禁用时 -->
+	<StaticResource x:Key="ToggleSwitchDisabledBackground" ResourceKey="Secondary4Color" />
+	<StaticResource x:Key="ToggleSwitchDisabledKnobBackground" ResourceKey="Secondary3Color" />
+</ResourceDictionary>

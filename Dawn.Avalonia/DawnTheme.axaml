@@ -1,0 +1,22 @@
+﻿<Styles x:Class="Dawn.Avalonia.DawnTheme"
+		xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Styles.Resources>
+		<ResourceDictionary>
+
+			<!-- 全局资源 -->
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Controls/Index.axaml" /> <!-- 组件库 -->
+				<ResourceInclude Source="/Icons/Index.axaml" /> <!-- 图标库 -->
+				<ResourceInclude Source="/Themes/General/Theme.axaml" /> <!-- 通用库 -->
+			</ResourceDictionary.MergedDictionaries>
+
+			<!-- 主题变体 -->
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceInclude x:Key="Default" Source="/Themes/Dark/Theme.axaml" />
+			</ResourceDictionary.ThemeDictionaries>
+
+		</ResourceDictionary>
+	</Styles.Resources>
+</Styles>
