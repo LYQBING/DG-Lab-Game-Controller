@@ -28,13 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dawn.Avalonia\Dawn.Avalonia.csproj" />
+    <ProjectReference Include="..\Dawn.Avalonia\DGLabGameController.Dawn.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Update="Assets\icons\add.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
     <AvaloniaResource Update="Assets\icons\app\dglc.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </AvaloniaResource>
@@ -42,48 +39,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </AvaloniaResource>
     <AvaloniaResource Update="Assets\icons\app\icon.ico">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\back.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\code.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\delete.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\dock\log_active.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\dock\log_normal.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\dock\model_active.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\dock\model_normal.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\dock\setting_active.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\dock\setting_normal.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\edit.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\next.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\play.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\refresh.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Assets\icons\save.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </AvaloniaResource>
   </ItemGroup>

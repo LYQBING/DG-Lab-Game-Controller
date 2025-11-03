@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net9.0</TargetFrameworks>
 		<Title>Dawn.Avalonia</Title>
-		<Description>黎明前的光芒是最耀眼的：一个由黎明而来的暗色主题</Description>
+		<Description> 黎明前的光芒是最耀眼的：一个由黎明而来的暗色主题 </Description>
 	</PropertyGroup>
 	
 	<PropertyGroup>

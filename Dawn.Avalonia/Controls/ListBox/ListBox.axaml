@@ -6,7 +6,7 @@
 
 		<!-- 样式 -->
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />  <!-- 水平滚动条 -->
-		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" /> <!-- 垂直滚动条 -->
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible" /> <!-- 垂直滚动条 -->
 		<Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" /> <!-- 滚动链式效果-->
 
 		<!-- 模板-->

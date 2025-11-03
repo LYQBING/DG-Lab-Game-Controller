@@ -7,12 +7,11 @@
 		<ResourceInclude Source="Button.axaml" />
 		<ResourceInclude Source="ToggleSwitch.axaml" />
 
-		<ResourceInclude Source="ListBox/ListBox.axaml" />
-		<ResourceInclude Source="ListBox/ListBoxItem.axaml" />
-
 		<ResourceInclude Source="ScrollViewer/RepeatButton.axaml" />
 		<ResourceInclude Source="ScrollViewer/ScrollBar.axaml" />
 		<ResourceInclude Source="ScrollViewer/ScrollViewer.axaml" />
 
+		<ResourceInclude Source="ListBox/ListBox.axaml" />
+		<ResourceInclude Source="ListBox/ListBoxItem.axaml" />
 	</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

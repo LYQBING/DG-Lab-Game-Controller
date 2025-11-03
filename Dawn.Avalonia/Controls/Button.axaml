@@ -151,4 +151,13 @@
 
 	</ControlTheme>
 
+	<!-- 透明按钮样式 -->
+	<ControlTheme x:Key="TransparentButton" TargetType="Button">
+
+		<!-- 样式 -->
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Cursor" Value="Hand" />
+
+	</ControlTheme>
+
 </ResourceDictionary>

@@ -6,75 +6,51 @@
 		xmlns:vm="clr-namespace:DGLabGameController.Views"
 		x:DataType="vm:MainWindowViewModel">
 
-    <Window.Resources>
-        <vm:DockButtonIconConverter x:Key="DockButtonIconConverter"/>
-    </Window.Resources>
-	<Border >
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
+		<Grid ColumnDefinitions="Auto,Auto,*">
 			
 			<!-- Dock 栏 -->
-			<Grid Grid.Column="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Image Width="32" Height="32" Margin="25" HorizontalAlignment="Center" Source="/Assets/icons/app/icon.ico"/>
-				<ListBox Grid.Row="1"
-         ItemsSource="{Binding DockButtons}"
-         SelectedItem="{Binding SelectedDockButton, Mode=TwoWay}"
-         BorderThickness="0"
-         Background="Transparent"
-         SelectionMode="Single">
-    <ListBox.ItemTemplate>
-        <DataTemplate>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-              <PathIcon Data="M10,5c-2.76,0-5,2.24-5,5s2.24,5,5,5,5-2.24,5-5-2.24-5-5-5ZM10,12c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2Z"/>
-				<PathIcon Data="M10,5c-2.76,0-5,2.24-5,5s2.24,5,5,5,5-2.24,5-5-2.24-5-5-5ZM10,12c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2Z"/>
-            </StackPanel>
-        </DataTemplate>
-    </ListBox.ItemTemplate>
-</ListBox>
+			<Grid Grid.Column="0" RowDefinitions="Auto,*">
+
+				<Image Width="{StaticResource DawnWidthIconL}" Height="{StaticResource DawnWidthIconL}" 
+					HorizontalAlignment="Center" Source="/Assets/icons/app/icon.ico" Margin="24"/>
+				
+				<ListBox Grid.Row="2" BorderThickness="0" Background="Transparent" SelectionMode="Single"
+					ScrollViewer.VerticalScrollBarVisibility ="Hidden" Theme="{StaticResource NoEffectListBox}"
+					ItemsSource="{Binding DockButtons, Mode=TwoWay}" SelectedItem="{Binding SelectedDockButton, Mode=TwoWay}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<PathIcon Height ="{StaticResource DawnWidthIconM}" Width="{StaticResource DawnWidthIconM}" Margin="14"
+								Data="{StaticResource Log_Normal}"/>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</Grid>
 			
 			<!-- 分割线 -->
-			<Border Grid.Column="1" Width="1" Background="{DynamicResource PrimaryLight}"/>
+			<Border Grid.Column="1" Width="1" Background="{StaticResource Primary4Color}"/>
 			
 			<!-- 主程序区 -->
-			<Grid Grid.Column="2">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="80"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
+			<Grid Grid.Column="2" RowDefinitions="80,*">
 				
 				<!-- 顶部栏目 -->
-				<Grid Grid.Row="0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<TextBlock Text="{Binding CurrentPageTitle}" FontSize="{DynamicResource FontSizeTitleLarge}" Foreground="{DynamicResource SecondaryLight}"
-					 FontWeight="Bold" VerticalAlignment="Center" Margin="25"/>
-					<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0">
-						<Button Width="32" Height="32" Classes="Flat">
-							<Image Source="/Assets/icons/back.png" Width="18" Height="18"/>
+				<Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="24,0,24,0">
+
+					<TextBlock Text="{Binding CurrentPageTitle}" FontWeight="Bold" VerticalAlignment="Center"
+						FontSize="{StaticResource DawnFontSizeHeader3}" Foreground="{StaticResource Secondary0Color}"/>
+
+					<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+						<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
+							<PathIcon Data="{StaticResource Log_Normal}"/>
 						</Button>
-						<Button Width="32" Height="32" Classes="Flat" >
-							<Image Source="/Assets/icons/back.png" Width="18" Height="18"/>
+						<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
+							<PathIcon Data="{StaticResource Model_Active}"/>
 						</Button>
-						<Button Width="32" Height="32" Classes="Flat" >
-							<Image Source="/Assets/icons/back.png" Width="18" Height="18"/>
+						<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
+							<PathIcon Data="{StaticResource Topic_Active}"/>
 						</Button>
 					</StackPanel>
 				</Grid>
-				
-				<ToggleSwitch/>
 
 			</Grid>
 		</Grid>
-	</Border>
 </Window>
