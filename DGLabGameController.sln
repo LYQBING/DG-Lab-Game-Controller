@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36616.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGLabGameController", "DGLabGameController\DGLabGameController.csproj", "{6F2FDE83-5931-4B35-93C8-8373D0D79303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGLabGameController.Dawn", "Dawn.Avalonia\DGLabGameController.Dawn.csproj", "{D33F795C-0716-4070-8590-634D7AD8F238}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.DawnTheme", "Dawn.Avalonia\Avalonia.DawnTheme.csproj", "{D33F795C-0716-4070-8590-634D7AD8F238}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

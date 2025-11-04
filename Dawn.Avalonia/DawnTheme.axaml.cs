@@ -1,7 +1,8 @@
 ﻿using Avalonia.Styling;
 
-namespace DGLabGameController.Dawn;
-
-public class DawnTheme : Styles
+namespace Avalonia.DawnTheme
 {
+	public class DawnTheme : Styles
+	{
+	}
 }

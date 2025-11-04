@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dawn.Avalonia\DGLabGameController.Dawn.csproj" />
+    <ProjectReference Include="..\Dawn.Avalonia\Avalonia.DawnTheme.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -27,6 +27,7 @@
 						IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
 						IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
 						VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+						
 						<ItemsPresenter
 							Name="PART_ItemsPresenter"
 							Margin="{TemplateBinding Padding}"

@@ -1,56 +1,75 @@
 ﻿<Window x:Class="DGLabGameController.Views.MainWindow"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns="https://github.com/avaloniaui"
-		Title="DG-Lab Game Controller" Width="1000" Height="600"
-		WindowStartupLocation="CenterScreen"
-		xmlns:vm="clr-namespace:DGLabGameController.Views"
-		x:DataType="vm:MainWindowViewModel">
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns="https://github.com/avaloniaui"
+	Title="DG-Lab Game Controller" Width="1000" Height="600"
+	WindowStartupLocation="CenterScreen"
+	xmlns:vm="clr-namespace:DGLabGameController.Views"
+	x:DataType="vm:MainWindowViewModel">
 
-		<Grid ColumnDefinitions="Auto,Auto,*">
+	<Window.Resources>
+        <vm:DockButtonIconDataConverter x:Key="IconDataConverter"/>
+    </Window.Resources>
+
+	<Grid ColumnDefinitions="Auto,Auto,*">
+		
+		<!-- Dock 栏 -->
+		<Grid Grid.Column="0" RowDefinitions="Auto,*">
+
+			<Image Width="{StaticResource DawnWidthIconL}" Height="{StaticResource DawnWidthIconL}" 
+				HorizontalAlignment="Center" Source="/Assets/icons/app/icon.ico" Margin="24"/>
+
+			<ListBox Grid.Row="2" BorderThickness="0" Background="Transparent" SelectionMode="Single"
+				ScrollViewer.VerticalScrollBarVisibility ="Hidden" Theme="{StaticResource NoEffectListBox}"
+				ItemsSource="{CompiledBinding DockButtons}" SelectedItem="{CompiledBinding SelectedDockButton, Mode=TwoWay}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<PathIcon Height ="{StaticResource DawnWidthIconM}" Width="{StaticResource DawnWidthIconM}">
+							<PathIcon.Data>
+								<MultiBinding Converter="{StaticResource IconDataConverter}">
+									<Binding Path="IsSelected" RelativeSource="{RelativeSource AncestorType=ListBoxItem}"/> <!-- 选中状态 -->
+									<Binding Path="IconActive"/> <!-- 激活图标 -->
+									<Binding Path="IconNormal"/> <!-- 常规图标 -->
+								</MultiBinding>
+							</PathIcon.Data>
+						</PathIcon>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem > PathIcon">
+						<Setter Property="Foreground" Value="{StaticResource Secondary3Color}"/>
+					</Style>
+					<Style Selector="ListBoxItem:selected > PathIcon">
+						<Setter Property="Foreground" Value="{StaticResource Secondary0Color}"/>
+					</Style>
+				</ListBox.Styles>
+			</ListBox>
+		</Grid>
+		
+		<!-- 分割线 -->
+		<Border Grid.Column="1" Width="1" Background="{StaticResource Primary4Color}"/>
+
+		<!-- 主程序区 -->
+		<Grid Grid.Column="2" RowDefinitions="80,*">
 			
-			<!-- Dock 栏 -->
-			<Grid Grid.Column="0" RowDefinitions="Auto,*">
+			<!-- 顶部栏目 -->
+			<Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="24,0,24,0">
 
-				<Image Width="{StaticResource DawnWidthIconL}" Height="{StaticResource DawnWidthIconL}" 
-					HorizontalAlignment="Center" Source="/Assets/icons/app/icon.ico" Margin="24"/>
-				
-				<ListBox Grid.Row="2" BorderThickness="0" Background="Transparent" SelectionMode="Single"
-					ScrollViewer.VerticalScrollBarVisibility ="Hidden" Theme="{StaticResource NoEffectListBox}"
-					ItemsSource="{Binding DockButtons, Mode=TwoWay}" SelectedItem="{Binding SelectedDockButton, Mode=TwoWay}">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<PathIcon Height ="{StaticResource DawnWidthIconM}" Width="{StaticResource DawnWidthIconM}" Margin="14"
-								Data="{StaticResource Log_Normal}"/>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
-			</Grid>
-			
-			<!-- 分割线 -->
-			<Border Grid.Column="1" Width="1" Background="{StaticResource Primary4Color}"/>
-			
-			<!-- 主程序区 -->
-			<Grid Grid.Column="2" RowDefinitions="80,*">
-				
-				<!-- 顶部栏目 -->
-				<Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="24,0,24,0">
+				<TextBlock Text="{CompiledBinding CurrentPageTitle}" FontWeight="Bold" VerticalAlignment="Center"
+					FontSize="{StaticResource DawnFontSizeHeader3}" Foreground="{StaticResource Secondary0Color}"/>
 
-					<TextBlock Text="{Binding CurrentPageTitle}" FontWeight="Bold" VerticalAlignment="Center"
-						FontSize="{StaticResource DawnFontSizeHeader3}" Foreground="{StaticResource Secondary0Color}"/>
-
-					<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-						<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
-							<PathIcon Data="{StaticResource Log_Normal}"/>
-						</Button>
-						<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
-							<PathIcon Data="{StaticResource Model_Active}"/>
-						</Button>
-						<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
-							<PathIcon Data="{StaticResource Topic_Active}"/>
-						</Button>
-					</StackPanel>
-				</Grid>
-
+				<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+					<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
+						<PathIcon Data="{StaticResource Log_Normal}"/>
+					</Button>
+					<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
+						<PathIcon Data="{StaticResource Model_Active}"/>
+					</Button>
+					<Button Width="32" Height="32" Theme="{StaticResource TransparentButton}">
+						<PathIcon Data="{StaticResource Topic_Active}"/>
+					</Button>
+				</StackPanel>
 			</Grid>
 		</Grid>
+	</Grid>
 </Window>

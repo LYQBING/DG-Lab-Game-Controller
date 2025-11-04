@@ -1,25 +1,20 @@
-﻿
+﻿using Avalonia.Data.Converters;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace DGLabGameController.Views
 {
-	using Avalonia.Data.Converters;
-	using Avalonia.Media.Imaging;
-	using Avalonia.Platform;
-	using System;
-	using System.IO;
-	using System.Net.Http;
-	using System.Threading.Tasks;
+	/// <summary>
+	/// Dock 图标数据类
+	/// </summary>
 	public class DockButton
 	{
 		/// <summary> 默认图标项 </summary>
-		public string IconNormal { get; set; } = "/Assets/icons/back.png";
-
-		public Bitmap? IconNormalBitmap { get => ImageHelper.LoadFromResource(new Uri(IconNormal)); }
+		public object? IconNormal { get; set; }
 
 		/// <summary> 选中图标项 </summary>
-		public string IconActive { get; set; } = "/Assets/icons/back.png";
-
-		public Bitmap? IconSelectedBitmap { get => ImageHelper.LoadFromResource(new Uri(IconActive)); }
+		public object? IconActive { get; set; }
 
 		/// <summary> 界面标题 </summary>
 		public string Title { get; set; } = "Hello World";
@@ -37,56 +32,19 @@ namespace DGLabGameController.Views
 			return _cachedPage;
 		}
 	}
-	public static class ImageHelper
+
+	/// <summary>
+	/// Dock 图标数据转换器
+	/// </summary>
+	public class DockButtonIconDataConverter : IMultiValueConverter
 	{
-		public static Bitmap LoadFromResource(Uri resourceUri)
+		public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
 		{
-			return new Bitmap(AssetLoader.Open(resourceUri));
-		}
-
-		public static async Task<Bitmap?> LoadFromWeb(Uri url)
-		{
-			using var httpClient = new HttpClient();
-			try
+			if (values[0] is bool isActive)
 			{
-				var response = await httpClient.GetAsync(url);
-				response.EnsureSuccessStatusCode();
-				var data = await response.Content.ReadAsByteArrayAsync();
-				return new Bitmap(new MemoryStream(data));
+				return isActive ? values[1] : values[2];
 			}
-			catch (HttpRequestException ex)
-			{
-				Console.WriteLine($"An error occurred while downloading image '{url}' : {ex.Message}");
-				return null;
-			}
+			return null;
 		}
-	}
-}
-
-namespace DGLabGameController.Views
-{
-	using Avalonia.Data.Converters;
-	using System;
-	using System.Collections.Generic;
-	using System.Globalization;
-	public class DockButtonIconConverter : IMultiValueConverter
-	{
-		/// <summary>
-		/// 这是一个多值转换器，根据是否选中状态返回不同的图标
-		/// </summary>
-		/// <param name="values"></param>// values 是一个包含多个绑定值的列表
-		/// <param name="targetType"></param>
-		/// <param name="parameter"></param>
-		/// <param name="culture"></param>
-		/// <returns></returns>
-		public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture) 
-		{
-			// 弹窗调试信息
-			System.Diagnostics.Debug.WriteLine($"DockButtonIconConverter.Convert called with values: {string.Join(", ", values)}");
-
-			if (values is [bool isSelected, Avalonia.Media.Imaging.Bitmap normal, Avalonia.Media.Imaging.Bitmap selected]) 
-				return isSelected ? selected : normal; return null; 
-		}
-
 	}
 }

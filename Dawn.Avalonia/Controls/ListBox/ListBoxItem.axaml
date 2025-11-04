@@ -3,8 +3,9 @@
 
 	<!-- 无效果列表项样式 -->
 	<ControlTheme x:Key="NoEffectListBoxItem" TargetType="ListBoxItem">
-		<!-- 背景色 -->
-		<Setter Property="Background" Value="Transparent" /> 
+		
+		<Setter Property="Background" Value="Transparent" /> <!-- 背景色 -->
+		<Setter Property="Padding" Value="{StaticResource ListBoxItemDefaultPadding}" /> <!-- 默认内边距 -->
 
 		<!-- 模板 -->
 		<Setter Property="Template">
@@ -35,7 +36,6 @@
 		
 		<!-- 样式 -->
 		<Setter Property="CornerRadius" Value="{StaticResource ListBoxItemCornerRadius}" /><!-- 默认圆角 -->
-		<Setter Property="Padding" Value="{StaticResource ListBoxItemDefaultPadding}" /> <!-- 默认内边距 -->
 
 		<!-- 悬停状态 -->
 		<Style Selector="^:pointerover">
